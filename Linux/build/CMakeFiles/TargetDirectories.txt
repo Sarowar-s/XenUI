@@ -1,0 +1,7 @@
+/home/sarowar/Documents/Linux Experiment/Applications/build/CMakeFiles/XenUI.dir
+/home/sarowar/Documents/Linux Experiment/Applications/build/CMakeFiles/edit_cache.dir
+/home/sarowar/Documents/Linux Experiment/Applications/build/CMakeFiles/rebuild_cache.dir
+/home/sarowar/Documents/Linux Experiment/Applications/build/CMakeFiles/list_install_components.dir
+/home/sarowar/Documents/Linux Experiment/Applications/build/CMakeFiles/install.dir
+/home/sarowar/Documents/Linux Experiment/Applications/build/CMakeFiles/install/local.dir
+/home/sarowar/Documents/Linux Experiment/Applications/build/CMakeFiles/install/strip.dir

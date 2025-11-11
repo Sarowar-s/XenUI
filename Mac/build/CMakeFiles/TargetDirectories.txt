@@ -1,0 +1,4 @@
+/Users/sarowar/Downloads/Test/build/CMakeFiles/MyFrameworkApp.dir
+/Users/sarowar/Downloads/Test/build/CMakeFiles/XenUI.dir
+/Users/sarowar/Downloads/Test/build/CMakeFiles/edit_cache.dir
+/Users/sarowar/Downloads/Test/build/CMakeFiles/rebuild_cache.dir

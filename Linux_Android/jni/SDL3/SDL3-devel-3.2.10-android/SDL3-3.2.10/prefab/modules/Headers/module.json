@@ -1,0 +1,5 @@
+{
+    "export_libraries": [
+        ":SDL3-Headers"
+    ]
+}

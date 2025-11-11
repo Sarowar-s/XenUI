@@ -1,0 +1,4 @@
+build.bat --debug --abi armeabi-v7a
+build.bat --release
+build.bat --clean
+build.bat --help

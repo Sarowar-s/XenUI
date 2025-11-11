@@ -1,0 +1,8 @@
+#!/bin/sh
+# wrapper to prefer bundled libs in /usr/share/<app>/lib, falling back to system libs
+HERE="$(dirname "$(readlink -f "$0")")"
+LIBDIR="$HERE/../share/XenUI/lib"
+# Prepend the bundled library path to LD_LIBRARY_PATH to ensure they are found first.
+export LD_LIBRARY_PATH="${LIBDIR}:${LD_LIBRARY_PATH}"
+# Execute the real binary, passing all arguments ($@).
+exec "$HERE/XenUI.bin" "$@"

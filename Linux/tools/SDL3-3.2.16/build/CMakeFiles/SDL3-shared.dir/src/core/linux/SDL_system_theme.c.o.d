@@ -1,0 +1,47 @@
+CMakeFiles/SDL3-shared.dir/src/core/linux/SDL_system_theme.c.o: \
+ /home/sarowar/Downloads/SDL3-3.2.16/src/core/linux/SDL_system_theme.c \
+ /usr/include/stdc-predef.h \
+ /home/sarowar/Downloads/SDL3-3.2.16/src/SDL_internal.h \
+ /home/sarowar/Downloads/SDL3-3.2.16/src/core/linux/SDL_dbus.h \
+ /usr/include/dbus-1.0/dbus/dbus.h \
+ /usr/lib/x86_64-linux-gnu/dbus-1.0/include/dbus/dbus-arch-deps.h \
+ /usr/include/dbus-1.0/dbus/dbus-macros.h \
+ /usr/include/dbus-1.0/dbus/dbus-address.h \
+ /usr/include/dbus-1.0/dbus/dbus-types.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
+ /usr/include/dbus-1.0/dbus/dbus-errors.h \
+ /usr/include/dbus-1.0/dbus/dbus-protocol.h \
+ /usr/include/dbus-1.0/dbus/dbus-bus.h \
+ /usr/include/dbus-1.0/dbus/dbus-connection.h \
+ /usr/include/dbus-1.0/dbus/dbus-memory.h \
+ /usr/include/dbus-1.0/dbus/dbus-message.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
+ /usr/include/dbus-1.0/dbus/dbus-shared.h \
+ /usr/include/dbus-1.0/dbus/dbus-misc.h \
+ /usr/include/dbus-1.0/dbus/dbus-pending-call.h \
+ /usr/include/dbus-1.0/dbus/dbus-server.h \
+ /usr/include/dbus-1.0/dbus/dbus-signature.h \
+ /usr/include/dbus-1.0/dbus/dbus-syntax.h \
+ /usr/include/dbus-1.0/dbus/dbus-threads.h \
+ /home/sarowar/Downloads/SDL3-3.2.16/src/core/linux/SDL_system_theme.h \
+ /home/sarowar/Downloads/SDL3-3.2.16/src/core/linux/../../video/SDL_sysvideo.h \
+ /home/sarowar/Downloads/SDL3-3.2.16/include/SDL3/SDL_vulkan.h \
+ /home/sarowar/Downloads/SDL3-3.2.16/include/SDL3/SDL_stdinc.h \
+ /home/sarowar/Downloads/SDL3-3.2.16/include/SDL3/SDL_error.h \
+ /home/sarowar/Downloads/SDL3-3.2.16/include/SDL3/SDL_video.h \
+ /home/sarowar/Downloads/SDL3-3.2.16/include/SDL3/SDL_begin_code.h \
+ /home/sarowar/Downloads/SDL3-3.2.16/include/SDL3/SDL_close_code.h \
+ /home/sarowar/Downloads/SDL3-3.2.16/src/core/linux/../../video/SDL_surface_c.h \
+ /home/sarowar/Downloads/SDL3-3.2.16/src/core/linux/../../video/SDL_blit.h \
+ /usr/include/unistd.h /usr/include/features.h \
+ /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
+ /usr/include/x86_64-linux-gnu/bits/environments.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/confname.h \
+ /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
+ /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
+ /usr/include/x86_64-linux-gnu/bits/unistd.h \
+ /usr/include/x86_64-linux-gnu/bits/unistd-decl.h \
+ /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
+ /usr/include/linux/close_range.h

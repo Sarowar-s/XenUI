@@ -1,0 +1,50 @@
+<!--
+    SPDX-License-Identifier: Apache-2.0
+
+    Copyright (C) 2025 MD S M Sarowar Hossain
+
+-->
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.sarowar.sdlnativeapp"
+    android:versionCode="1"
+    android:versionName="0.9.0"
+    >
+
+    <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="31"/> 
+    <application
+        android:label="Xenon App"
+        android:hasCode="true"  
+        android:icon="@mipmap/ic_launcher"
+        > 
+        
+        <activity
+            android:name=".MainActivity"
+            android:label="Xenon UI"
+            android:exported="true"
+            android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|screenLayout|fontScale|uiMode|orientation|density|screenSize|smallestScreenSize|layoutDirection"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:hardwareAccelerated="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="main" />
+        </activity>
+    </application>
+
+    <uses-feature android:glEsVersion="0x00020000" android:required="true" />
+    <uses-feature android:name="android.hardware.touchscreen" android:required="true" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+<uses-permission android:name="android.permission.VIBRATE"/>
+    </manifest>
+
+
+
+
+
+
+

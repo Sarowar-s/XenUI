@@ -1,0 +1,3 @@
+C:/Users/Sarowar/Documents/Windows/Android/New/app/build/native/armeabi-v7a/CMakeFiles/main.dir
+C:/Users/Sarowar/Documents/Windows/Android/New/app/build/native/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/Sarowar/Documents/Windows/Android/New/app/build/native/armeabi-v7a/CMakeFiles/rebuild_cache.dir

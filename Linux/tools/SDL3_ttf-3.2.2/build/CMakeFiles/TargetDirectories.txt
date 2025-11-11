@@ -1,0 +1,13 @@
+/home/sarowar/Downloads/SDL3_ttf-3.2.2/build/CMakeFiles/SDL3_ttf-shared.dir
+/home/sarowar/Downloads/SDL3_ttf-3.2.2/build/CMakeFiles/glfont.dir
+/home/sarowar/Downloads/SDL3_ttf-3.2.2/build/CMakeFiles/showfont.dir
+/home/sarowar/Downloads/SDL3_ttf-3.2.2/build/CMakeFiles/testapp.dir
+/home/sarowar/Downloads/SDL3_ttf-3.2.2/build/CMakeFiles/testgputext.dir
+/home/sarowar/Downloads/SDL3_ttf-3.2.2/build/CMakeFiles/package.dir
+/home/sarowar/Downloads/SDL3_ttf-3.2.2/build/CMakeFiles/package_source.dir
+/home/sarowar/Downloads/SDL3_ttf-3.2.2/build/CMakeFiles/edit_cache.dir
+/home/sarowar/Downloads/SDL3_ttf-3.2.2/build/CMakeFiles/rebuild_cache.dir
+/home/sarowar/Downloads/SDL3_ttf-3.2.2/build/CMakeFiles/list_install_components.dir
+/home/sarowar/Downloads/SDL3_ttf-3.2.2/build/CMakeFiles/install.dir
+/home/sarowar/Downloads/SDL3_ttf-3.2.2/build/CMakeFiles/install/local.dir
+/home/sarowar/Downloads/SDL3_ttf-3.2.2/build/CMakeFiles/install/strip.dir

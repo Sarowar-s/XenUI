@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Xenon
+Comment=A lightweight app built with XenUI and SDL3
+Exec=/usr/bin/XenUI
+Icon=XenUI
+Terminal=false
+Type=Application
+Categories=Utility;Development;
+StartupNotify=true

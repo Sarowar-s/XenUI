@@ -1,0 +1,12 @@
+/home/sarowar/Downloads/SDL3_image-3.2.4/build/CMakeFiles/SDL3_image-shared.dir
+/home/sarowar/Downloads/SDL3_image-3.2.4/build/CMakeFiles/uninstall.dir
+/home/sarowar/Downloads/SDL3_image-3.2.4/build/CMakeFiles/showanim.dir
+/home/sarowar/Downloads/SDL3_image-3.2.4/build/CMakeFiles/showimage.dir
+/home/sarowar/Downloads/SDL3_image-3.2.4/build/CMakeFiles/package.dir
+/home/sarowar/Downloads/SDL3_image-3.2.4/build/CMakeFiles/package_source.dir
+/home/sarowar/Downloads/SDL3_image-3.2.4/build/CMakeFiles/edit_cache.dir
+/home/sarowar/Downloads/SDL3_image-3.2.4/build/CMakeFiles/rebuild_cache.dir
+/home/sarowar/Downloads/SDL3_image-3.2.4/build/CMakeFiles/list_install_components.dir
+/home/sarowar/Downloads/SDL3_image-3.2.4/build/CMakeFiles/install.dir
+/home/sarowar/Downloads/SDL3_image-3.2.4/build/CMakeFiles/install/local.dir
+/home/sarowar/Downloads/SDL3_image-3.2.4/build/CMakeFiles/install/strip.dir

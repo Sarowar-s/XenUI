@@ -1,0 +1,9 @@
+Package: XenUI
+Version: 0.9.0
+Section: utils
+Priority: optional
+Architecture: amd64
+Maintainer: MD S M Sarowar Hosen <contact.xenonui@gmail.com>
+Depends: libc6 (>= 2.31), libstdc++6 (>= 10), libgl1
+Description: Xenon
+ A lightweight SDL3 + XenUI test app.

@@ -1,0 +1,11 @@
+<!--
+    SPDX-License-Identifier: Apache-2.0
+
+    Copyright (C) 2025 MD S M Sarowar Hossain
+
+-->
+
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">My XenonApp</string>
+</resources>

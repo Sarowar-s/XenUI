@@ -1,0 +1,12 @@
+# ninja log v6
+18	139	7832728526286256	C:/Users/Sarowar/Documents/Windows/test/Windows mingw/examples/Test_files/build/cmake_install.cmake	2b11e077b022fcee
+18	139	7832728526286256	build.ninja	2b11e077b022fcee
+7	60	7832719973621728	CMakeFiles/xenui_test.dir/app_icon.rc.obj	c6df9f6bc89282b0
+3	1242	7832719973579353	CMakeFiles/xenui_test.dir/windows.cpp.obj	ed7bac64ad757443
+2	122	7832728526286256	build.ninja	2b11e077b022fcee
+2	122	7832728526286256	C:/Users/Sarowar/Documents/Windows/test/Windows mingw/examples/Test_files/build/cmake_install.cmake	2b11e077b022fcee
+17	304	7832728526764781	xenui_test.exe	180eb5f493a320ed
+13	1663	7832729908147778	CMakeFiles/xenui_test.dir/windows.cpp.obj	ed7bac64ad757443
+1663	1954	7832729924655675	xenui_test.exe	180eb5f493a320ed
+19	1958	7832730443260968	CMakeFiles/xenui_test.dir/windows.cpp.obj	ed7bac64ad757443
+1959	2258	7832730462785433	xenui_test.exe	180eb5f493a320ed
