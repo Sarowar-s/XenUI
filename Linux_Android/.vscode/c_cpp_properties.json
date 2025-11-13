@@ -1,0 +1,29 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                // Inside c_cpp_properties.json, within a configuration's "includePath" array:
+"/home/sarowar/Android/android-ndk-r27c/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include",
+"/home/sarowar/Android/android-ndk-r27c/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/aarch64-linux-android", // For arm64-v8a ABI
+// Add paths for other ABIs if needed, e.g., arm-linux-androideabi for armeabi-v7a
+"${workspaceFolder}/jni/SDL3/include", // Path to general SDL include dir
+"${workspaceFolder}/jni/SDL3/include/SDL3", // Path to specific SDL3 headers
+"${workspaceFolder}/jni/SDL3/SDL3_image-3.2.4/include", // Path to specific SDL3 headers
+"${workspaceFolder}/jni/src",
+"${workspaceFolder}/jni/src/ui",
+"${workspaceFolder}/jni/src/utils",
+"${workspaceFolder}/jni/src/graphics/SDL"
+
+// Add other project include paths
+            ],
+            "defines": [],
+            "compilerPath": "/home/sarowar/Android/android-ndk-r27c/toolchains/llvm/prebuilt/linux-x86_64/bin/clang",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "linux-clang-x64"
+        }
+    ],
+    "version": 4
+}

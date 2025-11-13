@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "image.h": "c",
+        "iostream": "cpp",
+        "vector": "cpp"
+    }
+}

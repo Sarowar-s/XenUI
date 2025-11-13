@@ -1,7 +1,0 @@
-C:/Users/Sarowar/Documents/Windows/test/Windows mingw/build/CMakeFiles/XenUI.dir
-C:/Users/Sarowar/Documents/Windows/test/Windows mingw/build/CMakeFiles/edit_cache.dir
-C:/Users/Sarowar/Documents/Windows/test/Windows mingw/build/CMakeFiles/rebuild_cache.dir
-C:/Users/Sarowar/Documents/Windows/test/Windows mingw/build/CMakeFiles/list_install_components.dir
-C:/Users/Sarowar/Documents/Windows/test/Windows mingw/build/CMakeFiles/install.dir
-C:/Users/Sarowar/Documents/Windows/test/Windows mingw/build/CMakeFiles/install/local.dir
-C:/Users/Sarowar/Documents/Windows/test/Windows mingw/build/CMakeFiles/install/strip.dir

@@ -61,9 +61,9 @@ It will take the setup.iss file for necessary inforamtion and wrap your app in a
 Once its done, your application is ready to be installed in a windows machine.
 
 
-Build ``libXenUI.dll`` (Needed only if you change XenUI provided cpp/h files)
-=============================================================================
-If you change any file and want to recompile XenUI you can follow this.
+Build ``libXenUI.dll`` (Needed if you change XenUI provided cpp/h files or cloned the repository from github)
+=============================================================================================================
+If you need to recompile XenUI you can follow this.
 ----------------------------------------------------------------------------
 At first make sure your created file is mentioned in the ``CmakeLists.txt`` file. Then go to ``Windows/build`` 
 and open a terminal in that folder. Then you need to set a path for the installation location. That means after 
@@ -74,7 +74,7 @@ Apply,
     cmake --build .
     cmake --install . ``
 
-
+*Once its done, you are ready to build windows executable, see above-*
 
 
 Available UIs

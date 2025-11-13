@@ -1,3 +1,0 @@
-/home/sarowar/Documents/android/Experiment/AndroidSDLTest/build/CMakeFiles/main.dir
-/home/sarowar/Documents/android/Experiment/AndroidSDLTest/build/CMakeFiles/edit_cache.dir
-/home/sarowar/Documents/android/Experiment/AndroidSDLTest/build/CMakeFiles/rebuild_cache.dir

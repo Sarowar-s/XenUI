@@ -1,3 +1,0 @@
-C:/Users/Sarowar/Documents/Windows/test/Windows mingw/examples/Test_files/build/CMakeFiles/xenui_test.dir
-C:/Users/Sarowar/Documents/Windows/test/Windows mingw/examples/Test_files/build/CMakeFiles/edit_cache.dir
-C:/Users/Sarowar/Documents/Windows/test/Windows mingw/examples/Test_files/build/CMakeFiles/rebuild_cache.dir
