@@ -1,3 +1,14 @@
+
+.. toctree::
+   :maxdepth: 3
+
+   Linux/doc1
+   Mac/doc1
+   Windows/doc1
+   Android/Linux_android/doc1
+   Android/Windows_android/doc1
+
+
 XenonUI Documentation
 =====================
 
