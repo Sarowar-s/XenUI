@@ -20,8 +20,8 @@ within the same API — giving developers complete control over performance and 
 
 **Visit the specific folder below to read platform-specific documentation:**
 
-- `Linux Documentation <Linux/doc1.rst>`_
-- `Windows Documentation <Windows/doc1.rst>`_
-- `Mac Documentation <Mac/doc1.rst>`_
-- `Android Documentation for Linux <Android/Linux_android/doc1.rst>`_
-- `Android Documentation for Windows <Android/Windows_android/doc1.rst>`_
+- `Linux Documentation <Linux/doc.rst>`_
+- `Windows Documentation <Windows/doc.rst>`_
+- `Mac Documentation <Mac/doc.rst>`_
+- `Android Documentation for Linux <Android/Linux_android/doc.rst>`_
+- `Android Documentation for Windows <Android/Windows_android/doc.rst>`_
