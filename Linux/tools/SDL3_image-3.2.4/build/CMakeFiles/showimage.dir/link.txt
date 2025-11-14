@@ -1,1 +1,0 @@
-/usr/bin/cc -O3 -DNDEBUG CMakeFiles/showimage.dir/examples/showimage.c.o -o showimage  -Wl,-rpath,/home/sarowar/Downloads/SDL3_image-3.2.4/build:/home/sarowar/Downloads/SDL3-3.2.16/build libSDL3_image.so.0.2.4 /home/sarowar/Downloads/SDL3-3.2.16/build/libSDL3.so.0.2.16 

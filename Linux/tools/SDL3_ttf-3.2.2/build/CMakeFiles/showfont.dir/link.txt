@@ -1,1 +1,0 @@
-/usr/bin/cc -O3 -DNDEBUG CMakeFiles/showfont.dir/examples/showfont.c.o CMakeFiles/showfont.dir/examples/editbox.c.o -o showfont  -Wl,-rpath,/home/sarowar/Downloads/SDL3_ttf-3.2.2/build:/home/sarowar/Downloads/SDL3-3.2.16/build libSDL3_ttf.so.0.2.2 /home/sarowar/Downloads/SDL3-3.2.16/build/libSDL3.so.0.2.16 
