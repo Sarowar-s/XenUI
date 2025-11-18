@@ -30,6 +30,25 @@ You don’t need powerful or modern hardware to use it; even low-end desktops ca
 
 It’s fully flexible, meaning everything is in your control — you can modify the UI code, customize the build system, and adapt it however you need. Xenon UI is designed to stay lightweight, fast, and open to experimentation.
 
+## Screenshots
+
+![Main Dashboard](screenshots/linux.png)
+
+<details>
+<summary><b>Click to see 6 more demo examples</b></summary>
+
+<br>
+
+| | |
+|:-------------------------:|:-------------------------:|
+| ![Alt](screenshots/windows.jpeg) | ![Alt](screenshots/windows-android.jpeg) |
+| ![Alt](screenshots/mac.jpeg) | ![Alt](screenshots/linux-android.jpeg) |
+| ![Alt](screenshots/another-linux-android.jpeg) | ![Alt](screenshots/another-windows-android.jpeg) |
+
+</details>
+
+
+
 ## How to use ?
 
 All UI components in Xenon UI are file-based.
