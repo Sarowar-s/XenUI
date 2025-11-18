@@ -32,20 +32,43 @@ It’s fully flexible, meaning everything is in your control — you can modify 
 
 ## Screenshots
 
-![Main Dashboard](../screenshots/linux.png)
-
-<details>
-<summary><b>Click to see 6 more demo examples</b></summary>
-
-<br>
-
-| | |
-|:-------------------------:|:-------------------------:|
-| ![Alt](../screenshots/windows.jpeg) | ![Alt](../screenshots/windows-android.jpeg) |
-| ![Alt](../screenshots/mac.jpeg) | ![Alt](../screenshots/linux-android.jpeg) |
-| ![Alt](../screenshots/another-linux-android.jpeg) | ![Alt](../screenshots/another-windows-android.jpeg) |
-
-</details>
+<table>
+  <tr>
+    <td align="center">
+      <img src="../screenshots/linux.png" width="200px;" alt="Demo 1"/><br />
+      <b>Linux</b>
+    </td>
+    <td align="center">
+      <img src="../screenshots/windows.jpeg" width="200px;" alt="Demo 2"/><br />
+      <b>Windows</b>
+    </td>
+    <td align="center">
+      <img src="../screenshots/mac.jpeg" width="200px;" alt="Demo 3"/><br />
+      <b>Mac</b>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="../screenshots/linux-android.jpeg" width="200px;" alt="Demo 4"/><br />
+      <b>Linux made Android apk</b>
+    </td>
+    <td align="center">
+      <img src="../screenshots/windows-android.jpeg" width="200px;" alt="Demo 5"/><br />
+      <b>Windows made Android apk</b>
+    </td>
+    <td align="center">
+      <img src="../screenshots/another-linux-android.jpeg" width="200px;" alt="Demo 6"/><br />
+      <b>Another Linux made Android apk</b>
+    </td>
+  </tr>
+   <tr>
+    <td align="center" colspan="3">
+      <img src="../screenshots/another-windows-android.jpeg" width="400px;" alt="Demo 7"/><br />
+      <b>Another Windows made Android apk</b>
+    </td>
+  </tr>
+</table>
+*All the applications(except Another demo applications) use the same main file with a slice changes in android for ui sizes.*
 
 
 

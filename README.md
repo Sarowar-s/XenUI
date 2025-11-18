@@ -69,6 +69,7 @@ It’s fully flexible, meaning everything is in your control — you can modify 
     </td>
   </tr>
 </table>
+*All the applications(except Another demo applications) use the same main file with a slice changes in android for ui sizes.*
 
 ## How to use ?
 
