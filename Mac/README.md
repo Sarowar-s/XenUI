@@ -32,7 +32,7 @@ It’s fully flexible, meaning everything is in your control — you can modify 
 
 ## Screenshots
 
-![Main Dashboard](screenshots/linux.png)
+![Main Dashboard](../screenshots/linux.png)
 
 <details>
 <summary><b>Click to see 6 more demo examples</b></summary>
@@ -41,12 +41,11 @@ It’s fully flexible, meaning everything is in your control — you can modify 
 
 | | |
 |:-------------------------:|:-------------------------:|
-| ![Alt](screenshots/windows.jpeg) | ![Alt](screenshots/windows-android.jpeg) |
-| ![Alt](screenshots/mac.jpeg) | ![Alt](screenshots/linux-android.jpeg) |
-| ![Alt](screenshots/another-linux-android.jpeg) | ![Alt](screenshots/another-windows-android.jpeg) |
+| ![Alt](../screenshots/windows.jpeg) | ![Alt](../screenshots/windows-android.jpeg) |
+| ![Alt](../screenshots/mac.jpeg) | ![Alt](../screenshots/linux-android.jpeg) |
+| ![Alt](../screenshots/another-linux-android.jpeg) | ![Alt](../screenshots/another-windows-android.jpeg) |
 
 </details>
-
 
 ## How to use ?
 
