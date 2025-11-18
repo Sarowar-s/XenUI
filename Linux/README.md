@@ -205,6 +205,235 @@ Available UIs
 
 
 
+## Minimal code snippet(runnable)
+### For Desktop applications (linux, windows, mac)
+*Retained mode*
+```cpp
+#include <SDL3/SDL.h>
+#include <iostream>
+#include "XenUI/Button.h"
+#include "XenUI/TextRenderer.h"
+#include "XenUI/WindowUtil.h"
+
+int main(int argc, char** argv) {
+    // 1. Basic SDL3 Setup
+    SDL_Init(SDL_INIT_VIDEO);
+    TTF_Init();
+    SDL_Window* window = SDL_CreateWindow("XenonUI Hello World", 800, 600, SDL_WINDOW_RESIZABLE);
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, nullptr);
+
+    // 2. Initialize Framework
+    XenUI::SetWindow(window);
+    TextRenderer::getInstance().init(renderer);
+
+    // 3. Create a Button (Retained Mode)
+    Button myButton(
+        "Click Me!",                                              // Text
+        XenUI::PositionParams::Anchored(XenUI::Anchor::CENTER),   // Layout
+        ButtonStyle{},                                            // Default Style
+        []() { std::cout << "Hello World!" << std::endl; }        // Callback
+    );
+
+    // 4. Main Loop
+    bool running = true;
+    SDL_Event event;
+    
+    while (running) {
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_EVENT_QUIT) running = false;
+            
+            // Handle UI Events
+            myButton.handleEvent(event); 
+        }
+
+        // Render
+        SDL_SetRenderDrawColor(renderer, 30, 30, 30, 255);
+        SDL_RenderClear(renderer);
+        
+        myButton.draw(renderer, {0,0}); // Draw the button
+
+        SDL_RenderPresent(renderer);
+    }
+
+    SDL_Quit();
+    return 0;
+}
+```
+*Immediate mode*
+```cpp
+#include <SDL3/SDL.h>
+#include <iostream>
+#include "XenUI/WindowUtil.h" 
+#include "XenUI/TextRenderer.h"
+#include "XenUI/Button.h" 
+
+int main(int argc, char** argv) {
+    // 1. Basic SDL3 Setup
+    SDL_Init(SDL_INIT_VIDEO);
+    TTF_Init();
+    SDL_Window* window = SDL_CreateWindow("XenonUI Immediate Mode", 800, 600, SDL_WINDOW_RESIZABLE);
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, nullptr);
+
+    // 2. Initialize Framework
+    XenUI::SetWindow(window);
+    TextRenderer::getInstance().init(renderer);
+
+    // 3. Main Loop
+    bool running = true;
+    SDL_Event event;
+    
+    while (running) {
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_EVENT_QUIT) running = false;
+        }
+
+        // --- Immediate Mode Rendering & Logic ---
+        
+        SDL_SetRenderDrawColor(renderer, 30, 30, 30, 255);
+        SDL_RenderClear(renderer);
+
+        // This function is called every frame, handles events implicitly, 
+        // and returns true only during the frame it was clicked.
+        if (XenUI::Button(
+                "immediate_btn_1",                                        // Unique ID (Crucial for state tracking)
+                "Immediate Button",                                       // Button text
+                XenUI::PositionParams::Anchored(XenUI::Anchor::CENTER),   // Layout
+                renderer,
+                {0.0f, 0.0f},                                             // Offset (None for top-level)
+                ButtonStyle{},                                            // Style
+                30,                                                       // Font size
+                false,                                                    // triggerOnPress (false is typical)
+                800, 600)                                                 // Parent width/height
+        ) {
+            // The logic runs right here, immediately after the click is processed.
+            std::cout << "Immediate Button Clicked!" << std::endl; 
+        }
+
+        // --- End Immediate Mode ---
+
+        SDL_RenderPresent(renderer);
+    }
+
+    SDL_Quit();
+    return 0;
+}
+```
+
+### For Mobile device (currently Andorid)
+*Retained mode*
+```cpp
+#include <SDL3/SDL.h>
+#include <SDL3/SDL_main.h>
+#include <iostream>
+#include "Button.h"
+#include "TextRenderer.h"
+#include "WindowUtil.h"
+
+extern "C" int SDL_main(int argc, char** argv) {
+    // 1. Basic SDL3 Setup
+    SDL_Init(SDL_INIT_VIDEO);
+    TTF_Init();
+    SDL_Window* window = SDL_CreateWindow("XenonUI Hello World", 800, 600, SDL_WINDOW_RESIZABLE);
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, nullptr);
+
+    // 2. Initialize Framework
+    XenUI::SetWindow(window);
+    TextRenderer::getInstance().init(renderer);
+
+    // 3. Create a Button (Retained Mode)
+    Button myButton(
+        "Click Me!",                                              // Text
+        XenUI::PositionParams::Anchored(XenUI::Anchor::CENTER),   // Layout
+        ButtonStyle{},                                            // Default Style
+        []() { std::cout << "Hello World!" << std::endl; }        // Callback
+    );
+
+    // 4. Main Loop
+    bool running = true;
+    SDL_Event event;
+    
+    while (running) {
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_EVENT_QUIT) running = false;
+            
+            // Handle UI Events
+            myButton.handleEvent(event); 
+        }
+
+        // Render
+        SDL_SetRenderDrawColor(renderer, 30, 30, 30, 255);
+        SDL_RenderClear(renderer);
+        
+        myButton.draw(renderer, {0,0}); // Draw the button
+
+        SDL_RenderPresent(renderer);
+    }
+
+    SDL_Quit();
+    return 0;
+}
+``` 
+*Immediate mode*
+```cpp
+#include <SDL3/SDL.h>
+#include <SDL3/SDL_main.h>
+#include <iostream>
+#include "WindowUtil.h" 
+#include "TextRenderer.h"
+#include "Button.h" 
+
+extern "C" int SDL_main(int argc, char** argv) {
+    // 1. Basic SDL3 Setup
+    SDL_Init(SDL_INIT_VIDEO);
+    TTF_Init();
+    SDL_Window* window = SDL_CreateWindow("XenonUI Immediate Mode", 800, 600, SDL_WINDOW_RESIZABLE);
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, nullptr);
+
+    // 2. Initialize Framework
+    XenUI::SetWindow(window);
+    TextRenderer::getInstance().init(renderer);
+
+    // 3. Main Loop
+    bool running = true;
+    SDL_Event event;
+    
+    while (running) {
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_EVENT_QUIT) running = false;
+        }
+
+        // --- Immediate Mode Rendering & Logic ---
+        
+        SDL_SetRenderDrawColor(renderer, 30, 30, 30, 255);
+        SDL_RenderClear(renderer);
+
+        // This function is called every frame, handles events implicitly, 
+        // and returns true only during the frame it was clicked.
+        if (XenUI::Button(
+                "immediate_btn_1",                                        // Unique ID (Crucial for state tracking)
+                "Immediate Button",                                       // Button text
+                XenUI::PositionParams::Anchored(XenUI::Anchor::CENTER),   // Layout
+                renderer,
+                {0.0f, 0.0f},                                             // Offset (None for top-level)
+                ButtonStyle{},                                            // Style
+                30,                                                       // Font size
+                false,                                                    // triggerOnPress (false is typical)
+                800, 600)                                                 // Parent width/height
+        ) {
+            // The logic runs right here, immediately after the click is processed.
+            std::cout << "Immediate Button Clicked!" << std::endl; 
+        }
+
+        // --- End Immediate Mode ---
+
+        SDL_RenderPresent(renderer);
+    }
+
+    SDL_Quit();
+    return 0;
+}
+```
+
 # Project Version
 Xenon UI is currently in its first alpha release — it’s a work in progress and not yet ready for production or industry use.
 
