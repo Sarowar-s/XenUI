@@ -15,7 +15,7 @@ within the same API — giving developers complete control over performance, fle
     -   MacOS
     -   Android
 -   **Custom Build System** — Per-platform packaging and build configurations.
--   **High Performance** — Written entirely in modern C++ with no heavy dependencies.
+-   **High Performance** — Written entirely in modern C++ and C with no heavy dependencies.
 -   **Lightweight Design** — Minimal memory footprint and zero unnecessary abstractions.
 -   **Secure and Reliable** — Built with strict memory safety and zero-bug focus.
 -   **Modular Architecture** — Clear folder structure for platform and demo separation.
@@ -130,6 +130,37 @@ Other than this, everything else remain the same in all platforms.
 
 
 **These examples are not ready to run examples, just demo of usages. To test ready to run codes, check demo folders in an specific platofrm folder**
+
+
+Available UIs
+=============
+
+- Immediate mode
+    - Label
+    - Button
+    - Radio Button
+    - Check Box
+    - Dropdown menu
+    - Image
+    - Scroll View
+    - Shapes(rectangle, circle)
+    - Slider
+    - Switch button
+
+
+- Retained mode
+    - Label
+    - Button
+    - Radio Button
+    - Check Box
+    - Dropdown menu
+    - Image
+    - Inputbox
+    - Scroll View
+    - Shapes(rectangle, circle)
+    - Slider
+    - Switch button
+
 
 
 # Project Version
