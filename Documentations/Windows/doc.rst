@@ -28,7 +28,7 @@ Necessary things to install
 
     **`All builds and experiments were done in msys2 mingw terminal, not the native cmd`**
     
-At first download XenonUI release version for windows os. Go to `XenonUI for Windows <>`_ and download the 
+At first download XenonUI release version for windows os. Go to `XenonUI for Windows <https://github.com/Sarowar-s/XenUI/releases/tag/v0.9.0-alfa>`_ and download the 
 released version. Then install the msys2 terminal. After that install glm, freetype in the msys2 terminal.
 `You need to install necessary things of msys2 terminal in /c/mingw64`
 Now you are ready to build the windows executable. Follow the next step-

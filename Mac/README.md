@@ -68,6 +68,7 @@ It’s fully flexible, meaning everything is in your control — you can modify 
     </td>
   </tr>
 </table>
+
 *All the applications(except Another demo applications) use the same main file with a slice changes in android for ui sizes.*
 
 ## How to use ?
@@ -84,7 +85,7 @@ Then, build your project using your native terminal (for example, Bash on Linux 
 
   ⚠️ On Windows, you’ll need to build using the MSYS2 MinGW terminal (or an equivalent environment).
 
-For more details, see the [Windows Documentation](Documentations/Windows/doc1.rst)
+For more details, see the [Windows Documentation](Documentations/Windows/doc.rst)
 
 Here is a minimal demo appliance of how to use a **retained mode** ui, in this case **Label**
 ```cpp 
@@ -171,6 +172,7 @@ Other than this, everything else remain the same in all platforms.
 
 **These examples are not ready to run examples, just demo of usages. To test ready to run codes, check demo folders in an specific platofrm folder**
 
+**Go to `Documentations` folder and read details based on your desired platform**
 
 Available UIs
 =============

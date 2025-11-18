@@ -26,7 +26,7 @@ how a thing works. I hope this will help you to have some idea about how it work
 Necessary things to install
 ===========================
 
-At first download XenonUI release version for linux os. Go to `XenonUI for Linux <>`_ and download the 
+At first download XenonUI release version for linux os. Go to `XenonUI for Linux <https://github.com/Sarowar-s/XenUI/releases/tag/v0.9.0-alfa>`_ and download the 
 released version. After that install glm, freetype, and sdl3(sdl3, sdl3_image, sdl3_ttf).
 Install glm-dev using ``sudo apt install libglm-dev`` and install freetype-dev using ``sudo apt isntall libfreetype-dev``.
 

@@ -26,7 +26,7 @@ how a thing works. I hope this will help you to have some idea about how it work
 Necessary things to install
 ===========================
 
-At first download XenonUI release version for Android os. Go to `XenonUI for Android <>`_ and download the 
+At first download XenonUI release version for Android os. Go to `XenonUI for Android <https://github.com/Sarowar-s/XenUI/releases/tag/v0.9.0-alfa>`_ and download the 
 ``windows_android`` released version. After that install glm, freetype, and sdl3 android(sdl3, sdl3_image, sdl3_ttf).
 Download glm from its github repository and download freetype also.
 
