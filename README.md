@@ -175,6 +175,9 @@ Other than this, everything else remain the same in all platforms.
 
 **Go to `Documentations` folder and read details based on your desired platform**
 
+**To test demo applcations, download the released version of xenui, demo applications are available there. `XenonUI released versions<https://github.com/Sarowar-s/XenUI/releases/tag/v0.9.0-alfa>`_**
+
+
 Available UIs
 =============
 
