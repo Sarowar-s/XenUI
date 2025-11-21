@@ -159,20 +159,20 @@ file(GLOB XENUI_PUBLIC_HEADERS
 # --------------------------------------------------------------------------------
 add_library(XenUI SHARED
     # List all source files that make up the library.
-	${XENUI_SOURCE_DIR}/Anchor.cpp
-	${XENUI_SOURCE_DIR}/Button.cpp
-	${XENUI_SOURCE_DIR}/CheckBox.cpp
-	${XENUI_SOURCE_DIR}/Dropdown.cpp
-	${XENUI_SOURCE_DIR}/Image.cpp
-	${XENUI_SOURCE_DIR}/InputBox.cpp
-	${XENUI_SOURCE_DIR}/Label.cpp
-	${XENUI_SOURCE_DIR}/RadioButton.cpp
-	${XENUI_SOURCE_DIR}/ScrollView.cpp
-	${XENUI_SOURCE_DIR}/Shape.cpp
-	${XENUI_SOURCE_DIR}/Slider.cpp
-	${XENUI_SOURCE_DIR}/Switch.cpp
+	${XENUI_SOURCE_DIR}/../../src/Anchor.cpp
+	${XENUI_SOURCE_DIR}/../../src/Button.cpp
+	${XENUI_SOURCE_DIR}/../../src/CheckBox.cpp
+	${XENUI_SOURCE_DIR}/../../src/Dropdown.cpp
+	${XENUI_SOURCE_DIR}/../../src/Image.cpp
+	${XENUI_SOURCE_DIR}/../../src/InputBox.cpp
+	${XENUI_SOURCE_DIR}/../../src/Label.cpp
+	${XENUI_SOURCE_DIR}/../../src/RadioButton.cpp
+	${XENUI_SOURCE_DIR}/../../src/ScrollView.cpp
+	${XENUI_SOURCE_DIR}/../../src/Shape.cpp
+	${XENUI_SOURCE_DIR}/../../src/Slider.cpp
+	${XENUI_SOURCE_DIR}/../../src/Switch.cpp
 	${XENUI_SOURCE_DIR}/TextRenderer.cpp
-	${XENUI_SOURCE_DIR}/WindowUtil.cpp
+	${XENUI_SOURCE_DIR}/../../src/WindowUtil.cpp
 )
 
 set_target_properties(XenUI PROPERTIES

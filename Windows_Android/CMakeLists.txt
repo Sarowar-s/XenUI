@@ -49,21 +49,21 @@ include_directories(
 
 # Shared library target
 add_library(main SHARED
-    src/main/cpp/Anchor.cpp
-    src/main/cpp/Button.cpp
-    src/main/cpp/CheckBox.cpp
-    src/main/cpp/Dropdown.cpp
-    src/main/cpp/Image.cpp
-    src/main/cpp/InputBox.cpp
-    src/main/cpp/Label.cpp
+    ../src/Anchor.cpp
+    ../src/Button.cpp
+    ../src/CheckBox.cpp
+    ../src/Dropdown.cpp
+    ../src/Image.cpp
+    ../src/InputBox.cpp
+    ../src/Label.cpp
     src/main/cpp/main.cpp
-    src/main/cpp/RadioButton.cpp
-    src/main/cpp/ScrollView.cpp
-    src/main/cpp/Shape.cpp    
-    src/main/cpp/Slider.cpp    
-    src/main/cpp/Switch.cpp    
+    ../src/RadioButton.cpp
+    ../src/ScrollView.cpp
+    ../src/Shape.cpp    
+    ../src/Slider.cpp    
+    ../src/Switch.cpp    
     src/main/cpp/TextRenderer.cpp
-    src/main/cpp/WindowUtil.cpp
+    ../src/WindowUtil.cpp
 )
 
 # Properties

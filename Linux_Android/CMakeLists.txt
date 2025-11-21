@@ -88,20 +88,20 @@ set_target_properties(SDL3_image::SDL3_image PROPERTIES
 # Your app's native library
 add_library(main SHARED 
   jni/src/main.cpp
-  jni/src/Anchor.cpp
-  jni/src/Button.cpp
-  jni/src/CheckBox.cpp
-  jni/src/Dropdown.cpp
-  jni/src/Image.cpp
-  jni/src/InputBox.cpp
-  jni/src/Label.cpp
-  jni/src/RadioButton.cpp
-  jni/src/ScrollView.cpp
-  jni/src/Shape.cpp
-  jni/src/Slider.cpp
-  jni/src/Switch.cpp
+  ../src/Anchor.cpp
+  ../src/Button.cpp
+  ../src/CheckBox.cpp
+  ../src/Dropdown.cpp
+  ../src/Image.cpp
+  ../src/InputBox.cpp
+  ../src/Label.cpp
+  ../src/RadioButton.cpp
+  ../src/ScrollView.cpp
+  ../src/Shape.cpp
+  ../src/Slider.cpp
+  ../src/Switch.cpp
   jni/src/TextRenderer.cpp
-  jni/src/WindowUtil.cpp
+  ../src/WindowUtil.cpp
   
   
 
