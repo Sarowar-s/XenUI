@@ -511,7 +511,7 @@ Included components:
   (Used as a build dependency; not distributed with XenonUI.)  
 
 
-All the creadit and ownership for those to their respective owners. 
+All the credit and ownership for those to their respective owners. 
 
 
 ## Author / Contact / Availability
