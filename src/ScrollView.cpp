@@ -17,12 +17,12 @@
 // --- Retained Mode ScrollView Implementation Starts Here ---
 
 /**
- * @brief Constructs a retained-mode ScrollView instance.
+ * Constructs a retained-mode ScrollView instance.
  *
  * Validates that explicit dimensions are provided and performs initial layout calculation.
  *
- * @param posParams The positional constraints (must include explicit width and height).
- * @param style The visual style parameters for the scrollbar.
+ * (posParams) The positional constraints (must include explicit width and height).
+ * (style) The visual style parameters for the scrollbar.
  * @throws std::invalid_argument if width or height in posParams is non-positive.
  */
 ScrollView::ScrollView(const XenUI::PositionParams& posParams, const ScrollViewStyle& style)
@@ -37,24 +37,24 @@ ScrollView::ScrollView(const XenUI::PositionParams& posParams, const ScrollViewS
 }
 
 /**
- * @brief Handles an SDL event with default zero parent offset and no explicit window pointer.
+ * Handles an SDL event with default zero parent offset and no explicit window pointer.
  *
  * This is a convenience wrapper for IControl compatibility when the ScrollView is top-level.
  *
- * @param e The SDL_Event to process.
- * @return true if the event was consumed, false otherwise.
+ * (e) The SDL_Event to process.
+ * true if the event was consumed, false otherwise.
  */
 bool ScrollView::handleEvent(const SDL_Event& e) {
     return handleEvent(e, nullptr, SDL_FPoint{0.0f, 0.0f});
 }
 
 /**
- * @brief Adds a child control to the ScrollView's content area.
+ * Adds a child control to the ScrollView's content area.
  *
  * Triggers a layout recalculation for the new child relative to the content area
  * and updates the total content height.
  *
- * @param control A unique_ptr owning the IControl instance to add.
+ * (control) A unique_ptr owning the IControl instance to add.
  */
 void ScrollView::addControl(std::unique_ptr<IControl> control) {
     if (!control) return;
@@ -70,7 +70,7 @@ void ScrollView::addControl(std::unique_ptr<IControl> control) {
 }
 
 /**
- * @brief Calculates the total required height of the scrollable content.
+ * Calculates the total required height of the scrollable content.
  *
  * The content height is determined by the maximum bottom edge (y + h) of all child controls.
  */
@@ -84,14 +84,14 @@ void ScrollView::updateContentHeight() {
 
 
 /**
- * @brief Recalculates the ScrollView's own size/position and the layout of its children.
+ * Recalculates the ScrollView's own size/position and the layout of its children.
  *
  * This uses a two-pass approach:
  * 1. Measure children using viewport height to determine final content height.
  * 2. Position children using the calculated total content height for anchor resolution.
  *
- * @param parentWidth The width of the ScrollView's parent container.
- * @param parentHeight The height of the ScrollView's parent container.
+ * (parentWidth) The width of the ScrollView's parent container.
+ * (parentHeight) The height of the ScrollView's parent container.
  */
 void ScrollView::recalculateLayout(int parentWidth, int parentHeight) {
     // 0) Resolve ScrollView's own bounds (viewport area on screen)
@@ -161,14 +161,14 @@ void ScrollView::recalculateLayout(int parentWidth, int parentHeight) {
 
 
 /**
- * @brief Processes SDL events, handling scrolling, scrollbar interaction, and forwarding input to children.
+ * Processes SDL events, handling scrolling, scrollbar interaction, and forwarding input to children.
  *
  * Events must be translated from screen-space to content-space before being forwarded.
  *
- * @param evt The SDL_Event to process.
- * @param window The target SDL_Window (optional, derived from event/focus if null).
- * @param parentViewOffset The offset of this ScrollView relative to the screen.
- * @return true if the event was handled and consumed, false otherwise.
+ * (evt) The SDL_Event to process.
+ * (window) The target SDL_Window (optional, derived from event/focus if null).
+ * (parentViewOffset) The offset of this ScrollView relative to the screen.
+ * true if the event was handled and consumed, false otherwise.
  */
 bool ScrollView::handleEvent(const SDL_Event& evt, SDL_Window* window, const SDL_FPoint& parentViewOffset) {
     // Determine the relevant SDL_Window for coordinate and focus context
@@ -459,13 +459,13 @@ bool ScrollView::handleEvent(const SDL_Event& evt, SDL_Window* window, const SDL
 
 
 /**
- * @brief Renders the ScrollView, its background, border, child controls, and scrollbar.
+ * Renders the ScrollView, its background, border, child controls, and scrollbar.
  *
  * This function sets up a clipping rectangle based on the view area before drawing
  * the children to ensure they do not overflow the viewport.
  *
- * @param renderer The SDL_Renderer context.
- * @param parentViewOffset The screen-space offset inherited from parent containers.
+ * (renderer) The SDL_Renderer context.
+ * (parentViewOffset) The screen-space offset inherited from parent containers.
  */
 void ScrollView::draw(SDL_Renderer* renderer, const SDL_FPoint& parentViewOffset) {
     if (!renderer) return;
@@ -519,13 +519,13 @@ void ScrollView::draw(SDL_Renderer* renderer, const SDL_FPoint& parentViewOffset
 }
 
 /**
- * @brief Calculates the relative position and size of the scrollbar thumb.
+ * Calculates the relative position and size of the scrollbar thumb.
  *
  * The returned rectangle's x coordinate is relative to the viewRect's origin,
  * positioned at the right edge of the viewRect (m_viewRect.w).
  *
- * @param viewOffset Unused parameter for this retained mode implementation (kept for potential IControl consistency).
- * @return The SDL_FRect defining the thumb's size and position relative to the ScrollView's view rectangle.
+ * (viewOffset) Unused parameter for this retained mode implementation (kept for potential IControl consistency).
+ * The SDL_FRect defining the thumb's size and position relative to the ScrollView's view rectangle.
  */
 SDL_FRect ScrollView::getScrollbarThumbRect(const SDL_FPoint& /*viewOffset*/) const {
     // Check if scrolling is necessary
@@ -552,12 +552,12 @@ SDL_FRect ScrollView::getScrollbarThumbRect(const SDL_FPoint& /*viewOffset*/) co
 }
 
 /**
- * @brief Renders the vertical scrollbar track and thumb.
+ * Renders the vertical scrollbar track and thumb.
  *
  * Only draws if the content height exceeds the view height.
  *
- * @param renderer The SDL_Renderer context.
- * @param parentViewOffset The screen-space offset of the ScrollView.
+ * (renderer) The SDL_Renderer context.
+ * (parentViewOffset) The screen-space offset of the ScrollView.
  */
 void ScrollView::drawScrollbar(SDL_Renderer* renderer, const SDL_FPoint& parentViewOffset) {
     // Only draw if scrolling is required
@@ -599,7 +599,7 @@ void ScrollView::drawScrollbar(SDL_Renderer* renderer, const SDL_FPoint& parentV
 #include <vector>
 
 /**
- * @brief Structure to hold and restore the renderer's clip state.
+ * Structure to hold and restore the renderer's clip state.
  */
 struct ClipState {
     bool hadClip;       ///< True if clipping was enabled before this ScrollView.
@@ -609,7 +609,7 @@ struct ClipState {
 static std::vector<ClipState> g_clipStack; ///< Global stack for managing nested clip rectangles.
 
 /**
- * @brief Structure to hold the runtime state for an immediate-mode ScrollView.
+ * Structure to hold the runtime state for an immediate-mode ScrollView.
  */
 struct ScrollState {
     SDL_FPoint pos{0.0f, 0.0f};         ///< Current scroll position (x=0, y=scroll amount).
@@ -625,13 +625,13 @@ struct ScrollState {
 static std::unordered_map<std::string, ScrollState> g_states; ///< Global map storing state for all active immediate ScrollViews by ID.
 
 /**
- * @brief Helper function to resolve PositionParams into a final screen-space view rectangle.
- * @param p The positional parameters.
- * @param w The explicit width of the viewport.
- * @param h The explicit height of the viewport.
- * @param parentW The width of the parent container (uses window size if <= 0).
- * @param parentH The height of the parent container (uses window size if <= 0).
- * @return The calculated SDL_FRect in screen coordinates.
+ * Helper function to resolve PositionParams into a final screen-space view rectangle.
+ * (p) The positional parameters.
+ * (w) The explicit width of the viewport.
+ * (h) The explicit height of the viewport.
+ * (parentW) The width of the parent container (uses window size if <= 0).
+ * (parentH) The height of the parent container (uses window size if <= 0).
+ *  The calculated SDL_FRect in screen coordinates.
  */
 static SDL_FRect ResolveViewRectFromParams(const XenUI::PositionParams& p, int w, int h, int parentW = -1, int parentH = -1) {
     // Fallback to window size if parent dimensions are not explicitly provided
@@ -650,19 +650,19 @@ namespace XenUI {
 // --- Immediate Mode Overloads ---
 
 /**
- * @brief Immediate Mode: Starts a scrollable region by resolving PositionParams.
+ * Immediate Mode: Starts a scrollable region by resolving PositionParams.
  *
  * This overload simplifies usage by deriving the viewRect from position parameters.
  *
- * @param id Unique identifier for the ScrollView instance (used for state lookup).
- * @param posParams Positional constraints for the viewport.
- * @param viewWidth The explicit width of the viewport area.
- * @param viewHeight The explicit height of the viewport area.
- * @param contentSize The total dimensions of the content inside (used for scroll limits).
- * @param renderer The SDL_Renderer context.
- * @param event The current SDL_Event for input processing.
- * @param style The visual style for the scrollbar and background.
- * @return The content-space offset (screen_x, screen_y - scroll_y) to apply to child elements.
+ * (id) Unique identifier for the ScrollView instance (used for state lookup).
+ * (posParams) Positional constraints for the viewport.
+ * (viewWidth) The explicit width of the viewport area.
+ * (viewHeight) The explicit height of the viewport area.
+ * (contentSize) The total dimensions of the content inside (used for scroll limits).
+ * (renderer) The SDL_Renderer context.
+ * (event) The current SDL_Event for input processing.
+ * (style) The visual style for the scrollbar and background.
+ *  The content-space offset (screen_x, screen_y - scroll_y) to apply to child elements.
  */
 SDL_FPoint BeginScrollView(
     const std::string&            id,
@@ -679,19 +679,19 @@ SDL_FPoint BeginScrollView(
 }
 
 /**
- * @brief Immediate Mode: Starts a scrollable region, allowing explicit parent dimensions.
+ * Immediate Mode: Starts a scrollable region, allowing explicit parent dimensions.
  *
- * @param id Unique identifier for the ScrollView instance.
- * @param posParams Positional constraints for the viewport.
- * @param viewWidth The explicit width of the viewport area.
- * @param viewHeight The explicit height of the viewport area.
- * @param parentWidth The width of the parent area for layout calculation.
- * @param parentHeight The height of the parent area for layout calculation.
- * @param contentSize The total dimensions of the content inside.
- * @param renderer The SDL_Renderer context.
- * @param event The current SDL_Event for input processing.
- * @param style The visual style for the scrollbar and background.
- * @return The content-space offset to apply to child elements.
+ * (id) Unique identifier for the ScrollView instance.
+ * (posParams) Positional constraints for the viewport.
+ * (viewWidth) The explicit width of the viewport area.
+ * (viewHeight) The explicit height of the viewport area.
+ * (parentWidth) The width of the parent area for layout calculation.
+ * (parentHeight) The height of the parent area for layout calculation.
+ * (contentSize) The total dimensions of the content inside.
+ * (renderer) The SDL_Renderer context.
+ * (event) The current SDL_Event for input processing.
+ * (style) The visual style for the scrollbar and background.
+ *  The content-space offset to apply to child elements.
  */
 SDL_FPoint BeginScrollView(
     const std::string&            id,
@@ -711,9 +711,9 @@ SDL_FPoint BeginScrollView(
 }
 
 /**
- * @brief Checks if the immediate-mode ScrollView is currently being dragged (thumb or content).
- * @param id The ID of the ScrollView to check.
- * @return true if the ScrollView is in a dragging state, false otherwise.
+ * Checks if the immediate-mode ScrollView is currently being dragged (thumb or content).
+ * (id) The ID of the ScrollView to check.
+ * true if the ScrollView is in a dragging state, false otherwise.
  */
 bool IsScrollViewDragging(const std::string& id) {
     auto it = g_states.find(id);
@@ -723,18 +723,18 @@ bool IsScrollViewDragging(const std::string& id) {
 // --- Primary Immediate Mode Function ---
 
 /**
- * @brief Immediate Mode: Starts a scrollable region, setting up state and clipping.
+ * Immediate Mode: Starts a scrollable region, setting up state and clipping.
  *
  * This function processes input (scrolling, dragging) and returns the offset needed
  * to draw child elements inside the scrolling region.
  *
- * @param id Unique identifier for the ScrollView instance.
- * @param viewRect The final screen-space rectangle of the viewport.
- * @param contentSize The total dimensions of the content inside.
- * @param renderer The SDL_Renderer context.
- * @param event The current SDL_Event for input processing.
- * @param style The visual style for the scrollbar and background.
- * @return The content-space offset (screen_x, screen_y - scroll_y) to apply to child elements.
+ * (id) Unique identifier for the ScrollView instance.
+ * (viewRect) The final screen-space rectangle of the viewport.
+ * (contentSize) The total dimensions of the content inside.
+ * (renderer) The SDL_Renderer context.
+ * (event) The current SDL_Event for input processing.
+ * (style) The visual style for the scrollbar and background.
+ *  The content-space offset (screen_x, screen_y - scroll_y) to apply to child elements.
  */
 SDL_FPoint BeginScrollView(
     const std::string& id,
@@ -930,8 +930,8 @@ SDL_FPoint BeginScrollView(
 }
 
 /**
- * @brief Immediate Mode: Ends a scrollable region, restoring clip and drawing scrollbar/border.
- * @param renderer The SDL_Renderer context.
+ * Immediate Mode: Ends a scrollable region, restoring clip and drawing scrollbar/border.
+ * (renderer) The SDL_Renderer context.
  */
 void EndScrollView(SDL_Renderer* renderer) {
     if (g_clipStack.empty()) return;

@@ -53,7 +53,7 @@ bool TextRenderer::isInitialized() const {
 }
 
 /**
- * @brief Finds a suitable fallback font on the system.
+ * Finds a suitable fallback font on the system.
  *
  * This function is now designed for desktop platforms (Windows, Linux, etc.).
  * It searches for a font in a specific order:
@@ -61,7 +61,7 @@ bool TextRenderer::isInitialized() const {
  * 2. Common relative asset directories ("fonts/", "assets/").
  * 3. Standard system font directories for the detected OS.
  *
- * @return The full path to a found font, or an empty string if none are found.
+ * The full path to a found font, or an empty string if none are found.
  */
 std::string TextRenderer::findBundledFallbackFont() {
  // --- STRATEGY 1: Search system directories first. ---

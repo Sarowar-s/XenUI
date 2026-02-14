@@ -17,12 +17,12 @@
 // ---------------- Image resource class implementation Starts ----------------
 
 /**
- * @brief Constructs an Image object and attempts to load the texture resource.
+ * Constructs an Image object and attempts to load the texture resource.
  *
  * Initializes the image by loading an SDL_Texture from the specified file path.
  *
- * @param renderer The SDL_Renderer used to create the texture.
- * @param filePath The path to the image file to load.
+ * (renderer) The SDL_Renderer used to create the texture.
+ * (filePath) The path to the image file to load.
  */
 Image::Image(SDL_Renderer* renderer, const std::string& filePath)
     : m_texture(nullptr), m_width(0), m_height(0)
@@ -51,7 +51,7 @@ Image::Image(SDL_Renderer* renderer, const std::string& filePath)
 }
 
 /**
- * @brief Destructor. Destroys the managed SDL_Texture resource.
+ * Destructor. Destroys the managed SDL_Texture resource.
  */
 Image::~Image() {
     // Safely destroy the texture if it was loaded
@@ -59,9 +59,9 @@ Image::~Image() {
 }
 
 /**
- * @brief Move constructor. Transfers ownership of the SDL_Texture from the source.
+ * Move constructor. Transfers ownership of the SDL_Texture from the source.
  *
- * @param other The Image object to move resources from.
+ * (other) The Image object to move resources from.
  */
 Image::Image(Image&& other) noexcept
     : m_texture(other.m_texture), m_width(other.m_width), m_height(other.m_height)
@@ -73,10 +73,10 @@ Image::Image(Image&& other) noexcept
 }
 
 /**
- * @brief Move assignment operator. Transfers ownership, destroying any existing resource.
+ * Move assignment operator. Transfers ownership, destroying any existing resource.
  *
- * @param other The Image object to move resources from.
- * @return A reference to the current object.
+ * (other) The Image object to move resources from.
+ * A reference to the current object.
  */
 Image& Image::operator=(Image&& other) noexcept {
     if (this != &other) {
@@ -95,14 +95,14 @@ Image& Image::operator=(Image&& other) noexcept {
 }
 
 /**
- * @brief Internal utility function to load an SDL_Texture from a file path.
+ * Internal utility function to load an SDL_Texture from a file path.
  *
  * Handles file I/O, surface creation using SDL_image, and texture creation.
  * It also updates the internal m_width and m_height fields upon success.
  *
- * @param renderer The SDL_Renderer context.
- * @param filePath The path to the image file.
- * @return The created SDL_Texture pointer on success, or nullptr on failure.
+ * (renderer) The SDL_Renderer context.
+ * (filePath) The path to the image file.
+ * The created SDL_Texture pointer on success, or nullptr on failure.
  */
 SDL_Texture* Image::loadTexture(SDL_Renderer* renderer, const std::string& filePath)
 {
@@ -139,17 +139,17 @@ SDL_Texture* Image::loadTexture(SDL_Renderer* renderer, const std::string& fileP
 }
 
 /**
- * @brief Renders the image texture to the renderer with various transformations.
+ * Renders the image texture to the renderer with various transformations.
  *
- * @param renderer The SDL_Renderer context to draw to.
- * @param x The X coordinate of the top-left corner (in integer screen-space coordinates).
- * @param y The Y coordinate of the top-left corner (in integer screen-space coordinates).
- * @param scaleX Horizontal scaling factor.
- * @param scaleY Vertical scaling factor.
- * @param angle Rotation angle in degrees (clockwise).
- * @param clip A pointer to the source SDL_Rect to clip the texture (nullptr for full texture).
- * @param rotationCenter A pointer to the SDL_FPoint for the rotation center (relative to destination rectangle).
- * @param flip The SDL_FlipMode (horizontal, vertical, or none).
+ * (renderer) The SDL_Renderer context to draw to.
+ * (x) The X coordinate of the top-left corner (in integer screen-space coordinates).
+ * (y) The Y coordinate of the top-left corner (in integer screen-space coordinates).
+ * (scaleX) Horizontal scaling factor.
+ * (scaleY) Vertical scaling factor.
+ * (angle) Rotation angle in degrees (clockwise).
+ * (clip) A pointer to the source SDL_Rect to clip the texture (nullptr for full texture).
+ * (rotationCenter) A pointer to the SDL_FPoint for the rotation center (relative to destination rectangle).
+ * (flip) The SDL_FlipMode (horizontal, vertical, or none).
  */
 void Image::render(SDL_Renderer* renderer,
                    int x, int y,
@@ -217,10 +217,10 @@ void Image::render(SDL_Renderer* renderer,
 }
 
 /**
- * @brief Sets the alpha modulation value for the image texture.
+ * Sets the alpha modulation value for the image texture.
  *
- * @param alpha The alpha value (0 to 255).
- * @return true on success, false if the texture is null or setting failed.
+ * (alpha) The alpha value (0 to 255).
+ * true on success, false if the texture is null or setting failed.
  */
 bool Image::setAlpha(Uint8 alpha) {
     if (!m_texture) return false;
@@ -228,12 +228,12 @@ bool Image::setAlpha(Uint8 alpha) {
 }
 
 /**
- * @brief Sets the color modulation value for the image texture.
+ * Sets the color modulation value for the image texture.
  *
- * @param r Red color component (0 to 255).
- * @param g Green color component (0 to 255).
- * @param b Blue color component (0 to 255).
- * @return true on success, false if the texture is null or setting failed.
+ * (r) Red color component (0 to 255).
+ *( g) Green color component (0 to 255).
+ * (b) Blue color component (0 to 255).
+ *  true on success, false if the texture is null or setting failed.
  */
 bool Image::setColorMod(Uint8 r, Uint8 g, Uint8 b) {
     if (!m_texture) return false;
@@ -241,10 +241,10 @@ bool Image::setColorMod(Uint8 r, Uint8 g, Uint8 b) {
 }
 
 /**
- * @brief Sets the blending mode for the image texture.
+ * Sets the blending mode for the image texture.
  *
- * @param blendMode The SDL_BlendMode to use.
- * @return true on success, false if the texture is null or setting failed.
+ * (blendMode) The SDL_BlendMode to use.
+ * true on success, false if the texture is null or setting failed.
  */
 bool Image::setBlendMode(SDL_BlendMode blendMode) {
     if (!m_texture) return false;
@@ -257,21 +257,21 @@ bool Image::setBlendMode(SDL_BlendMode blendMode) {
 // ---------------- Retained-mode ImageControl Starts ----------------
 
 /**
- * @brief Constructs an ImageControl, which manages an Image resource in the Retained Mode UI hierarchy.
+ *Constructs an ImageControl, which manages an Image resource in the Retained Mode UI hierarchy.
  *
  * Loads the image and performs an initial layout calculation.
  *
- * @param renderer The SDL_Renderer context used to load the image.
- * @param filePath The path to the image file.
- * @param posParams Positioning parameters for the control.
- * @param desiredWidth The target width for the image. If >0, overrides scaleX.
- * @param desiredHeight The target height for the image. If >0, overrides scaleY.
- * @param scaleX Initial horizontal scaling factor (used if desiredWidth/H are 0).
- * @param scaleY Initial vertical scaling factor (used if desiredWidth/H are 0).
- * @param angle Rotation angle.
- * @param clip Source rectangle for clipping (optional).
- * @param rotationCenter Rotation center (optional).
- * @param flip Flip mode (optional).
+ * (renderer) The SDL_Renderer context used to load the image.
+ * (filePath) The path to the image file.
+ * (posParams) Positioning parameters for the control.
+ * (desiredWidth) The target width for the image. If >0, overrides scaleX.
+ * (desiredHeight) The target height for the image. If >0, overrides scaleY.
+ * (scaleX) Initial horizontal scaling factor (used if desiredWidth/H are 0).
+ * (scaleY) Initial vertical scaling factor (used if desiredWidth/H are 0).
+ * (angle) Rotation angle.
+ * (clip) Source rectangle for clipping (optional).
+ * (rotationCenter) Rotation center (optional).
+ * (flip) Flip mode (optional).
  */
 ImageControl::ImageControl(SDL_Renderer* renderer,
                            const std::string& filePath,
@@ -302,10 +302,10 @@ ImageControl::ImageControl(SDL_Renderer* renderer,
 }
 
 /**
- * @brief Handles incoming SDL events.
+ * Handles incoming SDL events.
  *
- * @param e The SDL_Event to process.
- * @return false as images typically do not change state based on events.
+ * (e) The SDL_Event to process.
+ * false as images typically do not change state based on events.
  */
 bool ImageControl::handleEvent(const SDL_Event& /*e*/) {
     // By default, a simple ImageControl does not consume or change state based on events.
@@ -313,13 +313,13 @@ bool ImageControl::handleEvent(const SDL_Event& /*e*/) {
 }
 
 /**
- * @brief Recalculates the control's final display size and its position in content-space.
+ * Recalculates the control's final display size and its position in content-space.
  *
  * The final size is determined by native image size, desired dimensions, and scale factors,
  * prioritizing desired dimensions to enforce size or maintain aspect ratio.
  *
- * @param parentWidth The width of the control's parent/content area.
- * @param parentHeight The height of the control's parent/content area.
+ * (parentWidth) The width of the control's parent/content area.
+ * (parentHeight) The height of the control's parent/content area.
  */
 void ImageControl::recalculateLayout(int parentWidth, int parentHeight) {
     // Compute final size based on image native size and desired dims
@@ -362,10 +362,10 @@ void ImageControl::recalculateLayout(int parentWidth, int parentHeight) {
 }
 
 /**
- * @brief Renders the image control to the screen.
+ * Renders the image control to the screen.
  *
- * @param renderer The SDL_Renderer context.
- * @param viewOffset The offset applied by a parent (e.g., scroll view).
+ * (renderer) The SDL_Renderer context.
+ * (viewOffset) The offset applied by a parent (e.g., scroll view).
  */
 void ImageControl::draw(SDL_Renderer* renderer, const SDL_FPoint& viewOffset) {
     if (!m_image || !m_image->isLoaded() || !renderer) return;
@@ -393,9 +393,9 @@ void ImageControl::draw(SDL_Renderer* renderer, const SDL_FPoint& viewOffset) {
 }
 
 /**
- * @brief Retrieves the bounding rectangle of the control in content-space.
+ * Retrieves the bounding rectangle of the control in content-space.
  *
- * @return The SDL_FRect defining the control's bounds (position and final size).
+ * The SDL_FRect defining the control's bounds (position and final size).
  */
 SDL_FRect ImageControl::getBounds() const {
     return { float(m_posX), float(m_posY), m_finalW, m_finalH };
@@ -414,24 +414,24 @@ namespace {
 
 namespace XenUI{
     /**
-     * @brief Immediate-mode function to draw an image, automatically handling window size for layout.
+     * Immediate-mode function to draw an image, automatically handling window size for layout.
      *
      * This variant uses the current window dimensions as the parent dimensions for position calculation.
      *
-     * @param cacheKey A unique ID used to cache the loaded SDL_Texture (often the file path).
-     * @param renderer The SDL_Renderer context.
-     * @param filePath The path to the image file.
-     * @param posParams Positioning parameters.
-     * @param viewOffset The scroll offset to apply to the final draw position.
-     * @param desiredWidth The target width for the image (overrides scaleX).
-     * @param desiredHeight The target height for the image (overrides scaleY).
-     * @param scaleX Initial horizontal scaling factor.
-     * @param scaleY Initial vertical scaling factor.
-     * @param angle Rotation angle.
-     * @param clip Source rectangle for clipping (optional).
-     * @param rotationCenter Rotation center (optional).
-     * @param flip Flip mode (optional).
-     * @return true if the image was successfully loaded and rendered, false otherwise.
+     * (cacheKey) A unique ID used to cache the loaded SDL_Texture (often the file path).
+     * (renderer) The SDL_Renderer context.
+     * (filePath) The path to the image file.
+     * (posParams) Positioning parameters.
+     * (viewOffset) The scroll offset to apply to the final draw position.
+     * (desiredWidth) The target width for the image (overrides scaleX).
+     * (desiredHeight) The target height for the image (overrides scaleY).
+     * (scaleX) Initial horizontal scaling factor.
+     * (scaleY) Initial vertical scaling factor.
+     * (angle) Rotation angle.
+     * (clip) Source rectangle for clipping (optional).
+     * (rotationCenter) Rotation center (optional).
+     * (flip) Flip mode (optional).
+     *  true if the image was successfully loaded and rendered, false otherwise.
      */
     bool DrawImage(const std::string& cacheKey,
                SDL_Renderer* renderer,
@@ -457,24 +457,24 @@ namespace XenUI{
     }
 
     /**
-     * @brief Immediate-mode function to draw an image, explicitly taking parent dimensions for layout.
+     * Immediate-mode function to draw an image, explicitly taking parent dimensions for layout.
      *
-     * @param cacheKey A unique ID used to cache the loaded SDL_Texture.
-     * @param renderer The SDL_Renderer context.
-     * @param filePath The path to the image file.
-     * @param posParams Positioning parameters.
-     * @param parentWidth The width of the containing parent element/area.
-     * @param parentHeight The height of the containing parent element/area.
-     * @param viewOffset The scroll offset.
-     * @param desiredWidth The target width for the image (overrides scaleX).
-     * @param desiredHeight The target height for the image (overrides scaleY).
-     * @param scaleX Initial horizontal scaling factor.
-     * @param scaleY Initial vertical scaling factor.
-     * @param angle Rotation angle.
-     * @param clip Source rectangle for clipping (optional).
-     * @param rotationCenter Rotation center (optional).
-     * @param flip Flip mode (optional).
-     * @return true if the image was successfully loaded and rendered, false otherwise.
+     * (cacheKey) A unique ID used to cache the loaded SDL_Texture.
+     * (renderer) The SDL_Renderer context.
+     * (filePath) The path to the image file.
+     * (posParams) Positioning parameters.
+     * (parentWidth) The width of the containing parent element/area.
+     * (parentHeight) The height of the containing parent element/area.
+     * (viewOffset) The scroll offset.
+     * (desiredWidth) The target width for the image (overrides scaleX).
+     * (desiredHeight) The target height for the image (overrides scaleY).
+     * (scaleX) Initial horizontal scaling factor.
+     * (scaleY) Initial vertical scaling factor.
+     * (angle) Rotation angle.
+     * (clip) Source rectangle for clipping (optional).
+     * (rotationCenter) Rotation center (optional).
+     * (flip) Flip mode (optional).
+     *  true if the image was successfully loaded and rendered, false otherwise.
      */
     bool DrawImage(const std::string& cacheKey,
                SDL_Renderer* renderer,

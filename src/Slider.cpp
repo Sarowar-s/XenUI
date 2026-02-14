@@ -17,17 +17,17 @@ using namespace XenUI;
 // ---------------- Retained Mode Slider Implementation Starts Here ----------------
 
 /**
- * @brief Constructs a retained-mode Slider control.
+ * Constructs a retained-mode Slider control.
  *
- * @param id Unique identifier for the slider.
- * @param orientation The orientation of the slider (Horizontal or Vertical).
- * @param posParams The positional constraints for the slider's bounding box.
- * @param length The total length of the slider track (width for horizontal, height for vertical).
- * @param initialValue The starting value, clamped between minValue and maxValue.
- * @param minValue The minimum possible value.
- * @param maxValue The maximum possible value.
- * @param style The visual style parameters.
- * @param onValueChanged Optional callback function invoked when the value changes.
+ * (id) Unique identifier for the slider.
+ * (orientation) The orientation of the slider (Horizontal or Vertical).
+ * (posParams) The positional constraints for the slider's bounding box.
+ * (length) The total length of the slider track (width for horizontal, height for vertical).
+ * (initialValue) The starting value, clamped between minValue and maxValue.
+ * (minValue) The minimum possible value.
+ * (maxValue) The maximum possible value.
+ * (style) The visual style parameters.
+ * (onValueChanged) Optional callback function invoked when the value changes.
  */
 Slider::Slider(const std::string& id,
                XenUI::Orientation orientation,
@@ -68,9 +68,9 @@ Slider::Slider(const std::string& id,
 }
 
 /**
- * @brief Calculates the content-space bounding box of the slider thumb.
+ * Calculates the content-space bounding box of the slider thumb.
  *
- * @return The SDL_FRect defining the thumb's size and content-space position.
+ * The SDL_FRect defining the thumb's size and content-space position.
  */
 SDL_FRect Slider::getThumbRectContent() const {
     float thumbW = static_cast<float>(m_style.thumbSize);
@@ -100,11 +100,11 @@ SDL_FRect Slider::getThumbRectContent() const {
 }
 
 /**
- * @brief Checks if a content-space point falls within the slider thumb.
+ * Checks if a content-space point falls within the slider thumb.
  *
- * @param x Content-space X coordinate.
- * @param y Content-space Y coordinate.
- * @return true if the point is within the thumb, false otherwise.
+ * (x) Content-space X coordinate.
+ * (y) Content-space Y coordinate.
+ * true if the point is within the thumb, false otherwise.
  */
 bool Slider::isPointInThumbContent(float x, float y) const {
     SDL_FRect r = getThumbRectContent();
@@ -112,10 +112,10 @@ bool Slider::isPointInThumbContent(float x, float y) const {
 }
 
 /**
- * @brief Updates the slider's value based on a content-space mouse position during drag.
+ * Updates the slider's value based on a content-space mouse position during drag.
  *
- * @param mouseX Content-space X coordinate of the pointer.
- * @param mouseY Content-space Y coordinate of the pointer.
+ * (mouseX) Content-space X coordinate of the pointer.
+ * (mouseY) Content-space Y coordinate of the pointer.
  */
 void Slider::updateValueFromMouseContent(float mouseX, float mouseY) {
     float newValue = m_currentValue;
@@ -145,10 +145,10 @@ void Slider::updateValueFromMouseContent(float mouseX, float mouseY) {
 }
 
 /**
- * @brief Renders the slider track, thumb, and optional value text.
+ * Renders the slider track, thumb, and optional value text.
  *
- * @param renderer The SDL_Renderer context.
- * @param viewOffset The screen-space offset inherited from parent containers.
+ * (renderer) The SDL_Renderer context.
+ * (viewOffset) The screen-space offset inherited from parent containers.
  */
 void Slider::draw(SDL_Renderer* renderer, const SDL_FPoint& viewOffset) {
     // Check renderer and ensure text rendering system is ready if text is needed
@@ -203,12 +203,12 @@ void Slider::draw(SDL_Renderer* renderer, const SDL_FPoint& viewOffset) {
 }
 
 /**
- * @brief Handles input events (mouse movement, clicks) for the slider.
+ * Handles input events (mouse movement, clicks) for the slider.
  *
  * Expects event coordinates to be in content-space if the slider is nested.
  *
- * @param event The SDL_Event to process.
- * @return true if the slider's state or value changed as a result of the event, false otherwise.
+ * (event) The SDL_Event to process.
+ * true if the slider's state or value changed as a result of the event, false otherwise.
  */
 bool Slider::handleEvent(const SDL_Event& event) {
     bool changed = false;
@@ -273,10 +273,10 @@ bool Slider::handleEvent(const SDL_Event& event) {
 }
 
 /**
- * @brief Recalculates the slider's screen position based on parent layout.
+ * Recalculates the slider's screen position based on parent layout.
  *
- * @param parentWidth The available width in the parent container.
- * @param parentHeight The available height in the parent container.
+ * (parentWidth) The available width in the parent container.
+ * (parentHeight) The available height in the parent container.
  */
 void Slider::recalculateLayout(int parentWidth, int parentHeight) {
     // Resolve position using PositionParams
@@ -285,20 +285,20 @@ void Slider::recalculateLayout(int parentWidth, int parentHeight) {
 }
 
 /**
- * @brief Returns the absolute content-space bounding box of the entire slider control.
+ * Returns the absolute content-space bounding box of the entire slider control.
  *
- * @return The SDL_FRect defining the bounds.
+ * The SDL_FRect defining the bounds.
  */
 SDL_FRect Slider::getBounds() const {
     return SDL_FRect{ (float)m_posX, (float)m_posY, (float)m_width, (float)m_height };
 }
 
 /**
- * @brief Programmatically sets the slider's current value.
+ * Programmatically sets the slider's current value.
  *
  * Clamps the new value and invokes the callback if the value changes.
  *
- * @param newValue The new value to set.
+ * (newValue) The new value to set.
  */
 void Slider::setValue(float newValue) {
     newValue = std::clamp(newValue, m_minValue, m_maxValue);
@@ -315,21 +315,21 @@ namespace XenUI {
 // ---------------- Immediate Mode Slider Implementation Starts Here ----------------
 
 /**
- * @brief Immediate Mode: Renders and manages a slider control using window size as parent fallback.
+ * Immediate Mode: Renders and manages a slider control using window size as parent fallback.
  *
  * This function is a convenience wrapper that resolves layout relative to the window size.
  *
- * @param id Unique identifier (for state persistence).
- * @param orientation Slider orientation.
- * @param posParams Positional constraints.
- * @param length Track length.
- * @param value Pointer to the value variable (read/write).
- * @param minValue Minimum value.
- * @param maxValue Maximum value.
- * @param style Visual style.
- * @param viewOffset Screen-space offset from parent (e.g., ScrollView offset).
- * @param event The current SDL_Event pointer (optional, but needed for input).
- * @return true if the slider's value was changed this frame, false otherwise.
+ * (id) Unique identifier (for state persistence).
+ * (orientation) Slider orientation.
+ * (posParams) Positional constraints.
+ * (length) Track length.
+ * (value) Pointer to the value variable (read/write).
+ * (minValue) Minimum value.
+ * (maxValue) Maximum value.
+ * (style) Visual style.
+ * (viewOffset) Screen-space offset from parent (e.g., ScrollView offset).
+ * (event) The current SDL_Event pointer (optional, but needed for input).
+ *  true if the slider's value was changed this frame, false otherwise.
  */
 bool Slider(const std::string& id,
             XenUI::Orientation orientation,
@@ -349,24 +349,24 @@ bool Slider(const std::string& id,
 }
 
 /**
- * @brief Immediate Mode: Parent-aware implementation of the slider control.
+ * Immediate Mode: Parent-aware implementation of the slider control.
  *
  * Renders the slider, handles input using the shared state map, and updates the external
  * value pointer.
  *
- * @param id Unique identifier (for state persistence).
- * @param orientation Slider orientation.
- * @param posParams Positional constraints.
- * @param length Track length.
- * @param value Pointer to the value variable (read/write).
- * @param minValue Minimum value.
- * @param maxValue Maximum value.
- * @param parentWidth The width of the parent container for layout resolution.
- * @param parentHeight The height of the parent container for layout resolution.
- * @param style Visual style.
- * @param viewOffset Screen-space offset from parent (e.g., ScrollView offset).
- * @param event The current SDL_Event pointer (optional, but input logic uses direct mouse state).
- * @return true if the slider's value was changed this frame, false otherwise.
+ * (id) Unique identifier (for state persistence).
+ * (orientation) Slider orientation.
+ * (posParams) Positional constraints.
+ * (length) Track length.
+ * (value) Pointer to the value variable (read/write).
+ * (minValue) Minimum value.
+ * (maxValue) Maximum value.
+ * (parentWidth) The width of the parent container for layout resolution.
+ * (parentHeight) The height of the parent container for layout resolution.
+ * (style) Visual style.
+ * (viewOffset) Screen-space offset from parent (e.g., ScrollView offset).
+ * (event) The current SDL_Event pointer (optional, but input logic uses direct mouse state).
+ *  true if the slider's value was changed this frame, false otherwise.
  */
 bool Slider(const std::string& id,
             XenUI::Orientation orientation,

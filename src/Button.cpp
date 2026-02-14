@@ -27,17 +27,17 @@
  */
 
 /**
- * @brief Constructs a new Retained Mode Button object.
+ * Constructs a new Retained Mode Button object.
  *
  * Initializes the button with text, layout parameters, style, and an optional
  * click handler. It immediately calculates the required dimensions based on the text
  * and padding.
  *
- * @param text The string to display on the button.
- * @param posParams The PositionParams structure defining the anchor and offsets.
- * @param style The visual style (colors, padding, border) of the button.
- * @param onClick The functional callback executed when the button is clicked.
- * @param fontSize The size of the text to be rendered. Uses DEFAULT_BUTTON_FONT_SIZE if <= 0.
+ * (text) The string to display on the button.
+ *  (posParams) The PositionParams structure defining the anchor and offsets.
+ *  (style) The visual style (colors, padding, border) of the button.
+ *  (onClick) The functional callback executed when the button is clicked.
+ *  (fontSize) The size of the text to be rendered. Uses DEFAULT_BUTTON_FONT_SIZE if <= 0.
  */
 Button::Button(const std::string& text,
                const XenUI::PositionParams& posParams,
@@ -71,13 +71,13 @@ Button::Button(const std::string& text,
 }
 
 /**
- * @brief Renders the retained button to the screen.
+ * Renders the retained button to the screen.
  *
  * Draws the button background, border, and centered text, adjusting the position
  * based on the provided view offset (used for scrolling containers).
  *
- * @param renderer The SDL_Renderer instance used for drawing.
- * @param viewOffset The scroll/view offset of the parent container (e.g., ScrollView).
+ *  The SDL_Renderer instance used for drawing.
+ *  The scroll/view offset of the parent container (e.g., ScrollView).
  */
 void Button::draw(SDL_Renderer* renderer, const SDL_FPoint& viewOffset) {
     // Calculate the button's absolute position on screen by adding the view offset
@@ -120,13 +120,13 @@ void Button::draw(SDL_Renderer* renderer, const SDL_FPoint& viewOffset) {
 }
 
 /**
- * @brief Handles an SDL input event for the retained button.
+ * Handles an SDL input event for the retained button.
  *
  * Updates the button's state (hover, pressed) based on mouse events and triggers
  * the m_onClick callback if a click (press and release inside) occurs.
  *
- * @param event The SDL_Event structure containing input details.
- * @return bool True if the event was consumed (handled by this button), false otherwise.
+ * The SDL_Event structure containing input details.
+ * bool True if the event was consumed (handled by this button), false otherwise.
  */
 bool Button::handleEvent(const SDL_Event& event) {
     bool changed = false;
@@ -182,13 +182,13 @@ bool Button::handleEvent(const SDL_Event& event) {
 }
 
 /**
- * @brief Recalculates the button's position and size based on parent dimensions.
+ * Recalculates the button's position and size based on parent dimensions.
  *
  * This method should be called whenever the parent container is resized, ensuring
  * the anchor constraints are reapplied. It updates m_width, m_height, m_posX, and m_posY.
  *
- * @param parentWidth The new width of the parent container.
- * @param parentHeight The new height of the parent container.
+ *  The new width of the parent container.
+ *  The new height of the parent container.
  */
 void Button::recalculateLayout(int parentWidth, int parentHeight) {
     // 1. Re-measure text and calculate button dimensions
@@ -213,22 +213,22 @@ void Button::recalculateLayout(int parentWidth, int parentHeight) {
 
 namespace XenUI {
     /**
-     * @brief Renders an Immediate Mode Button and handles its input for one frame.
+     * Renders an Immediate Mode Button and handles its input for one frame.
      *
      * This function performs all layout, rendering, and input handling in a single call.
      * Its state (hover, pressed) is tracked externally using the unique 'id' and a static map.
      *
-     * @param id A unique string identifier for this button instance (used for state persistence).
-     * @param text The string to display on the button.
-     * @param posParams The position parameters (Anchor and offset).
-     * @param renderer The SDL_Renderer instance for drawing.
-     * @param viewOffset The scroll/view offset to apply to the position before drawing.
-     * @param style The visual style of the button.
-     * @param fontSize The size of the text.
-     * @param triggerOnPress If true, the button returns true immediately on mouse down. If false, it returns true on mouse up (standard click).
-     * @param parentWidth The width of the parent container.
-     * @param parentHeight The height of the parent container.
-     * @return bool True if the button was "clicked" (according to triggerOnPress logic) this frame, false otherwise.
+     *  (id) A unique string identifier for this button instance (used for state persistence).
+     *  (text) The string to display on the button.
+     *  (posParams) The position parameters (Anchor and offset).
+     *  (renderer) The SDL_Renderer instance for drawing.
+     *  (viewOffset) The scroll/view offset to apply to the position before drawing.
+     *  (style) The visual style of the button.
+     *  (fontSize) The size of the text.
+     *  (triggerOnPress) If true, the button returns true immediately on mouse down. If false, it returns true on mouse up (standard click).
+     *  (parentWidth) The width of the parent container.
+     *  (parentHeight) The height of the parent container.
+     *  (bool) True if the button was "clicked" (according to triggerOnPress logic) this frame, false otherwise.
      */
     bool Button(const std::string& id, const std::string& text,
                 const PositionParams& posParams,

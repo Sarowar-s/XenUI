@@ -22,7 +22,7 @@
 namespace XenUI {
 
     /**
-     * @brief Calculates the absolute pixel position of a UI element based on its anchor point.
+     * Calculates the absolute pixel position of a UI element based on its anchor point.
      *
      * This function translates a logical anchor (e.g., TOP_RIGHT, CENTER) and pixel offsets
      * into a final (x, y) coordinate pair relative to the parent container's top-left corner.

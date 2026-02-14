@@ -16,17 +16,17 @@
 
 
 /**
- * @brief Constructs a Checkbox object (Retained Mode).
+ * Constructs a Checkbox object (Retained Mode).
  *
  * Initializes the checkbox with its label, positioning parameters, initial state,
  * styling, font size, and a toggle callback function.
  *
- * @param label The text displayed next to the checkbox.
- * @param posParams Parameters determining the checkbox's position relative to its parent/container.
- * @param initialState The initial checked state (true for checked, false for unchecked).
- * @param style Visual style parameters for the checkbox (colors, sizes, etc.).
- * @param fontSize Font size for the label. If 0 or negative, uses DEFAULT_CHECKBOX_FONT_SIZE.
- * @param onToggle A function to call when the checkbox state is toggled.
+ * (label) The text displayed next to the checkbox.
+ * (posParams) Parameters determining the checkbox's position relative to its parent/container.
+ * (initialState) The initial checked state (true for checked, false for unchecked).
+ * (style) Visual style parameters for the checkbox (colors, sizes, etc.).
+ * (fontSize) Font size for the label. If 0 or negative, uses DEFAULT_CHECKBOX_FONT_SIZE.
+ * (onToggle) A function to call when the checkbox state is toggled.
  */
 Checkbox::Checkbox(const std::string& label,
                    const XenUI::PositionParams& posParams,
@@ -50,13 +50,13 @@ Checkbox::Checkbox(const std::string& label,
 }
 
 /**
- * @brief Draws the checkmark symbol inside the checkbox bounding box.
+ * Draws the checkmark symbol inside the checkbox bounding box.
  *
  * This function calculates the coordinates for a 'V' shaped checkmark and draws it
  * using SDL_RenderLine, taking into account the defined checkmark thickness.
  *
- * @param renderer The SDL_Renderer context to draw upon.
- * @param boxRect The absolute screen coordinates and dimensions of the checkbox box.
+ * (renderer) The SDL_Renderer context to draw upon.
+ * (boxRect) The absolute screen coordinates and dimensions of the checkbox box.
  */
 void Checkbox::drawCheckmark(SDL_Renderer* renderer, const SDL_FRect& boxRect) const {
     if (!renderer) return;
@@ -86,14 +86,14 @@ void Checkbox::drawCheckmark(SDL_Renderer* renderer, const SDL_FRect& boxRect) c
 }
 
 /**
- * @brief Renders the checkbox (Retained Mode Draw Function).
+ * Renders the checkbox (Retained Mode Draw Function).
  *
  * Draws the checkbox box (background and border), the checkmark (if checked),
  * and the label text. All local coordinates are translated by the viewOffset
  * to get absolute screen coordinates.
  *
- * @param renderer The SDL_Renderer context.
- * @param viewOffset The coordinate space offset (e.g., from a scroll view) to apply.
+ * (renderer) The SDL_Renderer context.
+ * (viewOffset) The coordinate space offset (e.g., from a scroll view) to apply.
  */
 void Checkbox::draw(SDL_Renderer* renderer, const SDL_FPoint& viewOffset) {
     if (!renderer) {
@@ -143,14 +143,14 @@ void Checkbox::draw(SDL_Renderer* renderer, const SDL_FPoint& viewOffset) {
 }
 
 /**
- * @brief Processes SDL input events for the checkbox (Retained Mode Event Handler).
+ * Processes SDL input events for the checkbox (Retained Mode Event Handler).
  *
  * Updates the internal state (hovered, pressed, checked) based on mouse events.
  * It is assumed that event coordinates are already translated into the local
  * coordinate space of the checkbox (e.g., by a parent container like a ScrollView).
  *
- * @param e The SDL_Event to handle.
- * @return true if the internal state of the checkbox changed (e.g., hover, press, check state), false otherwise.
+ * (e) The SDL_Event to handle.
+ * (true) if the internal state of the checkbox changed (e.g., hover, press, check state), false otherwise.
  */
 bool Checkbox::handleEvent(const SDL_Event& e) {
     bool changed = false;
@@ -213,14 +213,14 @@ bool Checkbox::handleEvent(const SDL_Event& e) {
 
 
 /**
- * @brief Recalculates the internal layout and positioning of the checkbox elements.
+ * Recalculates the internal layout and positioning of the checkbox elements.
  *
  * This function is responsible for measuring the label text, calculating the total
  * widget dimensions, resolving the final position within the parent/content area,
  * and determining the local rectangles for the check box and the label text position.
  *
- * @param parentWidth The width of the parent container/content area (default 0).
- * @param parentHeight The height of the parent container/content area (default 0).
+ * (parentWidth) The width of the parent container/content area (default 0).
+ * (parentHeight) The height of the parent container/content area (default 0).
  */
 void Checkbox::recalculateLayout(int parentWidth, int parentHeight) {
     // 1) Measure text width/height
@@ -276,22 +276,22 @@ void Checkbox::recalculateLayout(int parentWidth, int parentHeight) {
 //-----------------------------------------------------------------------------
 namespace XenUI {
     /**
-     * @brief Renders and handles an immediate-mode Checkbox control.
+     * Renders and handles an immediate-mode Checkbox control.
      *
      * This function draws a checkbox and processes mouse input in a single call,
      * directly affecting the state pointed to by 'isChecked'. State is transiently
      * tracked using a static map based on the unique 'id'.
      *
-     * @param id A unique string identifier for the checkbox instance.
-     * @param label The text displayed next to the checkbox.
-     * @param isChecked Pointer to the boolean variable holding the check state.
-     * @param posParams Parameters for positioning the control relative to its parent/content.
-     * @param style Visual style parameters.
-     * @param fontSize Font size for the label.
-     * @param viewOffset The coordinate space offset (e.g., scroll position) to apply.
-     * @param parentWidth The width of the parent container/content area.
-     * @param parentHeight The height of the parent container/content area.
-     * @return true if the check state (*isChecked) was changed by this call, false otherwise.
+     *  (id) A unique string identifier for the checkbox instance.
+     *  (label) The text displayed next to the checkbox.
+     *  (isChecked) Pointer to the boolean variable holding the check state.
+     *  (posParams) Parameters for positioning the control relative to its parent/content.
+     *  (style) Visual style parameters.
+     *  (fontSize) Font size for the label.
+     *  (viewOffset) The coordinate space offset (e.g., scroll position) to apply.
+     *  (parentWidth) The width of the parent container/content area.
+     *  (parentHeight) The height of the parent container/content area.
+     *  (true) if the check state (*isChecked) was changed by this call, false otherwise.
      */
     bool Checkbox(const char* id,
                   const std::string& label,

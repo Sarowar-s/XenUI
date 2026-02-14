@@ -18,17 +18,17 @@ using namespace XenUI;
 // ---------------- Retained implementation Starts ----------------
 
 /**
- * @brief Constructs a Dropdown object for Retained Mode UI.
+ * Constructs a Dropdown object for Retained Mode UI.
  *
  * Initializes the dropdown with its configuration, options, and style.
  *
- * @param id A unique identifier string for the control.
- * @param posParams Parameters determining the dropdown's position relative to its parent.
- * @param width The fixed width of the dropdown main button and list.
- * @param options A list of strings representing the selectable items.
- * @param initialSelectedIndex The index of the initially selected option.
- * @param style Visual style parameters for the dropdown.
- * @param onSelectionChanged A function to call when a new item is selected.
+ * (id) A unique identifier string for the control.
+ * (posParams) Parameters determining the dropdown's position relative to its parent.
+ * (width) The fixed width of the dropdown main button and list.
+ * (options) A list of strings representing the selectable items.
+ * (initialSelectedIndex) The index of the initially selected option.
+ * (style) Visual style parameters for the dropdown.
+ * (onSelectionChanged) A function to call when a new item is selected.
  */
 Dropdown::Dropdown(const std::string& id,
                    const XenUI::PositionParams& posParams,
@@ -58,13 +58,13 @@ Dropdown::Dropdown(const std::string& id,
 }
 
 /**
- * @brief Recalculates the internal layout and positioning of the dropdown.
+ * Recalculates the internal layout and positioning of the dropdown.
  *
  * Measures the necessary heights for the main button and list items based on font size,
  * then calculates the final position of the control within the parent/content area.
  *
- * @param parentWidth The width of the parent container/content area.
- * @param parentHeight The height of the parent container/content area.
+ * (parentWidth) The width of the parent container/content area.
+ * (parentHeight) The height of the parent container/content area.
  */
 void Dropdown::recalculateLayout(int parentWidth, int parentHeight) {
     // Measure height required for main button text (e.g., using "M" as an average glyph size)
@@ -90,17 +90,17 @@ void Dropdown::recalculateLayout(int parentWidth, int parentHeight) {
 }
 
 /**
- * @brief Gets the bounding rectangle of the main dropdown button in content-space coordinates.
- * @return The SDL_FRect for the main button.
+ * Gets the bounding rectangle of the main dropdown button in content-space coordinates.
+ * The SDL_FRect for the main button.
  */
 SDL_FRect Dropdown::getMainButtonRectContent() const {
     return { float(m_posX), float(m_posY), float(m_width), float(m_mainButtonHeight) };
 }
 
 /**
- * @brief Gets the bounding rectangle of a specific list item in content-space coordinates.
- * @param index The index of the list item.
- * @return The SDL_FRect for the list item, or {0,0,0,0} if the index is out of bounds.
+ * Gets the bounding rectangle of a specific list item in content-space coordinates.
+ * (index) The index of the list item.
+ * The SDL_FRect for the list item, or {0,0,0,0} if the index is out of bounds.
  */
 SDL_FRect Dropdown::getListItemRectContent(int index) const {
     if (index < 0 || index >= (int)m_options.size()) return {0,0,0,0};
@@ -110,10 +110,10 @@ SDL_FRect Dropdown::getListItemRectContent(int index) const {
 }
 
 /**
- * @brief Checks if a given point is within the bounds of the main dropdown button (content-space).
- * @param x The X coordinate (content-space).
- * @param y The Y coordinate (content-space).
- * @return true if the point is inside the main button rectangle.
+ * Checks if a given point is within the bounds of the main dropdown button (content-space).
+ * (x) The X coordinate (content-space).
+ * (y) The Y coordinate (content-space).
+ * (true) if the point is inside the main button rectangle.
  */
 bool Dropdown::isPointInMainButtonContent(float x, float y) const {
     SDL_FRect r = getMainButtonRectContent();
@@ -121,10 +121,10 @@ bool Dropdown::isPointInMainButtonContent(float x, float y) const {
 }
 
 /**
- * @brief Checks if a given point is within the bounds of the open list area (content-space).
- * @param x The X coordinate (content-space).
- * @param y The Y coordinate (content-space).
- * @return true if the point is inside the list area and the dropdown is open.
+ * Checks if a given point is within the bounds of the open list area (content-space).
+ * (x) The X coordinate (content-space).
+ * (y) The Y coordinate (content-space).
+ *  true if the point is inside the list area and the dropdown is open.
  */
 bool Dropdown::isPointInListAreaContent(float x, float y) const {
     if (!m_isOpen || m_options.empty()) return false;
@@ -136,13 +136,13 @@ bool Dropdown::isPointInListAreaContent(float x, float y) const {
 }
 
 /**
- * @brief Processes an SDL event to update the dropdown's state (open/closed, selection, hover).
+ *  Processes an SDL event to update the dropdown's state (open/closed, selection, hover).
  *
  * This function assumes event coordinates are already translated to the control's
  * content-space (e.g., by a parent ScrollView).
  *
- * @param event The SDL_Event to process.
- * @return true if the internal state changed, false otherwise.
+ * (event) The SDL_Event to process.
+ * true if the internal state changed, false otherwise.
  */
 bool Dropdown::handleEvent(const SDL_Event& event) {
     // Extract mouse coordinates from event (assumed to be content-space coordinates)
@@ -230,12 +230,12 @@ bool Dropdown::handleEvent(const SDL_Event& event) {
 }
 
 /**
- * @brief Renders the dropdown control (main button and open list) to the screen.
+ * Renders the dropdown control (main button and open list) to the screen.
  *
  * All local content-space coordinates are translated to absolute screen-space using viewOffset.
  *
- * @param renderer The SDL_Renderer context.
- * @param viewOffset The coordinate space offset (e.g., from a scroll view).
+ * (renderer) The SDL_Renderer context.
+ * (viewOffset) The coordinate space offset (e.g., from a scroll view).
  */
 void Dropdown::draw(SDL_Renderer* renderer, const SDL_FPoint& viewOffset) {
     if (!renderer) return;
@@ -317,13 +317,13 @@ void Dropdown::draw(SDL_Renderer* renderer, const SDL_FPoint& viewOffset) {
 }
 
 /**
- * @brief Retrieves the bounding rectangle of the control in content-space.
+ * Retrieves the bounding rectangle of the control in content-space.
  *
  * The bounds reflect only the main button when closed, but include the entire
  * dropdown list when open to ensure proper hit testing by parent containers
  * (e.g., ScrollView needs the total occupied space).
  *
- * @return The SDL_FRect representing the control's total occupied area.
+ * The SDL_FRect representing the control's total occupied area.
  */
 SDL_FRect Dropdown::getBounds() const {
     // Return bounding box of main button (content-space) when closed,
@@ -345,8 +345,8 @@ SDL_FRect Dropdown::getBounds() const {
 
 
 /**
- * @brief Programmatically sets the selected index and triggers the selection change callback.
- * @param newIndex The index of the option to select.
+ * Programmatically sets the selected index and triggers the selection change callback.
+ * (newIndex) The index of the option to select.
  */
 void Dropdown::setSelectedIndex(int newIndex) {
     if (m_options.empty()) return;
@@ -358,8 +358,8 @@ void Dropdown::setSelectedIndex(int newIndex) {
 }
 
 /**
- * @brief Returns the text of the currently selected option.
- * @return The selected option string, or an empty string if no option is selected.
+ * Returns the text of the currently selected option.
+ * The selected option string, or an empty string if no option is selected.
  */
 std::string Dropdown::getSelectedText() const {
     if (m_selectedIndex >= 0 && m_selectedIndex < (int)m_options.size()) return m_options[m_selectedIndex];
@@ -373,22 +373,22 @@ std::string Dropdown::getSelectedText() const {
 namespace XenUI {
 
 /**
- * @brief Immediate-mode function to draw and handle a Dropdown control.
+ * Immediate-mode function to draw and handle a Dropdown control.
  *
  * The function manages the dropdown's state (open/closed, selection, hover) internally
  * using a static map keyed by 'id'. It performs layout, processes input, updates the
  * external 'selectedIndex' pointer, and draws the control in one call.
  *
- * @param id A unique string identifier for tracking internal state across frames.
- * @param posParams Parameters for positioning the control.
- * @param width The fixed width of the dropdown.
- * @param options The list of selectable option strings.
- * @param selectedIndex Pointer to the external integer variable holding the selected index.
- * @param style Visual style parameters.
- * @param viewOffset The scroll offset to translate content-space to screen-space (default {0.0f, 0.0f}).
- * @param parentWidth The width of the parent container for layout calculation (default -1, uses window width).
- * @param parentHeight The height of the parent container for layout calculation (default -1, uses window height).
- * @return true if the selected index was changed during this call, false otherwise.
+ *  (id) A unique string identifier for tracking internal state across frames.
+ *  (posParams) Parameters for positioning the control.
+ *  (width) The fixed width of the dropdown.
+ *  (options) The list of selectable option strings.
+ *  (selectedIndex) Pointer to the external integer variable holding the selected index.
+ *  (style) Visual style parameters.
+ *  (viewOffset) The scroll offset to translate content-space to screen-space (default {0.0f, 0.0f}).
+ *  (parentWidth) The width of the parent container for layout calculation (default -1, uses window width).
+ *  (parentHeight) The height of the parent container for layout calculation (default -1, uses window height).
+ * true if the selected index was changed during this call, false otherwise.
  */
 bool Dropdown(const std::string& id,
               const PositionParams& posParams,

@@ -17,26 +17,26 @@ static SDL_Window* g_window = nullptr;
 namespace XenUI {
 
     /**
-     * @brief Stores the reference to the main application SDL_Window.
+     * Stores the reference to the main application SDL_Window.
      *
      * This pointer is used internally by XenonUI components (e.g., layout calculation)
      * that need window dimensions or context. This must be called after the window
      * is created during application setup.
      *
-     * @param window The pointer to the application's main SDL_Window instance.
+     * (window) The pointer to the application's main SDL_Window instance.
      */
     void SetWindow(SDL_Window* window) {
         g_window = window;
     }
 
     /**
-     * @brief Retrieves the current pixel size of the main application window.
+     * Retrieves the current pixel size of the main application window.
      *
      * This function wraps SDL_GetWindowSize and caches the result for potential
      * performance benefits, although SDL_GetWindowSize is generally fast. It also
      * provides a fallback default size if the window pointer has not been set.
      *
-     * @return An SDL_Point structure where x is the width and y is the height of the window.
+     * An SDL_Point structure where x is the width and y is the height of the window.
      */
     SDL_Point GetWindowSize() {
         // Check if the window pointer is valid

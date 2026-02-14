@@ -17,12 +17,12 @@ namespace XenUI {
 // ---------------- Retained Mode Rectangle Implementation Starts Here ----------------
 
 /**
- * @brief Constructs a retained-mode rectangular shape control.
+ * Constructs a retained-mode rectangular shape control.
  *
- * @param posParams The positional constraints (anchors, offsets) of the rectangle's bounding box.
- * @param width The requested width in pixels. Use -1 for dynamic width (fills parent).
- * @param height The requested height in pixels. Use -1 for dynamic height (fills parent).
- * @param color The SDL_Color used to fill the rectangle.
+ * (posParams) The positional constraints (anchors, offsets) of the rectangle's bounding box.
+ * (width) The requested width in pixels. Use -1 for dynamic width (fills parent).
+ * (height) The requested height in pixels. Use -1 for dynamic height (fills parent).
+ * (color) The SDL_Color used to fill the rectangle.
  */
 Rectangle::Rectangle(XenUI::PositionParams posParams, int width, int height, SDL_Color color)
     : m_posParams(posParams),
@@ -35,12 +35,12 @@ Rectangle::Rectangle(XenUI::PositionParams posParams, int width, int height, SDL
 }
 
 /**
- * @brief Handles events for the Rectangle control.
+ * Handles events for the Rectangle control.
  *
  * Primitive shapes are non-interactive by default, so this always returns false.
  *
- * @param e The SDL_Event to process.
- * @return false, as the event is not consumed.
+ * (e) The SDL_Event to process.
+ * false, as the event is not consumed.
  */
 bool Rectangle::handleEvent(const SDL_Event& /*e*/) {
     // Non-interactive by default
@@ -48,12 +48,12 @@ bool Rectangle::handleEvent(const SDL_Event& /*e*/) {
 }
 
 /**
- * @brief Recalculates the position and size of the Rectangle based on parent dimensions.
+ * Recalculates the position and size of the Rectangle based on parent dimensions.
  *
  * Resolves dynamic size requests against the provided parent dimensions.
  *
- * @param parentWidth The available width in the parent container.
- * @param parentHeight The available height in the parent container.
+ * (parentWidth) The available width in the parent container.
+ * (parentHeight) The available height in the parent container.
  */
 void Rectangle::recalculateLayout(int parentWidth, int parentHeight) {
     // Resolve width: use parent width if dynamic is set, otherwise use requested width
@@ -68,17 +68,17 @@ void Rectangle::recalculateLayout(int parentWidth, int parentHeight) {
 }
 
 /**
- * @brief Returns the absolute screen-space bounds of the rectangle.
- * @return An SDL_FRect defining the position and size.
+ * Returns the absolute screen-space bounds of the rectangle.
+ * An SDL_FRect defining the position and size.
  */
 SDL_FRect Rectangle::getBounds() const {
     return SDL_FRect{ (float)m_x, (float)m_y, (float)m_width, (float)m_height };
 }
 
 /**
- * @brief Renders the filled rectangle to the renderer.
- * @param renderer The SDL_Renderer context.
- * @param viewOffset The screen-space offset inherited from parent containers (e.g., ScrollView).
+ * Renders the filled rectangle to the renderer.
+ * (enderer) The SDL_Renderer context.
+ * (viewOffset) The screen-space offset inherited from parent containers (e.g., ScrollView).
  */
 void Rectangle::draw(SDL_Renderer* renderer, const SDL_FPoint& viewOffset) {
     SDL_SetRenderDrawColor(renderer, m_color.r, m_color.g, m_color.b, m_color.a);
@@ -91,11 +91,11 @@ void Rectangle::draw(SDL_Renderer* renderer, const SDL_FPoint& viewOffset) {
 // ---------------- Retained Mode Circle Implementation Starts Here ----------------
 
 /**
- * @brief Constructs a retained-mode circular shape control.
+ * Constructs a retained-mode circular shape control.
  *
- * @param posParams The positional constraints (anchors, offsets) of the circle's bounding box.
- * @param radius The radius of the circle in pixels.
- * @param color The SDL_Color used to fill the circle.
+ * (posParams) The positional constraints (anchors, offsets) of the circle's bounding box.
+ * (radius) The radius of the circle in pixels.
+ * (color) The SDL_Color used to fill the circle.
  */
 Circle::Circle(XenUI::PositionParams posParams, int radius, SDL_Color color)
     : m_posParams(posParams), m_radius(radius), m_color(color)
@@ -105,24 +105,24 @@ Circle::Circle(XenUI::PositionParams posParams, int radius, SDL_Color color)
 }
 
 /**
- * @brief Handles events for the Circle control.
+ * Handles events for the Circle control.
  *
  * Primitive shapes are non-interactive by default.
  *
- * @param e The SDL_Event to process.
- * @return false, as the event is not consumed.
+ * (e) The SDL_Event to process.
+ * false, as the event is not consumed.
  */
 bool Circle::handleEvent(const SDL_Event& /*e*/) {
     return false;
 }
 
 /**
- * @brief Recalculates the position of the Circle's bounding box.
+ * Recalculates the position of the Circle's bounding box.
  *
  * The layout calculation treats the circle as a square bounding box of size (2*radius) x (2*radius).
  *
- * @param parentWidth The available width in the parent container.
- * @param parentHeight The available height in the parent container.
+ * (parentWidth) The available width in the parent container.
+ * (parentHeight) The available height in the parent container.
  */
 void Circle::recalculateLayout(int parentWidth, int parentHeight) {
     // The control size is the bounding box (diameter)
@@ -135,8 +135,8 @@ void Circle::recalculateLayout(int parentWidth, int parentHeight) {
 }
 
 /**
- * @brief Returns the absolute screen-space bounds of the circle's square bounding box.
- * @return An SDL_FRect defining the position and size.
+ * Returns the absolute screen-space bounds of the circle's square bounding box.
+ * An SDL_FRect defining the position and size.
  */
 SDL_FRect Circle::getBounds() const {
     // Bounding box has size (2*radius) x (2*radius)
@@ -144,12 +144,12 @@ SDL_FRect Circle::getBounds() const {
 }
 
 /**
- * @brief Renders the filled circle to the renderer.
+ * Renders the filled circle to the renderer.
  *
  * The circle is drawn using a horizontal span rendering algorithm (line segment per row).
  *
- * @param renderer The SDL_Renderer context.
- * @param viewOffset The screen-space offset inherited from parent containers.
+ * (renderer) The SDL_Renderer context.
+ * (viewOffset) The screen-space offset inherited from parent containers.
  */
 void Circle::draw(SDL_Renderer* renderer, const SDL_FPoint& viewOffset) {
     if (!renderer) return;

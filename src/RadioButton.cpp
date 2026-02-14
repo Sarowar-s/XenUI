@@ -15,22 +15,22 @@
 #include <SDL3/SDL.h>
 
 /**
- * @brief Checks if a float point (px, py) is inside an SDL_FRect (r).
- * @param px The X coordinate of the point.
- * @param py The Y coordinate of the point.
- * @param r The SDL_FRect bounding box.
- * @return true if the point is within the rectangle (exclusive right/bottom edge), false otherwise.
+ * Checks if a float point (px, py) is inside an SDL_FRect (r).
+ * (px) The X coordinate of the point.
+ * (py) The Y coordinate of the point.
+ * (r) The SDL_FRect bounding box.
+ *  true if the point is within the rectangle (exclusive right/bottom edge), false otherwise.
  */
 static inline bool pointInRectF(float px, float py, const SDL_FRect& r) {
     return (px >= r.x && px < (r.x + r.w) && py >= r.y && py < (r.y + r.h));
 }
 
 /**
- * @brief Draws a circle outline using SDL_RenderPoints.
- * @param renderer The SDL_Renderer context.
- * @param centreX The X coordinate of the circle center.
- * @param centreY The Y coordinate of the circle center.
- * @param radius The radius of the circle.
+ * Draws a circle outline using SDL_RenderPoints.
+ * (renderer) The SDL_Renderer context.
+ * (centreX) The X coordinate of the circle center.
+ * (centreY) The Y coordinate of the circle center.
+ * (radius) The radius of the circle.
  */
 static void DrawCircle(SDL_Renderer* renderer, int32_t centreX, int32_t centreY, int32_t radius) {
     if (!renderer || radius <= 0) return;
@@ -68,11 +68,11 @@ static void DrawCircle(SDL_Renderer* renderer, int32_t centreX, int32_t centreY,
 }
 
 /**
- * @brief Draws a filled circle by rendering horizontal lines.
- * @param renderer The SDL_Renderer context.
- * @param centerX The X coordinate of the circle center.
- * @param centerY The Y coordinate of the circle center.
- * @param radius The radius of the circle.
+ * Draws a filled circle by rendering horizontal lines.
+ * (renderer) The SDL_Renderer context.
+ * (centerX) The X coordinate of the circle center.
+ * (centerY) The Y coordinate of the circle center.
+ * (radius) The radius of the circle.
  */
 static void DrawFilledCircle(SDL_Renderer* renderer, int centerX, int centerY, int radius) {
     if (!renderer || radius <= 0) return;
@@ -89,16 +89,16 @@ static void DrawFilledCircle(SDL_Renderer* renderer, int centerX, int centerY, i
 
 // ---------------- RadioButton ----------------
 /**
- * @brief Constructs a retained-mode RadioButton.
+ * Constructs a retained-mode RadioButton.
  *
  * This control belongs to a RadioButtonGroup and manages its own state, label, and drawing.
  *
- * @param group The RadioButtonGroup instance this button belongs to (reference).
- * @param label The text displayed next to the radio button circle.
- * @param value The integer value associated with this specific button's selection.
- * @param posParams The positional constraints for layout calculation.
- * @param style The visual style parameters.
- * @param fontSize The font size for the label text.
+ * (group) The RadioButtonGroup instance this button belongs to (reference).
+ * (label) The text displayed next to the radio button circle.
+ * (value) The integer value associated with this specific button's selection.
+ * (posParams) The positional constraints for layout calculation.
+ * (style) The visual style parameters.
+ * (fontSize) The font size for the label text.
  */
 RadioButton::RadioButton(RadioButtonGroup& group, std::string label, int value,
                          XenUI::PositionParams posParams, RadioButtonStyle style, int fontSize)
@@ -119,13 +119,13 @@ RadioButton::RadioButton(RadioButtonGroup& group, std::string label, int value,
 
 
 /**
- * @brief Recalculates the button's size and content-space position.
+ * Recalculates the button's size and content-space position.
  *
  * Measures the label text, determines the total size (circle + padding + text),
  * and resolves the final position using PositionParams.
  *
- * @param parentWidth The width of the parent container or content area.
- * @param parentHeight The height of the parent container or content area.
+ * (parentWidth) The width of the parent container or content area.
+ * (parentHeight) The height of the parent container or content area.
  */
 void RadioButton::recalculateLayout(int parentWidth, int parentHeight) {
     int textW = 0, textH = 0;
@@ -156,12 +156,12 @@ void RadioButton::recalculateLayout(int parentWidth, int parentHeight) {
 
 
 /**
- * @brief Handles mouse input events (motion and button down).
+ * Handles mouse input events (motion and button down).
  *
  * Updates hover state and notifies the group of selection change on left-click if inside bounds.
  *
- * @param e The SDL_Event to process (expected to have content-space coordinates).
- * @return true if the button's state changed (hover/selection), false otherwise.
+ * (e) The SDL_Event to process (expected to have content-space coordinates).
+ * true if the button's state changed (hover/selection), false otherwise.
  */
 bool RadioButton::handleEvent(const SDL_Event& e) {
     bool changed = false;
@@ -195,12 +195,12 @@ bool RadioButton::handleEvent(const SDL_Event& e) {
 }
 
 /**
- * @brief Draws the radio button (circle, selected state, and label).
+ * Draws the radio button (circle, selected state, and label).
  *
  * Converts content-space coordinates (m_circleCenter) to screen-space using viewOffset.
  *
- * @param renderer The SDL_Renderer context.
- * @param viewOffset The content-to-screen translation offset.
+ * (renderer) The SDL_Renderer context.
+ * (viewOffset) The content-to-screen translation offset.
  */
 void RadioButton::draw(SDL_Renderer* renderer, const SDL_FPoint& viewOffset) {
     if (!renderer) return;
@@ -231,13 +231,13 @@ void RadioButton::draw(SDL_Renderer* renderer, const SDL_FPoint& viewOffset) {
 
 // ---------------- RadioButtonGroup ----------------
 /**
- * @brief Constructs a retained-mode RadioButtonGroup.
+ *Constructs a retained-mode RadioButtonGroup.
  *
  * Manages a collection of RadioButton controls, tracks the currently selected value,
  * and provides a callback for selection changes.
  *
- * @param selectedValue Pointer to an integer that holds the currently selected value.
- * @param onSelectionChange Callback function invoked when the selection changes.
+ * (electedValue) Pointer to an integer that holds the currently selected value.
+ * (onSelectionChange) Callback function invoked when the selection changes.
  */
 RadioButtonGroup::RadioButtonGroup(int* selectedValue, std::function<void(int)> onSelectionChange)
     : m_selectedValue(selectedValue), m_onSelectionChangeCallback(std::move(onSelectionChange))
@@ -250,15 +250,15 @@ RadioButtonGroup::RadioButtonGroup(int* selectedValue, std::function<void(int)> 
 }
 
 /**
- * @brief Adds a new RadioButton to the group.
+ * Adds a new RadioButton to the group.
  *
  * Creates a new RadioButton instance and triggers a recalculation of the group's layout bounds.
  *
- * @param label The text for the new button.
- * @param value The value associated with the new button.
- * @param posParams Positional constraints for the new button.
- * @param style Visual style for the new button.
- * @param fontSize Font size for the new button's label.
+ * (label) The text for the new button.
+ * (value) The value associated with the new button.
+ * (posParams) Positional constraints for the new button.
+ * (style) Visual style for the new button.
+ * (fontSize) Font size for the new button's label.
  */
 void RadioButtonGroup::addButton(const std::string& label, int value, XenUI::PositionParams posParams, RadioButtonStyle style, int fontSize) {
     // Emplace a new RadioButton unique_ptr into the vector
@@ -271,13 +271,13 @@ void RadioButtonGroup::addButton(const std::string& label, int value, XenUI::Pos
 }
 
 /**
- * @brief Recalculates the layout for all child buttons and updates the overall group bounds.
+ * Recalculates the layout for all child buttons and updates the overall group bounds.
  *
  * Iterates through all contained RadioButtons, recalculates their individual layouts,
  * and determines the minimum bounding box that encompasses all buttons.
  *
- * @param parentWidth The width of the parent container or content area.
- * @param parentHeight The height of the parent container or content area.
+ * (parentWidth) The width of the parent container or content area.
+ * (parentHeight) The height of the parent container or content area.
  */
 void RadioButtonGroup::recalculateLayout(int parentWidth, int parentHeight) {
     bool first = true;
@@ -308,12 +308,12 @@ void RadioButtonGroup::recalculateLayout(int parentWidth, int parentHeight) {
 }
 
 /**
- * @brief Forwards the event to all child RadioButtons.
+ * Forwards the event to all child RadioButtons.
  *
  * Stops forwarding and returns true as soon as one child consumes the event.
  *
- * @param e The SDL_Event to process.
- * @return true if any child button handled the event, false otherwise.
+ * (e) The SDL_Event to process.
+ * true if any child button handled the event, false otherwise.
  */
 bool RadioButtonGroup::handleEvent(const SDL_Event& e) {
     // Forward to children (iteration order depends on desired Z-order/hit testing priority)
@@ -324,10 +324,10 @@ bool RadioButtonGroup::handleEvent(const SDL_Event& e) {
 }
 
 /**
- * @brief Draws all RadioButtons in the group.
+ * Draws all RadioButtons in the group.
  *
- * @param renderer The SDL_Renderer context.
- * @param viewOffset The content-to-screen translation offset.
+ * (renderer) The SDL_Renderer context.
+ * (viewOffset) The content-to-screen translation offset.
  */
 void RadioButtonGroup::draw(SDL_Renderer* renderer, const SDL_FPoint& viewOffset) {
     for (auto& bptr : m_buttons) {
@@ -336,20 +336,20 @@ void RadioButtonGroup::draw(SDL_Renderer* renderer, const SDL_FPoint& viewOffset
 }
 
 /**
- * @brief Gets the minimum bounding box encompassing all buttons in the group.
+ * Gets the minimum bounding box encompassing all buttons in the group.
  *
- * @return The SDL_FRect representing the group's combined bounds in content-space.
+ * The SDL_FRect representing the group's combined bounds in content-space.
  */
 SDL_FRect RadioButtonGroup::getBounds() const {
     return m_groupBounds;
 }
 
 /**
- * @brief Updates the selected value and triggers the selection change callback.
+ * Updates the selected value and triggers the selection change callback.
  *
  * Called internally by a RadioButton when it is clicked.
  *
- * @param value The value of the newly selected button.
+ * (value) The value of the newly selected button.
  */
 void RadioButtonGroup::notifySelection(int value) {
     if (m_selectedValue && *m_selectedValue != value) {
@@ -361,10 +361,10 @@ void RadioButtonGroup::notifySelection(int value) {
 }
 
 /**
- * @brief Checks if a specific value corresponds to the currently selected radio button.
+ * Checks if a specific value corresponds to the currently selected radio button.
  *
- * @param value The value to check.
- * @return true if the value is currently selected, false otherwise.
+ * (value) The value to check.
+ *  true if the value is currently selected, false otherwise.
  */
 bool RadioButtonGroup::isSelected(int value) const {
     return (m_selectedValue && *m_selectedValue == value);
@@ -378,23 +378,23 @@ bool RadioButtonGroup::isSelected(int value) const {
 namespace XenUI {
 
 /**
- * @brief Renders an immediate-mode radio button group and handles input.
+ * Renders an immediate-mode radio button group and handles input.
  *
  * This function handles layout calculation, hit-testing, input processing, and drawing
  * for a vertical list of radio options within a single call.
  *
- * @param id A unique identifier string (not strictly used here, but good practice).
- * @param options A vector of strings for the button labels.
- * @param selectedIndex Pointer to an integer holding the current 0-based index selection.
- * @param pos The PositionParams for the entire group.
- * @param style The visual style parameters.
- * @param fontSize Font size for the labels.
- * @param spacing Minimum vertical spacing between the items.
- * @param viewOffset The content-to-screen translation offset.
- * @param parentWidth The width of the content area.
- * @param parentHeight The height of the content area.
- * @param event Optional pointer to the current SDL_Event for event-based input processing.
- * @return true if the selected index was changed by user interaction, false otherwise.
+ * (id) A unique identifier string (not strictly used here, but good practice).
+ * (options) A vector of strings for the button labels.
+ * (selectedIndex) Pointer to an integer holding the current 0-based index selection.
+ * (pos) The PositionParams for the entire group.
+ * (style) The visual style parameters.
+ * (fontSize) Font size for the labels.
+ * (spacing) Minimum vertical spacing between the items.
+ * (viewOffset) The content-to-screen translation offset.
+ * (parentWidth) The width of the content area.
+ * (parentHeight) The height of the content area.
+ * (event) Optional pointer to the current SDL_Event for event-based input processing.
+ *  true if the selected index was changed by user interaction, false otherwise.
  */
 bool RadioGroupImmediate(
     const char* id,

@@ -19,10 +19,10 @@ namespace XenUI {
 
 // Helper to check for Ctrl (Windows/Linux) or Cmd (macOS)
 /**
- * @brief Checks if the primary platform modifier key (Ctrl or Cmd/GUI) is active.
+ * Checks if the primary platform modifier key (Ctrl or Cmd/GUI) is active.
  *
- * @param mod The SDL_Keymod flags from the event.
- * @return true if the Left/Right Ctrl or Left/Right GUI (Command) modifier is set.
+ * (mod) The SDL_Keymod flags from the event.
+ * true if the Left/Right Ctrl or Left/Right GUI (Command) modifier is set.
  */
 static bool isPrimaryModifier(SDL_Keymod mod) {
     return (mod & (SDL_KMOD_LCTRL | SDL_KMOD_RCTRL | SDL_KMOD_LGUI | SDL_KMOD_RGUI)) != 0;
@@ -30,14 +30,14 @@ static bool isPrimaryModifier(SDL_Keymod mod) {
 }
 
 /**
- * @brief Constructor for the InputBox control (Retained Mode).
+ * Constructor for the InputBox control (Retained Mode).
  *
- * @param posParams Parameters for resolving the control's position.
- * @param initialText The initial text content of the input box.
- * @param width The fixed width of the input box (must be > 0).
- * @param fontSize The size of the text font.
- * @param style The visual style parameters.
- * @param isPassword Flag to display input as mask characters (e.g., '*').
+ * (posParams) Parameters for resolving the control's position.
+ * (initialText) The initial text content of the input box.
+ * (width) The fixed width of the input box (must be > 0).
+ * (fontSize) The size of the text font.
+ * (style) The visual style parameters.
+ * (isPassword) Flag to display input as mask characters (e.g., '*').
  */
 InputBox::InputBox(const PositionParams& posParams, const std::string& initialText,
                    int width, int fontSize, InputBoxStyle style, bool isPassword)
@@ -58,13 +58,13 @@ InputBox::InputBox(const PositionParams& posParams, const std::string& initialTe
 
 
 /**
- * @brief Handles an incoming SDL event, routing it to the full event handler.
+ * Handles an incoming SDL event, routing it to the full event handler.
  *
  * This implementation uses the window and view offset stored from the last draw/event cycle
  * or internal state if a window was explicitly set.
  *
- * @param event The SDL_Event to process.
- * @return true if the control consumed or reacted to the event, false otherwise.
+ * (event) The SDL_Event to process.
+ * true if the control consumed or reacted to the event, false otherwise.
  */
 bool InputBox::handleEvent(const SDL_Event& event) {
     // forward to the two-arg form using stored window (if any)
@@ -74,8 +74,8 @@ bool InputBox::handleEvent(const SDL_Event& event) {
 
 // Backwards-compatible draw()
 /**
- * @brief Renders the InputBox with a zero view offset (for non-scrolling contexts).
- * @param renderer The SDL_Renderer context.
+ * Renders the InputBox with a zero view offset (for non-scrolling contexts).
+ * (renderer) The SDL_Renderer context.
  */
 void InputBox::draw(SDL_Renderer* renderer) {
     draw(renderer, SDL_FPoint{0.0f, 0.0f});
@@ -87,7 +87,7 @@ void InputBox::draw(SDL_Renderer* renderer) {
 // // }
 
 /**
- * @brief Updates the text string displayed to the user (m_displayText).
+ * Updates the text string displayed to the user (m_displayText).
  *
  * If the input box is in password mode, the display text is replaced with '*' characters.
  */
@@ -102,7 +102,7 @@ void InputBox::updateDisplayText() {
 }
 
 /**
- * @brief Calculates the fixed height of the input box based on font size and padding.
+ * Calculates the fixed height of the input box based on font size and padding.
  *
  * Ensures a minimum height if font measurement fails or is too small.
  */
@@ -124,7 +124,7 @@ void InputBox::calculateHeight() {
 }
 
 /**
- * @brief Recalculates the position (m_posX, m_posY) using the window size as the parent bounds.
+ * Recalculates the position (m_posX, m_posY) using the window size as the parent bounds.
  *
  * Used for initial position setup when parent dimensions are not yet known.
  */
@@ -136,12 +136,12 @@ void InputBox::recalculatePosition() {
 }
 
 /**
- * @brief Updates the input box's state over time.
+ * Updates the input box's state over time.
  *
  * This function primarily manages the cursor blinking animation.
  *
- * @param deltaTime The time elapsed since the last update call (in seconds).
- * @return true if the control's visual state changed (i.e., cursor toggled visibility), false otherwise.
+ * (deltaTime) The time elapsed since the last update call (in seconds).
+ * true if the control's visual state changed (i.e., cursor toggled visibility), false otherwise.
  */
 bool XenUI::InputBox::update(float deltaTime) {
     bool changed = false;
@@ -169,9 +169,9 @@ bool XenUI::InputBox::update(float deltaTime) {
 }
 
 /**
- * @brief Indicates whether the control requires periodic updates or redraws.
+ * Indicates whether the control requires periodic updates or redraws.
  *
- * @return true if the control has focus (due to cursor blinking), false otherwise.
+ * true if the control has focus (due to cursor blinking), false otherwise.
  */
 bool XenUI::InputBox::isAnimating() const {
         // While the box has focus, the cursor is blinking, hence it is "animating".
@@ -180,10 +180,10 @@ bool XenUI::InputBox::isAnimating() const {
 
 
 /**
- * @brief Recalculates the layout, including height, absolute position, and clamping scroll/cursor.
+ * Recalculates the layout, including height, absolute position, and clamping scroll/cursor.
  *
- * @param parentWidth The width of the parent container or content area.
- * @param parentHeight The height of the parent container or content area.
+ * (parentWidth) The width of the parent container or content area.
+ * (parentHeight) The height of the parent container or content area.
  */
 void InputBox::recalculateLayout(int parentWidth, int parentHeight) {
     // 1. Compute height based on font metrics + padding
@@ -200,9 +200,9 @@ void InputBox::recalculateLayout(int parentWidth, int parentHeight) {
 
 // IControl-style getBounds
 /**
- * @brief Returns the content-space bounding rectangle of the control.
+ * Returns the content-space bounding rectangle of the control.
  *
- * @return The SDL_FRect representing the control's position and size relative to its content area.
+ * The SDL_FRect representing the control's position and size relative to its content area.
  */
 SDL_FRect InputBox::getBounds() const {
     return SDL_FRect{ float(m_posX), float(m_posY), float(m_width), float(m_height) };
@@ -212,10 +212,10 @@ SDL_FRect InputBox::getBounds() const {
 
 
 /**
- * @brief Renders the InputBox control to the screen.
+ * Renders the InputBox control to the screen.
  *
- * @param renderer The SDL_Renderer context.
- * @param viewOffset The offset applied by a parent container (e.g., ScrollView) to content-space coordinates.
+ * (renderer) The SDL_Renderer context.
+ * (viewOffset) The offset applied by a parent container (e.g., ScrollView) to content-space coordinates.
  */
 void InputBox::draw(SDL_Renderer* renderer, const SDL_FPoint& viewOffset) {
     if (!renderer) return;
@@ -383,16 +383,16 @@ void InputBox::draw(SDL_Renderer* renderer, const SDL_FPoint& viewOffset) {
 // ScrollView::handleEvent(event, window, viewOffset)
 
 /**
- * @brief Handles an incoming SDL event for the InputBox control.
+ * Handles an incoming SDL event for the InputBox control.
  *
  * This is the primary event handling function, designed to work correctly when
  * nested inside containers like ScrollView by using translated content-space coordinates
  * and incorporating the view offset for setting the IME area.
  *
- * @param event The SDL_Event to process (mouse coordinates must be in content-space if translated).
- * @param window The SDL_Window associated with the event/control, necessary for SDL_StartTextInput/IME setup.
- * @param viewOffset The offset applied by the parent container (e.g., scroll position) to convert content-space to screen-space.
- * @return true if the control's state changed or the event was handled, false otherwise.
+ * (event) The SDL_Event to process (mouse coordinates must be in content-space if translated).
+ * (window) The SDL_Window associated with the event/control, necessary for SDL_StartTextInput/IME setup.
+ * (viewOffset) The offset applied by the parent container (e.g., scroll position) to convert content-space to screen-space.
+ * true if the control's state changed or the event was handled, false otherwise.
  */
 // New IControl-style handleEvent implementation (use the forwarded/translated events)
 bool InputBox::handleEvent(const SDL_Event& event, SDL_Window* window, const SDL_FPoint& viewOffset) {
@@ -462,14 +462,14 @@ bool InputBox::handleEvent(const SDL_Event& event, SDL_Window* window, const SDL
 
         }
 //          else {
-//     // Clicked outside: unfocus (logic commented out but noted to be here in principle)
+//     
 //     if (m_hasFocus) {
-//         // This is the existing unfocus logic
+//     
 //         m_hasFocus = false;
 //         m_isDragging = false;
 //         m_selectionStart = -1;
 
-//         // --- ADD THIS LINE ---
+//        
 //         if (window) SDL_StopTextInput(window); // Use the window passed to the function
 
 //         changed = true;
@@ -540,12 +540,12 @@ bool InputBox::handleEvent(const SDL_Event& event, SDL_Window* window, const SDL
 
 
 /**
- * @brief Sets the SDL_Window associated with this input box.
+ * Sets the SDL_Window associated with this input box.
  *
  * This is primarily used for the `SDL_StartTextInput` and IME functions.
  * The `m_forwardedWindow` stores the window context used for input.
  *
- * @param window The SDL_Window pointer.
+ * (window) The SDL_Window pointer.
  */
 void InputBox::setWindow(SDL_Window* window) {
     m_forwardedWindow = window;
@@ -554,12 +554,12 @@ void InputBox::setWindow(SDL_Window* window) {
 }
 
 /**
- * @brief Updates the stored view offset and potentially updates the IME area location.
+ * Updates the stored view offset and potentially updates the IME area location.
  *
  * This function must be called by a parent (like ScrollView) whenever the content
  * offset changes, even if the input box itself didn't cause the scroll.
  *
- * @param viewOffset The new scroll offset (content-to-screen translation).
+ * (viewOffset) The new scroll offset (content-to-screen translation).
  */
 void InputBox::setViewOffset(const SDL_FPoint& viewOffset) {
     m_lastViewOffset = viewOffset;
@@ -579,11 +579,11 @@ void InputBox::setViewOffset(const SDL_FPoint& viewOffset) {
 
 
 /**
- * @brief Attempts to set the focus to this input box using the stored view offset.
+ * Attempts to set the focus to this input box using the stored view offset.
  *
  * This is a convenience overload that retrieves the last known view offset.
  *
- * @param window The SDL_Window context required for starting text input.
+ * (window) The SDL_Window context required for starting text input.
  */
 void InputBox::focus(SDL_Window* window) {
     // use stored view offset if we have one
@@ -593,14 +593,14 @@ void InputBox::focus(SDL_Window* window) {
 
 // InputBox::focus(window, viewOffset)
 /**
- * @brief Sets focus to this InputBox, enabling keyboard input and initiating cursor blinking.
+ * Sets focus to this InputBox, enabling keyboard input and initiating cursor blinking.
  *
  * This function handles `SDL_StartTextInput` and updates the Input Method Editor (IME)
  * area to reflect the input box's screen position, especially crucial when the box
  * is nested within a scrolling container.
  *
- * @param window The current SDL_Window.
- * @param viewOffset The content-space translation offset (from a parent ScrollView) to determine screen-space position.
+ * (window) The current SDL_Window.
+ * (viewOffset) The content-space translation offset (from a parent ScrollView) to determine screen-space position.
  */
 void InputBox::focus(SDL_Window* window, const SDL_FPoint& viewOffset) {
     // If the control already has focus, only update the necessary window/offset/IME rect
@@ -668,12 +668,12 @@ void InputBox::focus(SDL_Window* window, const SDL_FPoint& viewOffset) {
 
 
 /**
- * @brief Removes focus from the InputBox, stopping text input and clearing selection.
+ * Removes focus from the InputBox, stopping text input and clearing selection.
  *
  * This function calls `SDL_StopTextInput` to disable keyboard events directed
  * towards this control.
  *
- * @param window The current SDL_Window (optional, used to determine which window's input to stop).
+ * (window) The current SDL_Window (optional, used to determine which window's input to stop).
  */
 void InputBox::unfocus(SDL_Window* window) {
     if (!IControl::hasFocus()) return;
@@ -694,13 +694,13 @@ void InputBox::unfocus(SDL_Window* window) {
 
 
 /**
- * @brief Handles key down events for non-textual input operations (navigation, selection, shortcuts).
+ * Handles key down events for non-textual input operations (navigation, selection, shortcuts).
  *
  * This includes handling Backspace, Delete, navigation keys (arrows, Home, End),
  * and common primary-modifier shortcuts (Ctrl/Cmd + A, C, X, V).
  *
- * @param key The SDL_Keycode of the pressed key.
- * @param mod The SDL_Keymod state of the modifiers (Shift, Ctrl/Cmd, Alt).
+ * (key) The SDL_Keycode of the pressed key.
+ * (mod) The SDL_Keymod state of the modifiers (Shift, Ctrl/Cmd, Alt).
  */
 void InputBox::handleKeyDown(SDL_Keycode key, SDL_Keymod mod) {
     // Only process keyboard events if the control has focus
@@ -886,12 +886,12 @@ void InputBox::handleKeyDown(SDL_Keycode key, SDL_Keymod mod) {
 
 
 /**
- * @brief Handles text input from SDL_EVENT_TEXT_INPUT.
+ * Handles text input from SDL_EVENT_TEXT_INPUT.
  *
  * This function inserts text at the current cursor position, replacing any existing
  * selection, and enforces the maximum length constraint.
  *
- * @param inputText The null-terminated C-string containing the input text (e.g., a single character or composed string).
+ * (inputText) The null-terminated C-string containing the input text (e.g., a single character or composed string).
  */
 void InputBox::handleTextInput(const char* inputText) {
     SDL_Log("InputBox: TEXT_INPUT event. inputText: '%s', m_text_before: '%s', cursor_before: %d", inputText ? inputText : "NULL", m_text.c_str(), m_cursorPos);
@@ -960,24 +960,16 @@ void InputBox::handleTextInput(const char* inputText) {
 
 
 
-// InputBox implementation file (partial)
-//
-// Copyright (c) 2025 XenonUI
-// Author: MD S M Sarowar Hossain
-//
-// Contains implementation for mouse event handling, cursor/scroll clamping,
-// and text manipulation helper functions for the InputBox retained-mode control.
-//
 
 /**
- * @brief Handles mouse events specific to the InputBox control.
+ * Handles mouse events specific to the InputBox control.
  *
  * This function performs hit-testing, manages focus, initiates dragging for selection,
  * and updates the cursor position based on mouse clicks and movements.
  *
- * @param event The SDL_Event (expected to have content-space coordinates if from a parent container).
- * @param window The SDL_Window pointer, used for SDL_StartTextInput/IME management.
- * @param viewOffset The scroll offset applied by the parent (content-space to screen-space translation).
+ * (event) The SDL_Event (expected to have content-space coordinates if from a parent container).
+ * (window) The SDL_Window pointer, used for SDL_StartTextInput/IME management.
+ * (viewOffset) The scroll offset applied by the parent (content-space to screen-space translation).
  */
 void InputBox::handleMouseInput(const SDL_Event& event, SDL_Window* window, const SDL_FPoint& viewOffset) {
     int mouseX = 0;
@@ -1092,7 +1084,7 @@ SDL_SetTextInputArea(m_forwardedWindow ? m_forwardedWindow : SDL_GetWindowFromID
 
 
 /**
- * @brief Ensures the cursor position is within text bounds and scrolls the text
+ * Ensures the cursor position is within text bounds and scrolls the text
  * horizontally to keep the cursor visible within the input box's visible area.
  */
 void InputBox::clampCursorAndScroll() {
@@ -1128,13 +1120,13 @@ void InputBox::clampCursorAndScroll() {
 }
 
 /**
- * @brief Converts a content-space X coordinate to a character index within the text string.
+ * Converts a content-space X coordinate to a character index within the text string.
  *
  * This function determines where a mouse click landed in relation to the characters
  * to correctly place the text cursor. It accounts for padding and current scroll offset.
  *
- * @param globalMouseX The X coordinate of the mouse click in content-space (relative to the container/window content origin).
- * @return The 0-based index of the character *after* which the cursor should be placed.
+ * (globalMouseX) The X coordinate of the mouse click in content-space (relative to the container/window content origin).
+ * The 0-based index of the character *after* which the cursor should be placed.
  */
 int InputBox::getIndexFromXCoord(int globalMouseX) {
     if (!m_textRenderer.isInitialized()) return 0;
@@ -1173,13 +1165,13 @@ int InputBox::getIndexFromXCoord(int globalMouseX) {
 }
 
 /**
- * @brief Calculates the X pixel position of the cursor when placed immediately *after* a specific character index.
+ * Calculates the X pixel position of the cursor when placed immediately *after* a specific character index.
  *
  * This position is relative to the start of the *entire* text string (i.e., offset 0 for index 0).
  * It does not include padding or scroll offset.
  *
- * @param charIndex The character index (0 to length) to measure up to.
- * @return The width in pixels of the substring from the start of the text up to `charIndex`.
+ * (charIndex) The character index (0 to length) to measure up to.
+ * The width in pixels of the substring from the start of the text up to `charIndex`.
  */
 int InputBox::getTextXPosition(int charIndex) const {
     if (!m_textRenderer.isInitialized() || m_displayText.empty() || charIndex <= 0) {
@@ -1196,7 +1188,7 @@ int InputBox::getTextXPosition(int charIndex) const {
 }
 
 /**
- * @brief Deletes the currently selected text range.
+ * Deletes the currently selected text range.
  *
  * Updates the internal text string, moves the cursor to the selection start, and clears the selection range.
  */
@@ -1219,7 +1211,7 @@ void InputBox::deleteSelection() {
 }
 
 /**
- * @brief Copies the currently selected text to the system clipboard.
+ * Copies the currently selected text to the system clipboard.
  *
  * If the input box is in password mode, no action is taken.
  */
@@ -1243,7 +1235,7 @@ void InputBox::copySelectionToClipboard() {
 }
 
 /**
- * @brief Pastes text from the system clipboard into the input box at the current cursor position.
+ * Pastes text from the system clipboard into the input box at the current cursor position.
  *
  * If there is an existing selection, it is deleted before insertion. Max length is enforced.
  */
@@ -1291,7 +1283,7 @@ void InputBox::pasteFromClipboard() {
 }
 
 /**
- * @brief Cuts (copies and deletes) the selected text to the system clipboard.
+ * Cuts (copies and deletes) the selected text to the system clipboard.
  *
  * If the input box is in password mode, the text is only deleted, not copied.
  */
@@ -1316,19 +1308,19 @@ void InputBox::cutSelectionToClipboard() {
 
 // Getters/Setters
 /**
- * @brief Gets the actual text content of the input box.
- * @return The current text string.
+ * Gets the actual text content of the input box.
+ * The current text string.
  */
 std::string InputBox::getText() const {
     return m_text;
 }
 
 /**
- * @brief Sets the text content of the input box, enforcing max length.
+ * Sets the text content of the input box, enforcing max length.
  *
  * Resets cursor, selection, and scroll position. Triggers display update and change notification.
  *
- * @param text The new text string to set.
+ * (text) The new text string to set.
  */
 void InputBox::setText(const std::string& text) {
     // Enforce max length on the new text string
@@ -1365,11 +1357,11 @@ void InputBox::setText(const std::string& text) {
 }
 
 /**
- * @brief Sets the maximum allowed length for the text content.
+ * Sets the maximum allowed length for the text content.
  *
  * If the current text exceeds the new limit, it is truncated.
  *
- * @param maxLength The new maximum length (0 means no limit).
+ * (maxLength) The new maximum length (0 means no limit).
  */
 void InputBox::setMaxLength(int maxLength) {
     m_maxLength = std::max(0, maxLength);

@@ -15,12 +15,12 @@
 #include <SDL_ttf.h>          // SDL TrueType Font library
 
 /**
- * @brief Retrieves the single instance of the TextRenderer class (Singleton).
+ * Retrieves the single instance of the TextRenderer class (Singleton).
  *
  * This function ensures that only one TextRenderer object exists throughout the application
  * lifecycle, providing a central point for all font and text services.
  *
- * @return Reference to the singleton TextRenderer instance.
+ * Reference to the singleton TextRenderer instance.
  */
 TextRenderer& TextRenderer::getInstance() {
     static TextRenderer instance;
@@ -28,14 +28,14 @@ TextRenderer& TextRenderer::getInstance() {
 }
 
 /**
- * @brief Private constructor for the TextRenderer singleton.
+ * Private constructor for the TextRenderer singleton.
  *
  * Initializes internal state variables.
  */
 TextRenderer::TextRenderer() : m_renderer(nullptr), m_initialized(false) {}
 
 /**
- * @brief Destructor for the TextRenderer.
+ * Destructor for the TextRenderer.
  *
  * Cleans up all cached fonts and textures and quits the SDL_ttf subsystem.
  */
@@ -49,25 +49,25 @@ TextRenderer::~TextRenderer() {
 }
 
 /**
- * @brief Checks if the TextRenderer has been successfully initialized.
+ * Checks if the TextRenderer has been successfully initialized.
  *
  * Initialization requires a valid SDL_Renderer and successful startup of SDL_ttf.
  *
- * @return true if initialized, false otherwise.
+ * true if initialized, false otherwise.
  */
 bool TextRenderer::isInitialized() const {
     return m_initialized;
 }
 
 /**
- * @brief Searches for a suitable bundled fallback font file across platforms.
+ * Searches for a suitable bundled fallback font file across platforms.
  *
  * On Android, this attempts to load the font from the application's 'assets' directory
  * using SDL_IOFromFile, which correctly abstracts asset access.
  * On non-Android platforms, it checks for a path defined by XENUI_FALLBACK_FONT_PATH
  * or a common system font path as a last resort.
  *
- * @return The path or asset name of the found font file; an empty string on failure.
+ * The path or asset name of the found font file; an empty string on failure.
  */
 std::string TextRenderer::findBundledFallbackFont() {
     SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "TextRenderer: Searching for bundled fallback font...");
@@ -127,13 +127,13 @@ std::string TextRenderer::findBundledFallbackFont() {
 
 
 /**
- * @brief Initializes the TextRenderer subsystem.
+ * Initializes the TextRenderer subsystem.
  *
  * This involves setting the SDL_Renderer pointer, initializing SDL_ttf, and locating
  * a suitable font file path for subsequent loading operations.
  *
- * @param renderer The active SDL_Renderer instance to use for texture creation.
- * @param preferredFamilies A list of desired font family names (currently unused for asset loading).
+ * (renderer) The active SDL_Renderer instance to use for texture creation.
+ * (preferredFamilies) A list of desired font family names (currently unused for asset loading).
  */
 void TextRenderer::init(SDL_Renderer* renderer, const std::vector<std::string>& preferredFamilies) {
     if (m_initialized) return;
@@ -151,7 +151,7 @@ void TextRenderer::init(SDL_Renderer* renderer, const std::vector<std::string>& 
 
     // Locate the font path/asset name
     // Note: preferredFamilies are not explicitly used here to pick from assets,
-    // but findBundledFallbackFont could be extended to use them if you bundle multiple fonts
+    // but findBundledFallbackFont could be extended to use them if to bundle multiple fonts
     // and want to select one based on preference.
     m_fontPath = findBundledFallbackFont();
 
@@ -172,13 +172,13 @@ void TextRenderer::init(SDL_Renderer* renderer, const std::vector<std::string>& 
 
 
 /**
- * @brief Retrieves a TTF_Font object for a specific size, loading it if necessary.
+ * Retrieves a TTF_Font object for a specific size, loading it if necessary.
  *
  * This function implements caching of loaded fonts by size to avoid redundant file operations.
  * Font loading is performed via SDL_IOFromFile/TTF_OpenFontIO to handle asset management.
  *
- * @param fontSize The desired font size in points.
- * @return A pointer to the loaded TTF_Font object, or nullptr on failure.
+ * (fontSize) The desired font size in points.
+ * A pointer to the loaded TTF_Font object, or nullptr on failure.
  */
 TTF_Font* TextRenderer::getFont(int fontSize) {
     // Basic validation
@@ -216,11 +216,11 @@ TTF_Font* TextRenderer::getFont(int fontSize) {
 }
 
 /**
- * @brief Creates a unique key for caching textures based on text content and size.
+ * Creates a unique key for caching textures based on text content and size.
  *
- * @param text The string content.
- * @param fontSize The size of the font used.
- * @return A concatenated string key.
+ * (text) The string content.
+ * (fontSize) The size of the font used.
+ * A concatenated string key.
  */
 std::string TextRenderer::createCacheKey(const std::string& text, int fontSize) {
     std::stringstream ss;
@@ -229,18 +229,18 @@ std::string TextRenderer::createCacheKey(const std::string& text, int fontSize) 
 }
 
 /**
- * @brief Renders the given text into an SDL_Texture, utilizing a texture cache.
+ * Renders the given text into an SDL_Texture, utilizing a texture cache.
  *
  * This is the core rendering function. It checks the cache, and if not found,
  * renders the text using TTF_RenderText_Blended, creates an SDL_Texture, caches it,
  * and destroys the intermediate SDL_Surface.
  *
- * @param text The string to render.
- * @param color The SDL_Color to use for the text.
- * @param fontSize The desired font size.
- * @param outW Output parameter for the resulting texture width.
- * @param outH Output parameter for the resulting texture height.
- * @return A pointer to the cached SDL_Texture, or nullptr on failure.
+ * (text) The string to render.
+ * (color) The SDL_Color to use for the text.
+ * (fontSize) The desired font size.
+ * (outW) Output parameter for the resulting texture width.
+ * (outH) Output parameter for the resulting texture height.
+ *  A pointer to the cached SDL_Texture, or nullptr on failure.
  */
 SDL_Texture* TextRenderer::renderTextToTexture(const std::string& text, SDL_Color color, int fontSize, int& outW, int& outH) {
     if (!m_initialized || text.empty()) {
@@ -291,15 +291,15 @@ SDL_Texture* TextRenderer::renderTextToTexture(const std::string& text, SDL_Colo
 }
 
 /**
- * @brief Draws the text at the specified screen coordinates (using the internal texture cache).
+ * Draws the text at the specified screen coordinates (using the internal texture cache).
  *
  * This is the high-level drawing function.
  *
- * @param text The string content to draw.
- * @param x The screen X coordinate (top-left).
- * @param y The screen Y coordinate (top-left).
- * @param color The color of the text.
- * @param fontSize The size of the font.
+ * (text) The string content to draw.
+ * (x) The screen X coordinate (top-left).
+ * (y) The screen Y coordinate (top-left).
+ * (color) The color of the text.
+ * (fontSize) The size of the font.
  */
 void TextRenderer::renderText(const std::string& text, int x, int y, SDL_Color color, int fontSize) {
     if (!m_initialized) return;
@@ -315,17 +315,17 @@ void TextRenderer::renderText(const std::string& text, int x, int y, SDL_Color c
 }
 
 /**
- * @brief Renders text into a new SDL_Texture without caching it.
+ * Renders text into a new SDL_Texture without caching it.
  *
  * This function is useful for dynamic, frequently changing text where caching would be inefficient
  * (e.g., frame counters). The caller is responsible for destroying the returned texture.
  *
- * @param text The string to render.
- * @param color The SDL_Color to use for the text.
- * @param fontSize The desired font size.
- * @param outW Output parameter for the resulting texture width.
- * @param outH Output parameter for the resulting texture height.
- * @return A pointer to the new SDL_Texture, or nullptr on failure.
+ * (text) The string to render.
+ * (color) The SDL_Color to use for the text.
+ * (fontSize) The desired font size.
+ * (outW) Output parameter for the resulting texture width.
+ * (outH) Output parameter for the resulting texture height.
+ *  A pointer to the new SDL_Texture, or nullptr on failure.
  */
 SDL_Texture* TextRenderer::renderTextImmediateToTexture(const std::string& text, SDL_Color color, int fontSize, int& outW, int& outH) {
     outW = 0; outH = 0;
@@ -359,12 +359,12 @@ SDL_Texture* TextRenderer::renderTextImmediateToTexture(const std::string& text,
 }
 
 /**
- * @brief Calculates the pixel dimensions required to render a given text string.
+ * Calculates the pixel dimensions required to render a given text string.
  *
- * @param text The string content.
- * @param fontSize The size of the font.
- * @param w Output parameter for the resulting pixel width.
- * @param h Output parameter for the resulting pixel height.
+ * (text) The string content.
+ * (fontSize) The size of the font.
+ * (w) Output parameter for the resulting pixel width.
+ * (h) Output parameter for the resulting pixel height.
  */
 void TextRenderer::measureText(const std::string& text, int fontSize, int& w, int& h) {
     w = 0; h = 0;
@@ -382,13 +382,13 @@ void TextRenderer::measureText(const std::string& text, int fontSize, int& w, in
 }
 
 /**
- * @brief Calculates the pixel dimensions required to render a given text string.
+ * Calculates the pixel dimensions required to render a given text string.
  *
  * This is a convenience function wrapper around measureText returning an SDL_Point.
  *
- * @param text The string content.
- * @param fontSize The size of the font.
- * @return An SDL_Point containing the width (x) and height (y).
+ * (text) The string content.
+ * (fontSize) The size of the font.
+ * An SDL_Point containing the width (x) and height (y).
  */
 SDL_Point TextRenderer::getTextSize(const std::string& text, int fontSize) {
     SDL_Point size = {0, 0};
@@ -397,13 +397,13 @@ SDL_Point TextRenderer::getTextSize(const std::string& text, int fontSize) {
 }
 
 /**
- * @brief Retrieves the font's ascent and descent metrics for the specified size.
+ * Retrieves the font's ascent and descent metrics for the specified size.
  *
  * These metrics are useful for precise vertical text alignment.
  *
- * @param fontSize The size of the font.
- * @param outAscent Output parameter for the font ascent (max height above baseline).
- * @param outDescent Output parameter for the font descent (max depth below baseline, positive value).
+ * (fontSize) The size of the font.
+ * (outAscent) Output parameter for the font ascent (max height above baseline).
+ * (outDescent) Output parameter for the font descent (max depth below baseline, positive value).
  */
 void TextRenderer::getFontMetrics(int fontSize, int &outAscent, int &outDescent) {
     outAscent = outDescent = 0;
@@ -417,7 +417,7 @@ void TextRenderer::getFontMetrics(int fontSize, int &outAscent, int &outDescent)
 }
 
 /**
- * @brief Destroys all cached textures and closes all loaded fonts.
+ * Destroys all cached textures and closes all loaded fonts.
  *
  * Should be called upon application shutdown or when the graphics context is lost/reset.
  */
@@ -437,9 +437,9 @@ void TextRenderer::clearCache() {
 }
 
 /**
- * @brief Provides access to the underlying SDL_Renderer.
+ * Provides access to the underlying SDL_Renderer.
  *
- * @return The SDL_Renderer pointer used by this TextRenderer instance.
+ * The SDL_Renderer pointer used by this TextRenderer instance.
  */
 SDL_Renderer* TextRenderer::getRenderer() const {
     return m_renderer;

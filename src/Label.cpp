@@ -15,15 +15,15 @@
 //
 
 /**
- * @brief Constructs a retained-mode Label object.
+ * Constructs a retained-mode Label object.
  *
  * Measures the initial text size and calculates the label's final position
  * within the layout based on PositionParams.
  *
- * @param text The initial text string to display.
- * @param posParams The positional constraints (anchors, offsets) for layout calculation.
- * @param fontSize The size of the font in points.
- * @param color The color of the text.
+ * (text) The initial text string to display.
+ * (posParams) The positional constraints (anchors, offsets) for layout calculation.
+ * (fontSize) The size of the font in points.
+ * (color) The color of the text.
  */
 Label::Label(const std::string& text,
              const XenUI::PositionParams& posParams,
@@ -56,12 +56,12 @@ Label::Label(const std::string& text,
 }
 
 /**
- * @brief Sets new text content for the label.
+ * Sets new text content for the label.
  *
  * If the text changes, the label's required dimensions are re-measured, and
  * the content-space layout is recalculated.
  *
- * @param text The new text string.
+ * (text) The new text string.
  */
 void Label::setText(const std::string& text) {
     if (m_text == text) return;
@@ -83,12 +83,12 @@ void Label::setText(const std::string& text) {
 }
 
 /**
- * @brief Manually sets the content-space top-left position of the label.
+ * Manually sets the content-space top-left position of the label.
  *
  * This bypasses recalculation based on PositionParams.
  *
- * @param x The new X coordinate in content-space.
- * @param y The new Y coordinate in content-space.
+ * (x) The new X coordinate in content-space.
+ * (y) The new Y coordinate in content-space.
  */
 void Label::setPosition(int x, int y) {
     m_x = x;
@@ -96,20 +96,20 @@ void Label::setPosition(int x, int y) {
 }
 
 /**
- * @brief Sets the text color of the label.
+ * Sets the text color of the label.
  *
- * @param color The new SDL_Color for the text.
+ * color The new SDL_Color for the text.
  */
 void Label::setColor(const SDL_Color& color) {
     m_color = color;
 }
 
 /**
- * @brief Draws the label text using a zero view offset (for backwards compatibility).
+ * Draws the label text using a zero view offset (for backwards compatibility).
  *
  * This convenience overload is suitable when the label is not nested in a scrolling container.
  *
- * @param renderer The SDL_Renderer context.
+ * (renderer) The SDL_Renderer context.
  */
 void Label::draw(SDL_Renderer* renderer) {
     SDL_FPoint zero = {0.0f, 0.0f};
@@ -117,13 +117,13 @@ void Label::draw(SDL_Renderer* renderer) {
 }
 
 /**
- * @brief Draws the label text, offset by the parent's view offset. (IControl override).
+ * Draws the label text, offset by the parent's view offset. (IControl override).
  *
  * The final on-screen position is calculated by combining the content-space position (m_x, m_y)
  * with the translation offset.
  *
- * @param renderer The SDL_Renderer context.
- * @param viewOffset The content-to-screen translation offset (e.g., scroll position).
+ * (renderer) The SDL_Renderer context.
+ * (viewOffset) The content-to-screen translation offset (e.g., scroll position).
  */
 void Label::draw(SDL_Renderer* renderer, const SDL_FPoint& viewOffset) {
     if (!m_textRenderer.isInitialized()) {
@@ -140,12 +140,12 @@ void Label::draw(SDL_Renderer* renderer, const SDL_FPoint& viewOffset) {
 }
 
 /**
- * @brief Handles incoming SDL events.
+ * Handles incoming SDL events.
  *
  * Labels are non-interactive controls; this function currently does nothing but satisfy the IControl interface.
  *
- * @param e The SDL_Event to process.
- * @return Always returns false, indicating the event was not consumed or handled.
+ * (e) The SDL_Event to process.
+ *  Always returns false, indicating the event was not consumed or handled.
  */
 bool Label::handleEvent(const SDL_Event& /*e*/) {
     // Label is non-interactive by default.
@@ -153,12 +153,12 @@ bool Label::handleEvent(const SDL_Event& /*e*/) {
 }
 
 /**
- * @brief Recalculates the label's dimensions and content-space position based on parent layout. (IControl override).
+ * Recalculates the label's dimensions and content-space position based on parent layout. (IControl override).
  *
  * This is called when the parent container size changes or when the text content is updated.
  *
- * @param parentWidth The width of the parent container or content area.
- * @param parentHeight The height of the parent container or content area.
+ * (parentWidth) The width of the parent container or content area.
+ * (parentHeight) The height of the parent container or content area.
  */
 void Label::recalculateLayout(int parentWidth, int parentHeight) {
     // 1. Re-measure size based on current text
@@ -177,9 +177,9 @@ void Label::recalculateLayout(int parentWidth, int parentHeight) {
 }
 
 /**
- * @brief Retrieves the bounding box of the label in content-space. (IControl override).
+ * Retrieves the bounding box of the label in content-space. (IControl override).
  *
- * @return The SDL_FRect defining the label's top-left (m_x, m_y) and size (m_width, m_height).
+ * The SDL_FRect defining the label's top-left (m_x, m_y) and size (m_width, m_height).
  */
 SDL_FRect Label::getBounds() const {
     return SDL_FRect{ static_cast<float>(m_x), static_cast<float>(m_y),
@@ -187,9 +187,9 @@ SDL_FRect Label::getBounds() const {
 }
 
 /**
- * @brief Sets the SDL_Window context. (IControl override).
+ * Sets the SDL_Window context. (IControl override).
  *
- * @param window The current SDL_Window.
+ * (window) The current SDL_Window.
  */
 void Label::setWindow(SDL_Window* window) {
     m_window = window;
@@ -197,9 +197,9 @@ void Label::setWindow(SDL_Window* window) {
 }
 
 /**
- * @brief Sets the parent's view offset. (IControl override).
+ * Sets the parent's view offset. (IControl override).
  *
- * @param viewOffset The content-to-screen translation offset.
+ * (viewOffset) The content-to-screen translation offset.
  */
 void Label::setViewOffset(const SDL_FPoint& viewOffset) {
     m_viewOffset = viewOffset;
@@ -219,18 +219,18 @@ void Label::setViewOffset(const SDL_FPoint& viewOffset) {
 namespace XenUI {
 
 /**
- * @brief Renders a label immediately at the calculated position.
+ * Renders a label immediately at the calculated position.
  *
  * This function handles text measurement, position calculation relative to parent/content,
  * and rendering, all within a single function call.
  *
- * @param text The text string to render.
- * @param posParams The positional constraints (anchors, offsets) for layout calculation.
- * @param fontSize The size of the font in points.
- * @param color The color of the text.
- * @param parentWidth The width of the content area (used for position calculation).
- * @param parentHeight The height of the content area (used for position calculation).
- * @param viewOffset The content-to-screen translation offset (e.g., scroll position).
+ * (text) The text string to render.
+ * (posParams) The positional constraints (anchors, offsets) for layout calculation.
+ * (fontSize) The size of the font in points.
+ * (color) The color of the text.
+ * (parentWidth) The width of the content area (used for position calculation).
+ * (parentHeight) The height of the content area (used for position calculation).
+ * (viewOffset) The content-to-screen translation offset (e.g., scroll position).
  */
 void Label(const std::string& text,
            const XenUI::PositionParams& posParams,
@@ -276,14 +276,14 @@ void Label(const std::string& text,
 }
 
 /**
- * @brief Convenience overload for immediate mode Label, assuming no parent/window size context and zero view offset.
+ * Convenience overload for immediate mode Label, assuming no parent/window size context and zero view offset.
  *
  * This overload is suitable for simple, non-nested use cases.
  *
- * @param text The text string to render.
- * @param posParams The positional constraints for layout calculation.
- * @param fontSize The size of the font in points.
- * @param color The color of the text.
+ * (text) The text string to render.
+ * (posParams) The positional constraints for layout calculation.
+ * (fontSize) The size of the font in points.
+ * (color) The color of the text.
  */
 void Label(const std::string& text,
            const XenUI::PositionParams& posParams,

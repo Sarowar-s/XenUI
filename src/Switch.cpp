@@ -27,12 +27,12 @@ namespace XenUI
 // -----------------------------------------------------------------------------
 
 /**
- * @brief Constructs a retained-mode Switch control.
+ * Constructs a retained-mode Switch control.
  *
- * @param posParams The positional constraints (anchors, offsets) of the switch's bounding box.
- * @param style The visual style parameters.
- * @param onToggle Optional callback function invoked when the switch state changes.
- * @param initialState The initial ON/OFF state of the switch.
+ * (posParams) The positional constraints (anchors, offsets) of the switch's bounding box.
+ * (style) The visual style parameters.
+ * (onToggle) Optional callback function invoked when the switch state changes.
+ * (initialState) The initial ON/OFF state of the switch.
  */
 Switch::Switch(const XenUI::PositionParams& posParams,
                const SwitchStyle& style,
@@ -55,9 +55,9 @@ Switch::Switch(const XenUI::PositionParams& posParams,
 }
 
 /**
- * @brief Programmatically sets the ON/OFF state of the switch.
+ * Programmatically sets the ON/OFF state of the switch.
  *
- * @param on The desired state (true for ON, false for OFF).
+ * (on) The desired state (true for ON, false for OFF).
  */
 void Switch::setOn(bool on)
 {
@@ -67,11 +67,11 @@ void Switch::setOn(bool on)
 }
 
 /**
- * @brief Calculates the content-space X coordinate of the center of the thumb.
+ * Calculates the content-space X coordinate of the center of the thumb.
  *
  * The center position depends on the current ON/OFF state.
  *
- * @return The X coordinate of the thumb center in content-space.
+ * The X coordinate of the thumb center in content-space.
  */
 float Switch::getThumbCenterX_Content() const
 {
@@ -85,9 +85,9 @@ float Switch::getThumbCenterX_Content() const
 }
 
 /**
- * @brief Calculates the content-space bounding box (SDL_FRect) of the switch thumb.
+ * Calculates the content-space bounding box (SDL_FRect) of the switch thumb.
  *
- * @return The SDL_FRect defining the thumb's size and content-space position.
+ * The SDL_FRect defining the thumb's size and content-space position.
  */
 SDL_FRect Switch::getThumbRect_Content() const
 {
@@ -99,10 +99,10 @@ SDL_FRect Switch::getThumbRect_Content() const
 }
 
 /**
- * @brief Renders the switch, including the track, the thumb, and optional label text.
+ * Renders the switch, including the track, the thumb, and optional label text.
  *
- * @param renderer The SDL_Renderer context.
- * @param viewOffset The screen-space offset inherited from parent containers (e.g., ScrollView).
+ * (enderer) The SDL_Renderer context.
+ * (viewOffset) The screen-space offset inherited from parent containers (e.g., ScrollView).
  */
 void Switch::draw(SDL_Renderer* renderer, const SDL_FPoint& viewOffset)
 {
@@ -150,13 +150,13 @@ void Switch::draw(SDL_Renderer* renderer, const SDL_FPoint& viewOffset)
 }
 
 /**
- * @brief Handles input events for the switch.
+ * Handles input events for the switch.
  *
  * Supports click-to-toggle logic where the toggle occurs on the mouse button UP
  * event, provided the cursor started and ended inside the switch bounds.
  *
- * @param event The SDL_Event to process.
- * @return true if the switch state or visual state (hover/press) changed, false otherwise.
+ * (event) The SDL_Event to process.
+ * true if the switch state or visual state (hover/press) changed, false otherwise.
  */
 bool Switch::handleEvent(const SDL_Event& event)
 {
@@ -205,12 +205,12 @@ bool Switch::handleEvent(const SDL_Event& event)
 }
 
 /**
- * @brief Recalculates the switch's position based on its PositionParams and parent dimensions.
+ * Recalculates the switch's position based on its PositionParams and parent dimensions.
  *
  * The switch's size (m_width, m_height) is fixed by the style.
  *
- * @param parentWidth The available width in the parent container.
- * @param parentHeight The available height in the parent container.
+ * (parentWidth) The available width in the parent container.
+ * (parentHeight) The available height in the parent container.
  */
 void Switch::recalculateLayout(int parentWidth, int parentHeight)
 {
@@ -223,9 +223,9 @@ void Switch::recalculateLayout(int parentWidth, int parentHeight)
 }
 
 /**
- * @brief Returns the content-space bounding box of the entire switch control.
+ * Returns the content-space bounding box of the entire switch control.
  *
- * @return The SDL_FRect defining the bounds.
+ * The SDL_FRect defining the bounds.
  */
 SDL_FRect Switch::getBounds() const
 {
@@ -247,20 +247,20 @@ namespace Detail {
 }
 
 /**
- * @brief Immediate Mode: Renders and manages a toggle switch control.
+ * Immediate Mode: Renders and manages a toggle switch control.
  *
  * Handles state persistence, input processing, and rendering for the switch.
  *
- * @param id Unique identifier (for state persistence).
- * @param posParams Positional constraints.
- * @param style Visual style.
- * @param pValue Pointer to the external boolean value (read/write).
- * @param triggerOnPress If true, toggle happens on mouse down; otherwise, it happens on mouse up (standard click).
- * @param parentWidth The width of the parent container for layout resolution.
- * @param parentHeight The height of the parent container for layout resolution.
- * @param viewOffset Screen-space offset from parent (applied to drawing).
- * @param event The current SDL_Event pointer (optional: not directly used as mouse state is polled).
- * @return true if the external value (*pValue) was toggled this frame, false otherwise.
+ * (id) Unique identifier (for state persistence).
+ * (posParams) Positional constraints.
+ * (style) Visual style.
+ * (pValue) Pointer to the external boolean value (read/write).
+ * (triggerOnPress) If true, toggle happens on mouse down; otherwise, it happens on mouse up (standard click).
+ * (parentWidth) The width of the parent container for layout resolution.
+ * (parentHeight) The height of the parent container for layout resolution.
+ * (viewOffset) Screen-space offset from parent (applied to drawing).
+ * (event) The current SDL_Event pointer (optional: not directly used as mouse state is polled).
+ *  true if the external value (*pValue) was toggled this frame, false otherwise.
  */
 bool SwitchImmediate(const std::string& id,
                      const XenUI::PositionParams& posParams,
