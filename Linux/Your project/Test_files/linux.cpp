@@ -40,7 +40,7 @@
 #include "XenUI/ScrollView.h"
 #include "XenUI/UIElement.h"
 
-
+#include "XenUI/Pager.h"
 static SDL_Event gLastEvent;
 
 
@@ -92,6 +92,11 @@ bool retainedChecked = false;
 bool retainedChecked1 = false;     
 bool retainedChecked2 = false;    
 bool retainedChecked3 = false;    
+
+// Pagers
+// ==================== PAGER EXAMPLES ====================
+std::unique_ptr<XenUI::Pager> myRetainedPager;           // Retained Mode Pager
+size_t immediatePagerPage = 0;                           // For Immediate Mode
 
 
 int contentStartY = 10;
@@ -369,6 +374,53 @@ myRetainedScrollView->recalculateLayout(winSize.x, winSize.y);
         for (auto& dropdown : dropdowns) { // <--- RECALCULATE RETAINED DROPDOWN POSITIONS
             dropdown.recalculateLayout();
         }
+
+
+        // ===================== RETAINED MODE PAGER =====================
+    // myRetainedPager = std::make_unique<XenUI::Pager>(
+    //     "main_pager",
+    //     XenUI::PositionParams::Anchored(XenUI::Anchor::CENTER, 0, 0, 900, 500),
+    //     900.0f,   // width
+    //     500.0f    // height
+    // );
+
+    // // Page 1: Some controls
+    // {
+    //     std::vector<std::unique_ptr<IControl>> page1;
+    //     // Add buttons, labels, etc.
+    //     auto btn = std::make_unique<Button>(
+    //         "Page 1 Button",
+    //         XenUI::PositionParams::Anchored(XenUI::Anchor::TOP_LEFT, 50, 50),
+    //         ButtonStyle{}, nullptr, 24
+    //     );
+    //     page1.push_back(std::move(btn));
+
+    //     myRetainedPager->addPage("Home", std::move(page1));
+    // }
+
+    // // Page 2
+    // {
+    //     std::vector<std::unique_ptr<IControl>> page2;
+    //     auto label = std::make_unique<Label>(
+    //         "This is Page 2",
+    //         XenUI::PositionParams::Anchored(XenUI::Anchor::CENTER),
+    //         40, SDL_Color{255, 100, 100, 255}
+    //     );
+    //     page2.push_back(std::move(label));
+
+    //     myRetainedPager->addPage("Settings", std::move(page2));
+    // }
+
+    // // Page 3
+    // myRetainedPager->addPage("About", {});
+
+    // myRetainedPager->setOnPageChanged([](size_t idx) {
+    //     std::cout << "Retained Pager changed to page: " << idx << std::endl;
+    // });
+
+    // ===================== IMMEDIATE MODE PAGER =====================
+    // No setup needed - just call BeginPager / EndPager every frame
+
         
 
 }
@@ -677,6 +729,59 @@ if (XenUI::Dropdown(
 XenUI::EndScrollView(renderer);
 
 
+    // ===================== RETAINED MODE PAGER =====================
+    if (myRetainedPager) {
+        myRetainedPager->draw(renderer, {0.0f, 0.0f});
+    }
+
+    // ===================== IMMEDIATE MODE PAGER =====================
+    std::vector<std::string> pagerTitles = {"Home", "Profile", "Settings", "Help"};
+
+    if (XenUI::BeginPager(
+        "demo_pager",          // unique ID
+        renderer,
+        XenUI::PositionParams::Anchored(XenUI::Anchor::BOTTOM_CENTER, 0, -50, 800, 400),
+        800.0f,
+        400.0f,
+        &immediatePagerPage,
+        pagerTitles,
+        [](size_t idx) {
+            std::cout << "Immediate Pager changed to page " << idx << std::endl;
+        },
+        XenUI::PagerStyle{},
+        {0.0f, 0.0f},
+        -1, -1
+    )) {
+        
+        // === Draw content for the CURRENT page here ===
+        if (immediatePagerPage == 0) {
+            XenUI::Label("Welcome to Home Page!", 
+                XenUI::PositionParams::Anchored(XenUI::Anchor::CENTER), 
+                36, SDL_Color{100, 255, 100, 255});
+        } 
+        else if (immediatePagerPage == 1) {
+            XenUI::Label("This is your Profile", 
+                XenUI::PositionParams::Anchored(XenUI::Anchor::CENTER), 
+                32, SDL_Color{255, 200, 100, 255});
+        } 
+        else if (immediatePagerPage == 2) {
+            // You can put a ScrollView or other controls here
+            XenUI::Label("Settings Page", 
+                XenUI::PositionParams::Anchored(XenUI::Anchor::TOP_LEFT, 50, 50), 
+                28, SDL_Color{200, 200, 255, 255});
+        }
+        else if(immediatePagerPage == 3){
+            XenUI::Label("This is help page", 
+            XenUI::PositionParams::Anchored(XenUI::Anchor::CENTER), 
+            36, 
+            SDL_Color{100, 255, 100, 255});
+        }
+
+    }
+
+    XenUI::EndPager("demo_pager", renderer);
+
+
 
     SDL_RenderPresent(renderer);
 }
@@ -844,6 +949,11 @@ myRetainedScrollView->recalculateLayout(winSize.x, winSize.y);
 
             default:
 
+
+            if (myRetainedPager && myRetainedPager->handleEvent(event)) {
+        needsRedraw = true;
+    }
+
 if (myRetainedScrollView && myRetainedScrollView->handleEvent(event, window, {0.0f, 0.0f})) {
     needsRedraw = true;
   
@@ -917,6 +1027,11 @@ if (myRetainedScrollView && myRetainedScrollView->handleEvent(event, window, {0.
                 anyStillAnimating = true;
             }
         }
+
+            if (myRetainedPager) {
+        myRetainedPager->update(0.016f);  // or use real deltaTime
+        needsRedraw = true;
+    }
 
 
 

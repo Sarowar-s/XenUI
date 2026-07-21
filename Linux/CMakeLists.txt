@@ -132,9 +132,10 @@ add_library(XenUI SHARED
     ${XENUI_SOURCE_DIR}/../../src/RadioButton.cpp
     ${XENUI_SOURCE_DIR}/../../src/CheckBox.cpp
     ${XENUI_SOURCE_DIR}/../../src/Switch.cpp
-    ${XENUI_SOURCE_DIR}/../../src/Slider.cpp
+    ${XENUI_SOURCE_DIR}/../../src/Slider.cpp    
     ${XENUI_SOURCE_DIR}/../../src/Dropdown.cpp
     ${XENUI_SOURCE_DIR}/../../src/ScrollView.cpp
+    ${XENUI_SOURCE_DIR}/../../src/Pager.cpp
 )
 
 # Set properties for library versioning and identify the public headers for installation.
