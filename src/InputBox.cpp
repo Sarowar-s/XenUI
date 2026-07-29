@@ -431,10 +431,8 @@ bool InputBox::handleEvent(const SDL_Event& event, SDL_Window* window, const SDL
     // --- Mouse down: focus & start selection/dragging ---
     if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN && event.button.button == SDL_BUTTON_LEFT && haveMouseCoords) {
         if (pointInside(mx, my)) {
-            if (!IControl::hasFocus()) {
-                // If the box didn't have focus, focus it now (which handles SDL_StartTextInput)
+                // Aways call focus insted of checking hasfocus 
                 focus(window, viewOffset);
-            }
 
             // mx is content-space X; convert this content-space X coordinate to a character index
             m_cursorPos = getIndexFromXCoord(static_cast<int>(mx));
@@ -617,6 +615,8 @@ void InputBox::focus(SDL_Window* window, const SDL_FPoint& viewOffset) {
             };
             // Update the IME position without re-starting text input
             SDL_SetTextInputArea(m_window, &inputRect, m_cursorPos);
+			SDL_StopTextInput(m_window);
+            SDL_StartTextInput(m_window);
         }
         return;
     }
