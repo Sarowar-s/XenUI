@@ -216,15 +216,16 @@ TTF_Font* TextRenderer::getFont(int fontSize) {
 }
 
 /**
- * Creates a unique key for caching textures based on text content and size.
+ * Creates a unique key for caching textures based on text content, size, and wrapWidth.
  *
  * (text) The string content.
  * (fontSize) The size of the font used.
+ * (wrapWidth) The maximum width for wrapped text.
  * A concatenated string key.
  */
-std::string TextRenderer::createCacheKey(const std::string& text, int fontSize) {
+std::string TextRenderer::createCacheKey(const std::string& text, int fontSize, int wrapWidth) {
     std::stringstream ss;
-    ss << text << '|' << fontSize;
+    ss << text << '|' << fontSize << '|' << wrapWidth;
     return ss.str();
 }
 
@@ -240,16 +241,17 @@ std::string TextRenderer::createCacheKey(const std::string& text, int fontSize) 
  * (fontSize) The desired font size.
  * (outW) Output parameter for the resulting texture width.
  * (outH) Output parameter for the resulting texture height.
+ * (wrapWidth) Maximum width before wrapping text (0 to disable wrapping).
  *  A pointer to the cached SDL_Texture, or nullptr on failure.
  */
-SDL_Texture* TextRenderer::renderTextToTexture(const std::string& text, SDL_Color color, int fontSize, int& outW, int& outH) {
+SDL_Texture* TextRenderer::renderTextToTexture(const std::string& text, SDL_Color color, int fontSize, int& outW, int& outH, int wrapWidth) {
     if (!m_initialized || text.empty()) {
         outW = 0; outH = 0;
         return nullptr;
     }
 
     // 1. Check Cache
-    std::string key = createCacheKey(text, fontSize);
+    std::string key = createCacheKey(text, fontSize, wrapWidth);
     auto cacheIt = m_textureCache.find(key);
     if (cacheIt != m_textureCache.end()) {
         outW = cacheIt->second.width;
@@ -266,7 +268,13 @@ SDL_Texture* TextRenderer::renderTextToTexture(const std::string& text, SDL_Colo
 
     // 3. Render to Surface (Blended mode for high quality)
     // Note: The color argument is ignored in TTF_RenderText_Blended as the color is passed in the SDL_Color struct.
-    SDL_Surface* surface = TTF_RenderText_Blended(font, text.c_str(), 0, color);
+    SDL_Surface* surface = nullptr;
+    if (wrapWidth > 0) {
+        surface = TTF_RenderText_Blended_Wrapped(font, text.c_str(), 0, color, wrapWidth);
+    } else {
+        surface = TTF_RenderText_Blended(font, text.c_str(), 0, color);
+    }
+    
     if (!surface) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "renderTextToTexture: Failed to create surface: %s", SDL_GetError());
         outW = 0; outH = 0;
@@ -300,12 +308,13 @@ SDL_Texture* TextRenderer::renderTextToTexture(const std::string& text, SDL_Colo
  * (y) The screen Y coordinate (top-left).
  * (color) The color of the text.
  * (fontSize) The size of the font.
+ * (wrapWidth) Maximum width before wrapping text (0 to disable wrapping).
  */
-void TextRenderer::renderText(const std::string& text, int x, int y, SDL_Color color, int fontSize) {
+void TextRenderer::renderText(const std::string& text, int x, int y, SDL_Color color, int fontSize, int wrapWidth) {
     if (!m_initialized) return;
     int texW = 0, texH = 0;
     // Attempt to retrieve or render the text texture
-    SDL_Texture* texture = renderTextToTexture(text, color, fontSize, texW, texH);
+    SDL_Texture* texture = renderTextToTexture(text, color, fontSize, texW, texH, wrapWidth);
     if (!texture) return;
 
     // Define the destination rectangle on the screen
@@ -325,9 +334,10 @@ void TextRenderer::renderText(const std::string& text, int x, int y, SDL_Color c
  * (fontSize) The desired font size.
  * (outW) Output parameter for the resulting texture width.
  * (outH) Output parameter for the resulting texture height.
+ * (wrapWidth) Maximum width before wrapping text (0 to disable wrapping).
  *  A pointer to the new SDL_Texture, or nullptr on failure.
  */
-SDL_Texture* TextRenderer::renderTextImmediateToTexture(const std::string& text, SDL_Color color, int fontSize, int& outW, int& outH) {
+SDL_Texture* TextRenderer::renderTextImmediateToTexture(const std::string& text, SDL_Color color, int fontSize, int& outW, int& outH, int wrapWidth) {
     outW = 0; outH = 0;
     // Check initialization and basic input validity
     if (!m_initialized || text.empty() || fontSize <= 0) {
@@ -339,7 +349,13 @@ SDL_Texture* TextRenderer::renderTextImmediateToTexture(const std::string& text,
     if (!font) return nullptr;
 
     // Render to surface (immediate, uncached)
-    SDL_Surface* surface = TTF_RenderText_Blended(font, text.c_str(), 0, color);
+    SDL_Surface* surface = nullptr;
+    if (wrapWidth > 0) {
+        surface = TTF_RenderText_Blended_Wrapped(font, text.c_str(), 0, color, wrapWidth);
+    } else {
+        surface = TTF_RenderText_Blended(font, text.c_str(), 0, color);
+    }
+    
     if (!surface) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Error creating immediate surface: %s", SDL_GetError());
         return nullptr;
@@ -365,19 +381,27 @@ SDL_Texture* TextRenderer::renderTextImmediateToTexture(const std::string& text,
  * (fontSize) The size of the font.
  * (w) Output parameter for the resulting pixel width.
  * (h) Output parameter for the resulting pixel height.
+ * (wrapWidth) Maximum width before wrapping text (0 to disable wrapping).
  */
-void TextRenderer::measureText(const std::string& text, int fontSize, int& w, int& h) {
+void TextRenderer::measureText(const std::string& text, int fontSize, int& w, int& h, int wrapWidth) {
     w = 0; h = 0;
     if (!m_initialized || text.empty()) return;
 
     TTF_Font* font = getFont(fontSize);
     if (!font) return;
 
-    // Use TTF_GetStringSize to calculate dimensions without rendering
+    // Use TTF_GetStringSize or TTF_GetStringSizeWrapped to calculate dimensions without rendering
     // Note: The second argument (0) is flags, usually 0 or TTF_MEASURE_PERFECT.
-    if (!TTF_GetStringSize(font, text.c_str(), 0, &w, &h)) {
-        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "measureText: TTF_GetStringSize failed for font '%s', text '%s': %s", m_fontPath.c_str(), text.c_str(), SDL_GetError());
-        w = 0; h = 0;
+    if (wrapWidth > 0) {
+        if (!TTF_GetStringSizeWrapped(font, text.c_str(), 0, wrapWidth, &w, &h)) {
+            SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "measureText: TTF_GetStringSizeWrapped failed for font '%s', text '%s': %s", m_fontPath.c_str(), text.c_str(), SDL_GetError());
+            w = 0; h = 0;
+        }
+    } else {
+        if (!TTF_GetStringSize(font, text.c_str(), 0, &w, &h)) {
+            SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "measureText: TTF_GetStringSize failed for font '%s', text '%s': %s", m_fontPath.c_str(), text.c_str(), SDL_GetError());
+            w = 0; h = 0;
+        }
     }
 }
 
@@ -388,11 +412,12 @@ void TextRenderer::measureText(const std::string& text, int fontSize, int& w, in
  *
  * (text) The string content.
  * (fontSize) The size of the font.
+ * (wrapWidth) Maximum width before wrapping text (0 to disable wrapping).
  * An SDL_Point containing the width (x) and height (y).
  */
-SDL_Point TextRenderer::getTextSize(const std::string& text, int fontSize) {
+SDL_Point TextRenderer::getTextSize(const std::string& text, int fontSize, int wrapWidth) {
     SDL_Point size = {0, 0};
-    measureText(text, fontSize, size.x, size.y);
+    measureText(text, fontSize, size.x, size.y, wrapWidth);
     return size;
 }
 

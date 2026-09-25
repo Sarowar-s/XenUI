@@ -61,8 +61,9 @@ public:
      * @param y The screen Y coordinate (top-left).
      * @param color The color of the text.
      * @param fontSize The size of the font.
+     * @param wrapWidth Maximum width before wrapping text (0 to disable wrapping).
      */
-    void renderText(const std::string& text, int x, int y, SDL_Color color, int fontSize);
+    void renderText(const std::string& text, int x, int y, SDL_Color color, int fontSize, int wrapWidth = 0);
 
     /**
      * @brief Calculates the pixel dimensions required to render a given text string.
@@ -71,17 +72,19 @@ public:
      * @param fontSize The size of the font.
      * @param w Output parameter for the resulting pixel width.
      * @param h Output parameter for the resulting pixel height.
+     * @param wrapWidth Maximum width before wrapping text (0 to disable wrapping).
      */
-    void measureText(const std::string& text, int fontSize, int& w, int& h);
+    void measureText(const std::string& text, int fontSize, int& w, int& h, int wrapWidth = 0);
 
     /**
      * @brief Convenience function to calculate text size and return it as an SDL_Point.
      *
      * @param text The string content.
      * @param fontSize The size of the font.
+     * @param wrapWidth Maximum width before wrapping text (0 to disable wrapping).
      * @return An SDL_Point containing the width (x) and height (y).
      */
-    SDL_Point getTextSize(const std::string& text, int fontSize); // Convenience
+    SDL_Point getTextSize(const std::string& text, int fontSize, int wrapWidth = 0); // Convenience
 
     /**
      * @brief Destroys all cached textures and closes all loaded TTF_Font objects.
@@ -103,9 +106,10 @@ public:
      * @param fontSize The desired font size.
      * @param outW Output parameter for the resulting texture width.
      * @param outH Output parameter for the resulting texture height.
+     * @param wrapWidth Maximum width before wrapping text (0 to disable wrapping).
      * @return A pointer to the new SDL_Texture, or nullptr on failure.
      */
-    SDL_Texture* renderTextImmediateToTexture(const std::string& text, SDL_Color color, int fontSize, int& outW, int& outH);
+    SDL_Texture* renderTextImmediateToTexture(const std::string& text, SDL_Color color, int fontSize, int& outW, int& outH, int wrapWidth = 0);
 
     // -------------------------------------------------------------------------
     // --- Immediate Mode Functionality Ends Here ---
@@ -134,9 +138,10 @@ public:
      * @param fontSize The desired font size.
      * @param outW Output parameter for the resulting texture width.
      * @param outH Output parameter for the resulting texture height.
+     * @param wrapWidth Maximum width before wrapping text (0 to disable wrapping).
      * @return A pointer to the cached SDL_Texture, or nullptr on failure.
      */
-    SDL_Texture* renderTextToTexture(const std::string& text, SDL_Color color, int fontSize, int& outW, int& outH);
+    SDL_Texture* renderTextToTexture(const std::string& text, SDL_Color color, int fontSize, int& outW, int& outH, int wrapWidth = 0);
 
     /**
      * @brief Returns the font's ascent and descent metrics for the given size.
@@ -184,9 +189,10 @@ private:
      * @brief Internal helper to generate a unique key for the texture cache.
      * @param text The text content.
      * @param fontSize The font size.
+     * @param wrapWidth The maximum width for wrapped text.
      * @return The unique cache key string.
      */
-    std::string createCacheKey(const std::string& text, int fontSize);
+    std::string createCacheKey(const std::string& text, int fontSize, int wrapWidth);
 
     /**
      * @brief Platform-specific logic to locate a bundled or system fallback font.

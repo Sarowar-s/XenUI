@@ -2,11 +2,11 @@
 .. toctree::
    :maxdepth: 3
 
-   Linux/doc
-   Mac/doc
-   Windows/doc
-   Android/Linux_android/doc
-   Android/Windows_android/doc
+   linux
+   windows
+   mac
+   linux_android
+   windows_android
 
 
 XenonUI Documentation
@@ -20,8 +20,8 @@ within the same API — giving developers complete control over performance and 
 
 **Visit the specific folder below to read platform-specific documentation:**
 
-- `Linux Documentation <Linux/doc.rst>`_
-- `Windows Documentation <Windows/doc.rst>`_
-- `Mac Documentation <Mac/doc.rst>`_
-- `Android Documentation for Linux <Android/Linux_android/doc.rst>`_
-- `Android Documentation for Windows <Android/Windows_android/doc.rst>`_
+- `Linux Documentation <linux.rst>`_
+- `Windows Documentation <windows.rst>`_
+- `Mac Documentation <mac.rst>`_
+- `Android Documentation for Linux <linux_android.rst>`_
+- `Android Documentation for Windows <windows_android.rst>`_

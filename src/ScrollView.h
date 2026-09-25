@@ -82,7 +82,7 @@ public:
      * @param parentViewOffset The screen-space offset of this ScrollView from its parent or the screen origin.
      * @return true if the event was handled and consumed, false otherwise.
      */
-    bool handleEvent(const SDL_Event& evt, SDL_Window* window, const SDL_FPoint& parentViewOffset);
+    bool handleEvent(const SDL_Event& evt, SDL_Window* window, const SDL_FPoint& parentViewOffset) override;
 
     /**
      * @brief Convenience overload for IControl base compatibility (assumes zero parent offset).

@@ -1,15 +1,12 @@
 // SPDX-License-Identifier: Apache-2.0
 /*
  *  Copyright (C) 2025 MD S M Sarowar Hossain
- *
  */
-
 
 #include "TextRenderer.h"
 #include <SDL3/SDL_log.h>     
 #include <fstream> 
 #include <SDL_ttf.h>
-
 
 TextRenderer& TextRenderer::getInstance() {
     static TextRenderer instance;
@@ -29,15 +26,13 @@ bool TextRenderer::isInitialized() const {
     return m_initialized;
 }
 
-
 std::string TextRenderer::findBundledFallbackFont() {
     SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "TextRenderer: Searching for bundled fallback font...");
     
-   
     const char* commonFontNames[] = {"DejaVuSans.ttf", "Roboto-Regular.ttf", "NotoSans-Regular.ttf", "Arial.ttf"};
     std::string foundFontName = "";
 
-    #ifdef __ANDROID__
+#ifdef __ANDROID__
     for (const char* assetName : commonFontNames) {
         std::string assetPath = "fonts/"; 
         assetPath += assetName;
@@ -45,42 +40,31 @@ std::string TextRenderer::findBundledFallbackFont() {
         if (rwops) {
             SDL_CloseIO(rwops);
             SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "TextRenderer: Found bundled font in assets: %s", assetPath.c_str());
-            foundFontName = assetPath; // Store the full asset path including "fonts/"
+            foundFontName = assetPath;
             break;
-        } else {
-            SDL_LogDebug(SDL_LOG_CATEGORY_APPLICATION, "TextRenderer: Bundled font '%s' not found in assets via SDL_IOFromFile: %s", assetPath.c_str(), SDL_GetError());
         }
     }
     if (foundFontName.empty()) {
-         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "TextRenderer: No common bundled font found in assets.");
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "TextRenderer: No common bundled font found in assets.");
     }
 #else
-   
     #ifdef XENUI_FALLBACK_FONT_PATH
         std::string embeddedPath = XENUI_FALLBACK_FONT_PATH;
         std::ifstream f(embeddedPath.c_str());
         if (f.good()) {
-            SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "TextRenderer: Found fallback font at embedded path (non-Android): %s", embeddedPath.c_str());
             foundFontName = embeddedPath;
-        } else {
-             SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "TextRenderer: Embedded fallback font path not found or not readable (non-Android): %s", embeddedPath.c_str());
         }
     #endif
     if (foundFontName.empty()) {
-        // Try a common system path as a last resort for desktop
-        const char* desktopFallback = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"; // Example Linux path
+        const char* desktopFallback = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf";
         std::ifstream f(desktopFallback);
         if (f.good()) {
-            SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "TextRenderer: Found fallback font at system path (non-Android): %s", desktopFallback);
             foundFontName = desktopFallback;
-        } else {
-            SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "TextRenderer: Bundled fallback font could not be located (non-Android), and system fallback failed.");
         }
     }
 #endif
     return foundFontName;
 }
-
 
 void TextRenderer::init(SDL_Renderer* renderer, const std::vector<std::string>& preferredFamilies) {
     if (m_initialized) return;
@@ -90,29 +74,23 @@ void TextRenderer::init(SDL_Renderer* renderer, const std::vector<std::string>& 
     }
     m_renderer = renderer;
 
-
-    if (TTF_Init() == -1) {
+    if (!TTF_Init()) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "SDL_ttf could not initialize! SDL_ttf Error: %s", SDL_GetError());
         return;
     }
 
     m_fontPath = findBundledFallbackFont(); 
 
-    SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION,
-        "Using font path: %s", m_fontPath.empty() ? "<none>" : m_fontPath.c_str());
-
-
     if (m_fontPath.empty()) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "ERROR: TextRenderer init failed. Could not find any suitable bundled font!");
         TTF_Quit(); 
-        m_initialized=false;
+        m_initialized = false;
         return; 
     }
 
     m_initialized = true;
     SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "TextRenderer initialized successfully. Using font: %s", m_fontPath.c_str());
 }
-
 
 TTF_Font* TextRenderer::getFont(int fontSize) {
     if (!m_initialized || m_fontPath.empty() || fontSize <= 0) return nullptr;
@@ -122,26 +100,15 @@ TTF_Font* TextRenderer::getFont(int fontSize) {
         return it->second;
     }
 
-    SDL_IOStream* rwops = nullptr;
-#ifdef __ANDROID__
-
-    rwops = SDL_IOFromFile(m_fontPath.c_str(), "rb"); 
-#else
-
-    rwops = SDL_IOFromFile(m_fontPath.c_str(), "rb");
-#endif
-
+    SDL_IOStream* rwops = SDL_IOFromFile(m_fontPath.c_str(), "rb");
     if (!rwops) {
-        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "getFont: Failed to open font '%s' as RWops: %s", m_fontPath.c_str(), SDL_GetError());
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "getFont: Failed to open font '%s': %s", m_fontPath.c_str(), SDL_GetError());
         return nullptr;
     }
     
-
     TTF_Font* font = TTF_OpenFontIO(rwops, true, fontSize); 
-
     if (!font) {
-        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "getFont: Failed to open font from RWops for '%s' size %d. Error: %s", m_fontPath.c_str(), fontSize, SDL_GetError());
-
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "getFont: Failed to open font size %d. Error: %s", fontSize, SDL_GetError());
         return nullptr;
     }
 
@@ -149,19 +116,19 @@ TTF_Font* TextRenderer::getFont(int fontSize) {
     return font;
 }
 
-std::string TextRenderer::createCacheKey(const std::string& text, int fontSize) {
+std::string TextRenderer::createCacheKey(const std::string& text, int fontSize, int wrapWidth) {
     std::stringstream ss;
-    ss << text << '|' << fontSize;
+    ss << text << '|' << fontSize << '|' << wrapWidth;
     return ss.str();
 }
 
-SDL_Texture* TextRenderer::renderTextToTexture(const std::string& text, SDL_Color color, int fontSize, int& outW, int& outH) {
+SDL_Texture* TextRenderer::renderTextToTexture(const std::string& text, SDL_Color color, int fontSize, int& outW, int& outH, int wrapWidth) {
     if (!m_initialized || text.empty()) {
         outW = 0; outH = 0;
         return nullptr;
     }
 
-    std::string key = createCacheKey(text, fontSize);
+    std::string key = createCacheKey(text, fontSize, wrapWidth);
     auto cacheIt = m_textureCache.find(key);
     if (cacheIt != m_textureCache.end()) {
         outW = cacheIt->second.width; 
@@ -175,7 +142,13 @@ SDL_Texture* TextRenderer::renderTextToTexture(const std::string& text, SDL_Colo
         return nullptr;
     }
 
-    SDL_Surface* surface = TTF_RenderText_Blended(font, text.c_str(), 0, color);
+    SDL_Surface* surface = nullptr;
+    if (wrapWidth > 0) {
+        surface = TTF_RenderText_Blended_Wrapped(font, text.c_str(), 0, color, wrapWidth);
+    } else {
+        surface = TTF_RenderText_Blended(font, text.c_str(), 0, color);
+    }
+
     if (!surface) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "renderTextToTexture: Failed to create surface: %s", SDL_GetError());
         outW = 0; outH = 0;
@@ -196,60 +169,65 @@ SDL_Texture* TextRenderer::renderTextToTexture(const std::string& text, SDL_Colo
     return texture;
 }
 
-void TextRenderer::renderText(const std::string& text, int x, int y, SDL_Color color, int fontSize) {
+void TextRenderer::renderText(const std::string& text, int x, int y, SDL_Color color, int fontSize, int wrapWidth) {
     if (!m_initialized) return;
     int texW = 0, texH = 0;
-    SDL_Texture* texture = renderTextToTexture(text, color, fontSize, texW, texH);
+    SDL_Texture* texture = renderTextToTexture(text, color, fontSize, texW, texH, wrapWidth);
     if (!texture) return;
     
     SDL_FRect dstRect = { (float)x, (float)y, (float)texW, (float)texH };
     SDL_RenderTexture(m_renderer, texture, nullptr, &dstRect); 
 }
 
-SDL_Texture* TextRenderer::renderTextImmediateToTexture(const std::string& text, SDL_Color color, int fontSize, int& outW, int& outH) {
+SDL_Texture* TextRenderer::renderTextImmediateToTexture(const std::string& text, SDL_Color color, int fontSize, int& outW, int& outH, int wrapWidth) {
     outW = 0; outH = 0;
-    if (!m_initialized || text.empty() || fontSize <= 0) {
-        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Error: TextRenderer not ready or invalid input for immediate render.");
-        return nullptr;
-    }
+    if (!m_initialized || text.empty() || fontSize <= 0) return nullptr;
 
     TTF_Font* font = getFont(fontSize);
     if (!font) return nullptr;
 
-    SDL_Surface* surface = TTF_RenderText_Blended(font, text.c_str(), 0, color);
-    if (!surface) {
-        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Error creating immediate surface: %s", SDL_GetError());
-        return nullptr;
+    SDL_Surface* surface = nullptr;
+    if (wrapWidth > 0) {
+        surface = TTF_RenderText_Blended_Wrapped(font, text.c_str(), 0, color, wrapWidth);
+    } else {
+        surface = TTF_RenderText_Blended(font, text.c_str(), 0, color);
     }
+
+    if (!surface) return nullptr;
 
     SDL_Texture* texture = SDL_CreateTextureFromSurface(m_renderer, surface);
     if (texture) {
         outW = surface->w;
         outH = surface->h;
-    } else {
-        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Error creating immediate texture: %s", SDL_GetError());
     }
 
     SDL_DestroySurface(surface); 
     return texture; 
 }
 
-void TextRenderer::measureText(const std::string& text, int fontSize, int& w, int& h) {
+void TextRenderer::measureText(const std::string& text, int fontSize, int& w, int& h, int wrapWidth) {
     w = 0; h = 0;
     if (!m_initialized || text.empty()) return;
     
     TTF_Font* font = getFont(fontSize);
     if (!font) return;
 
-    if (!TTF_GetStringSize(font, text.c_str(), 0, &w, &h)) {
-        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "measureText: TTF_GetStringSize failed for font '%s', text '%s': %s", m_fontPath.c_str(), text.c_str(), SDL_GetError());
+    bool success = false;
+    if (wrapWidth > 0) {
+        success = TTF_GetStringSizeWrapped(font, text.c_str(), 0, wrapWidth, &w, &h);
+    } else {
+        success = TTF_GetStringSize(font, text.c_str(), 0, &w, &h);
+    }
+
+    if (!success) {
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "measureText failed for text '%s': %s", text.c_str(), SDL_GetError());
         w = 0; h = 0;
     }
 }
 
-SDL_Point TextRenderer::getTextSize(const std::string& text, int fontSize) {
+SDL_Point TextRenderer::getTextSize(const std::string& text, int fontSize, int wrapWidth) {
     SDL_Point size = {0, 0};
-    measureText(text, fontSize, size.x, size.y);
+    measureText(text, fontSize, size.x, size.y, wrapWidth);
     return size;
 }
 
@@ -259,7 +237,6 @@ void TextRenderer::getFontMetrics(int fontSize, int &outAscent, int &outDescent)
     TTF_Font* font = getFont(fontSize);
     if (!font) return;
     outAscent  = TTF_GetFontAscent(font);
-    
     outDescent = -TTF_GetFontDescent(font);
 }
 
@@ -273,7 +250,6 @@ void TextRenderer::clearCache() {
         if (font) TTF_CloseFont(font);
     }
     m_fontsBySize.clear();
-    SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "Cleared TextRenderer cache (textures and fonts).");
 }
 
 SDL_Renderer* TextRenderer::getRenderer() const {
