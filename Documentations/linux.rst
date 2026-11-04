@@ -39,7 +39,7 @@ Build sdl3
 ----------
 Follow these steps to build sdl3, sdl3_image, sdl3_ttf from the github repository.
 
-.. code-block:: bash
+::
     sudo apt install git cmake ninja-build build-essential
     # SDL3
     git clone https://github.com/libsdl-org/SDL.git -b main SDL3
@@ -86,7 +86,7 @@ Build XenonUI libs
 
 Now that you have sdl3, sdl3_ttf, sdl3_image, glm, freetype installed, you can build libXenUI.so libs.
 To build it, go to the build folder ``{ProjectRoot}Linux/build`` and open a new terminal. Then run
-.. code-block:: bash
+::
     cmake -DCMAKE_BUILD_TYPE=Release .. 
     cmake --build . -- -j$(nproc)
 
@@ -104,7 +104,7 @@ place where you apply your application design logic. Check the demo cpp file(lin
 
 Now build the linux binary using the CmakeLists.txt file relative to the linux.cpp file.
 Go to the build folder and open a new terminal and run,
-.. code-block:: bash
+::
     cmake -DCMAKE_BUILD_TYPE=Release ..
     cmake --build . -- -j$(nproc)
     
