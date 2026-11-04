@@ -83,13 +83,18 @@ To use any component, simply include its corresponding header file in your main 
 Then, build your project using your native terminal (for example, Bash on Linux or macOS, and cmd in windows).
 
 
-For more details, see the [Linux Documentation](Documentations/linux.rst)
-For more details, see the [Windows Documentation](Documentations/windows.rst)
-For more details, see the [Mac Documentation](Documentations/mac.rst)
-For more details, see the [Linux -> Android apk Documentation](Documentations/linux_android.rst)
-For more details, see the [Windows -> Android apk Documentation](Documentations/windows_android.rst)
+ [Linux Documentation](Documentations/linux.rst)
+
+ [Windows Documentation](Documentations/windows.rst)
+
+ [Mac Documentation](Documentations/mac.rst)
+
+ [Linux -> Android apk Documentation](Documentations/linux_android.rst)
+
+ [Windows -> Android apk Documentation](Documentations/windows_android.rst)
 
 Here is a minimal demo appliance of how to use a **retained mode** ui, in this case **Label**
+
 ```cpp 
 #include <SDL3/SDL.h>
 #include <SDL_ttf.h>
