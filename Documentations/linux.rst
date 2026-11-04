@@ -39,7 +39,7 @@ Build sdl3
 ----------
 Follow these steps to build sdl3, sdl3_image, sdl3_ttf from the github repository.
 
-::
+``
     sudo apt install git cmake ninja-build build-essential
     # SDL3
     git clone https://github.com/libsdl-org/SDL.git -b main SDL3
@@ -62,9 +62,10 @@ Follow these steps to build sdl3, sdl3_image, sdl3_ttf from the github repositor
     cmake --build build -j$(nproc)
     sudo cmake --install build
     cd ..
-
+``
 Whatever or from wherever you use sdl, mention it in the cmakefile relative to that tools folder in the project root.
-In line `50, 51, 52` in the CmakeLists file ``set(SDL3_ROOT         "${CMAKE_SOURCE_DIR}/tools/SDL3-3.2.16")
+In line `50, 51, 52` in the CmakeLists file 
+``set(SDL3_ROOT         "${CMAKE_SOURCE_DIR}/tools/SDL3-3.2.16")
     set(SDL3_TTF_ROOT     "${CMAKE_SOURCE_DIR}/tools/SDL3_ttf-3.2.2")
     set(SDL3_IMAGE_ROOT   "${CMAKE_SOURCE_DIR}/tools/SDL3_image-3.2.4")``
 
