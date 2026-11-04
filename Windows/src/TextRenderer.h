@@ -16,11 +16,11 @@
 #define TEXTRENDERER_H
 
 #include <SDL3/SDL.h>
-#include <SDL3_ttf/SDL_ttf.h> // Necessary for TTF_Font and SDL_ttf functions
+#include <SDL3_ttf/SDL_ttf.h>
 #include <string>
 #include <vector>
 #include <map>
-#include <sstream>         // Used for creating unique cache keys
+#include <sstream>         
 
 /**
  * @brief Structure to store a rendered texture and its dimensions in the cache.

@@ -68,7 +68,7 @@ std::string TextRenderer::findBundledFallbackFont() {
     #endif
     if (foundFontName.empty()) {
        
-        const char* desktopFallback = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"; // Example Linux path
+        const char* desktopFallback = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"; 
         std::ifstream f(desktopFallback);
         if (f.good()) {
             SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "TextRenderer: Found fallback font at system path (non-Android): %s", desktopFallback);
@@ -90,7 +90,7 @@ void TextRenderer::init(SDL_Renderer* renderer, const std::vector<std::string>& 
     }
     m_renderer = renderer;
 
-    // Initialize SDL_ttf
+   
     if (TTF_Init() == -1) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "SDL_ttf could not initialize! SDL_ttf Error: %s", SDL_GetError());
         return; 

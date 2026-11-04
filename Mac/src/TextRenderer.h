@@ -61,17 +61,12 @@ private:
     bool m_initialized;
     std::string m_fontPath; 
 
-    // Map to cache fonts by size
+    
     std::map<int, TTF_Font*> m_fontsBySize;
  
-
-    // Map to cache rendered textures
     std::map<std::string, CachedTextureInfo> m_textureCache;
     std::string createCacheKey(const std::string& text, int fontSize); // Helper for cache keys
 
-    
-
-    // Platform-specific font finding
     std::string findBundledFallbackFont();
 };
 

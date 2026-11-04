@@ -10,10 +10,10 @@
 // --- Standard Library and SDL Includes ---
 #include <string>
 #include <SDL3/SDL.h>
-#include "TextRenderer.h" // Provides text rendering and measurement utilities
-#include "Anchor.h"       // Layout anchors (top, bottom, left, right, etc.)
-#include "Position.h"     // PositionParams and utility for calculating final position
-#include "UIElement.h"    // Base class for retained-mode controls (IControl)
+#include "TextRenderer.h"
+#include "Anchor.h"      
+#include "Position.h"    
+#include "UIElement.h"  
 
 /**
  * @brief A retained-mode UI control for displaying static, non-interactive text.

@@ -16,9 +16,9 @@
 #include <string>
 #include "SDL3/SDL.h"
 
-#include "UIElement.h"   // Defines IControl base interface
-#include "Position.h"    // Defines XenUI::PositionParams
-#include "TextRenderer.h"// Included for potential text rendering context (e.g., debug)
+#include "UIElement.h"   
+#include "Position.h"   
+#include "TextRenderer.h"
 
 /**
  * @brief Defines the visual style properties for both retained and immediate mode ScrollViews.

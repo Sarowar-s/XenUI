@@ -14,15 +14,14 @@
 #include <SDL3/SDL.h>
 #include <string>
 #include <functional>
-#include "Position.h"     // For XenUI::PositionParams, used for layout calculation.
-#include "TextRenderer.h" // For TextRenderer class (extern declaration).
-#include "WindowUtil.h"   // For XenUI::CalculateFinalPosition and XenUI::GetWindowSize.
-#include "UIElement.h"    // IControl interface: provides common UI element methods.
+#include "Position.h"    
+#include "TextRenderer.h"
+#include "WindowUtil.h"  
+#include "UIElement.h"    
 
-// Ensure the global textRenderer instance is declared
-// auto& tr = TextRenderer::getInstance();
 
-// Default font size used if none is specified in the constructor or immediate mode call.
+
+
 #ifndef DEFAULT_CHECKBOX_FONT_SIZE
 #define DEFAULT_CHECKBOX_FONT_SIZE 20
 #endif
@@ -165,10 +164,11 @@ private:
 };
 
 // --------------------- Retained Mode Checkbox Ends ---------------------
-// -----------------------------------------------------------------------
 
 
-// -----------Immediate mode Checkbox starts-----
+
+// -----------Immediate mode Checkbox starts-----------------
+
 namespace XenUI {
     /**
      * @brief Immediate-mode function to draw and handle a Checkbox.

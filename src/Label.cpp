@@ -14,17 +14,7 @@
 // --- Retained Mode Implementation (class Label) starts here ---
 //
 
-/**
- * Constructs a retained-mode Label object.
- *
- * Measures the initial text size and calculates the label's final position
- * within the layout based on PositionParams.
- *
- * (text) The initial text string to display.
- * (posParams) The positional constraints (anchors, offsets) for layout calculation.
- * (fontSize) The size of the font in points.
- * (color) The color of the text.
- */
+
 Label::Label(const std::string& text,
              const XenUI::PositionParams& posParams,
              int fontSize,
@@ -33,7 +23,7 @@ Label::Label(const std::string& text,
   m_posParams(posParams),
   m_fontSize(fontSize > 0 ? fontSize : 12),
   m_color(color),
-  m_textRenderer(TextRenderer::getInstance()), // Get reference to the singleton TextRenderer
+  m_textRenderer(TextRenderer::getInstance()), 
   m_width(0), m_height(0), m_x(0), m_y(0)
 {
     if (!m_textRenderer.isInitialized()) {
@@ -41,12 +31,12 @@ Label::Label(const std::string& text,
         return;
     }
 
-    // Measure the dimensions of the text to establish the control's size
+   
     SDL_Point size = m_textRenderer.getTextSize(m_text, m_fontSize);
     m_width = size.x;
     m_height = size.y;
 
-    // Calculate the content-space position based on the dimensions and position parameters
+   
     SDL_Point pos = XenUI::CalculateFinalPosition(m_posParams, m_width, m_height);
     m_x = pos.x;
     m_y = pos.y;
@@ -55,14 +45,6 @@ Label::Label(const std::string& text,
                  m_text.c_str(), m_x, m_y, m_width, m_height);
 }
 
-/**
- * Sets new text content for the label.
- *
- * If the text changes, the label's required dimensions are re-measured, and
- * the content-space layout is recalculated.
- *
- * (text) The new text string.
- */
 void Label::setText(const std::string& text) {
     if (m_text == text) return;
     m_text = text;
@@ -72,59 +54,34 @@ void Label::setText(const std::string& text) {
         m_width = 0;
         m_height = 0;
     } else {
-        // Re-measure text size
+      
         SDL_Point size = m_textRenderer.getTextSize(m_text, m_fontSize);
         m_width = size.x;
         m_height = size.y;
     }
 
-    // Recompute content-space layout (position) based on new dimensions
+ 
     recalculateLayout();
 }
 
-/**
- * Manually sets the content-space top-left position of the label.
- *
- * This bypasses recalculation based on PositionParams.
- *
- * (x) The new X coordinate in content-space.
- * (y) The new Y coordinate in content-space.
- */
+
 void Label::setPosition(int x, int y) {
     m_x = x;
     m_y = y;
 }
 
-/**
- * Sets the text color of the label.
- *
- * color The new SDL_Color for the text.
- */
+
 void Label::setColor(const SDL_Color& color) {
     m_color = color;
 }
 
-/**
- * Draws the label text using a zero view offset (for backwards compatibility).
- *
- * This convenience overload is suitable when the label is not nested in a scrolling container.
- *
- * (renderer) The SDL_Renderer context.
- */
+
 void Label::draw(SDL_Renderer* renderer) {
     SDL_FPoint zero = {0.0f, 0.0f};
     draw(renderer, zero);
 }
 
-/**
- * Draws the label text, offset by the parent's view offset. (IControl override).
- *
- * The final on-screen position is calculated by combining the content-space position (m_x, m_y)
- * with the translation offset.
- *
- * (renderer) The SDL_Renderer context.
- * (viewOffset) The content-to-screen translation offset (e.g., scroll position).
- */
+
 void Label::draw(SDL_Renderer* renderer, const SDL_FPoint& viewOffset) {
     if (!m_textRenderer.isInitialized()) {
         return;
@@ -139,29 +96,15 @@ void Label::draw(SDL_Renderer* renderer, const SDL_FPoint& viewOffset) {
     m_textRenderer.getInstance().renderText(m_text, static_cast<int>(finalX), static_cast<int>(finalY), m_color, m_fontSize);
 }
 
-/**
- * Handles incoming SDL events.
- *
- * Labels are non-interactive controls; this function currently does nothing but satisfy the IControl interface.
- *
- * (e) The SDL_Event to process.
- *  Always returns false, indicating the event was not consumed or handled.
- */
+
 bool Label::handleEvent(const SDL_Event& /*e*/) {
     // Label is non-interactive by default.
     return false;
 }
 
-/**
- * Recalculates the label's dimensions and content-space position based on parent layout. (IControl override).
- *
- * This is called when the parent container size changes or when the text content is updated.
- *
- * (parentWidth) The width of the parent container or content area.
- * (parentHeight) The height of the parent container or content area.
- */
+
 void Label::recalculateLayout(int parentWidth, int parentHeight) {
-    // 1. Re-measure size based on current text
+    
     if (!m_textRenderer.isInitialized()) {
         m_width = m_height = 0;
     } else {
@@ -170,40 +113,28 @@ void Label::recalculateLayout(int parentWidth, int parentHeight) {
         m_height = size.y;
     }
 
-    // 2. Calculate content-space position using PositionParams
+    
     SDL_Point pos = XenUI::CalculateFinalPosition(m_posParams, m_width, m_height, parentWidth, parentHeight);
     m_x = pos.x;
     m_y = pos.y;
 }
 
-/**
- * Retrieves the bounding box of the label in content-space. (IControl override).
- *
- * The SDL_FRect defining the label's top-left (m_x, m_y) and size (m_width, m_height).
- */
+
 SDL_FRect Label::getBounds() const {
     return SDL_FRect{ static_cast<float>(m_x), static_cast<float>(m_y),
                       static_cast<float>(m_width), static_cast<float>(m_height) };
 }
 
-/**
- * Sets the SDL_Window context. (IControl override).
- *
- * (window) The current SDL_Window.
- */
+
 void Label::setWindow(SDL_Window* window) {
     m_window = window;
-    // Window context is stored primarily for consistency with IControl; not strictly needed for rendering static text.
+    
 }
 
-/**
- * Sets the parent's view offset. (IControl override).
- *
- * (viewOffset) The content-to-screen translation offset.
- */
+
 void Label::setViewOffset(const SDL_FPoint& viewOffset) {
     m_viewOffset = viewOffset;
-    // Offset is stored primarily for consistency with IControl; only used in draw() when rendering.
+  
 }
 
 
@@ -218,20 +149,6 @@ void Label::setViewOffset(const SDL_FPoint& viewOffset) {
 
 namespace XenUI {
 
-/**
- * Renders a label immediately at the calculated position.
- *
- * This function handles text measurement, position calculation relative to parent/content,
- * and rendering, all within a single function call.
- *
- * (text) The text string to render.
- * (posParams) The positional constraints (anchors, offsets) for layout calculation.
- * (fontSize) The size of the font in points.
- * (color) The color of the text.
- * (parentWidth) The width of the content area (used for position calculation).
- * (parentHeight) The height of the content area (used for position calculation).
- * (viewOffset) The content-to-screen translation offset (e.g., scroll position).
- */
 void Label(const std::string& text,
            const XenUI::PositionParams& posParams,
            int fontSize,
@@ -247,15 +164,14 @@ void Label(const std::string& text,
     }
 
     int w = 0, h = 0;
-    // Note: Immediate mode often relies on pre-rendering/caching the texture explicitly.
-    // The following call fetches/creates the texture and measures its size (w, h).
+
     SDL_Texture* tex = textRenderer.getInstance().renderTextToTexture(text, color, fontSize, w, h);
     if (!tex) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "XenUI::Label (Immediate): Failed to create texture for '%s'", text.c_str());
         return;
     }
 
-    // Normalize parent dimensions (use window size if parent dims are invalid)
+    
     int pW = parentWidth;
     int pH = parentHeight;
     if (pW <= 0 || pH <= 0) {
@@ -264,34 +180,24 @@ void Label(const std::string& text,
         pH = win.y;
     }
 
-    // 1. Compute content-space position (pos.x, pos.y) based on posParams, size (w, h), and parent dimensions.
+  
     SDL_Point pos = XenUI::CalculateFinalPosition(posParams, w, h, pW, pH);
 
-    // 2. Calculate final on-screen position (screen-space)
     float finalX = (float)pos.x + viewOffset.x;
     float finalY = (float)pos.y + viewOffset.y;
 
-    // 3. Render the text using the calculated screen coordinates
+   
     textRenderer.getInstance().renderText(text, (int)finalX, (int)finalY, color, fontSize);
 }
 
-/**
- * Convenience overload for immediate mode Label, assuming no parent/window size context and zero view offset.
- *
- * This overload is suitable for simple, non-nested use cases.
- *
- * (text) The text string to render.
- * (posParams) The positional constraints for layout calculation.
- * (fontSize) The size of the font in points.
- * (color) The color of the text.
- */
+
 void Label(const std::string& text,
            const XenUI::PositionParams& posParams,
            int fontSize,
            const SDL_Color& color)
 {
     SDL_FPoint zero = {0.0f, 0.0f};
-    // Calls the main Label function with fallback dimensions (-1) and zero offset.
+   
     Label(text, posParams, fontSize,  color, -1, -1, zero);
 }
 

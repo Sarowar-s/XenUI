@@ -21,29 +21,19 @@
 
 namespace XenUI {
 
-    /**
-     * Calculates the absolute pixel position of a UI element based on its anchor point.
-     *
-     * This function translates a logical anchor (e.g., TOP_RIGHT, CENTER) and pixel offsets
-     * into a final (x, y) coordinate pair relative to the parent container's top-left corner.
-     */
+
     SDL_Point ResolveAnchorPosition(Anchor anchor, int offsetX, int offsetY, int width, int height, int parentWidth, int parentHeight) {
-        /*
-         * Handle potential error case where parent size might be zero or negative.
-         * This can happen during early initialization phases or if the window is minimized.
-         * Returning the raw offset ensures the element's position is not dependent
-         * on a temporary invalid parent dimension.
-         */
+
         if (parentWidth <= 0 || parentHeight <= 0) {
-             // Returning raw offset { offsetX, offsetY } as a safe fallback.
+             // Returning raw offset { offsetX, offsetY } 
              return { offsetX, offsetY };
         }
 
         SDL_Point position = {0, 0}; // Initialize position
 
-        /*
-         * Use a switch statement to handle all possible anchor combinations.
-         */
+        
+          //Use a switch statement to handle all possible anchor combinations.
+         
         switch (anchor) {
             case Anchor::TOP_LEFT:
                 // Base position is (0, 0)

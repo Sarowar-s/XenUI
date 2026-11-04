@@ -10,13 +10,13 @@
 #define IMAGE_H
 
 #include <SDL3/SDL.h>
-#include <SDL_image.h> // SDL_image function declarations (needed for IMG_Load_IO)
+#include <SDL_image.h> 
 #include <string>
 #include <memory>
 
-#include "UIElement.h"   // IControl interface
-#include "Position.h"    // PositionParams structure
-#include "WindowUtil.h"  // For XenUI::GetWindowSize (and likely CalculateFinalPosition implementation)
+#include "UIElement.h"   
+#include "Position.h"   
+#include "WindowUtil.h"  
 
 /**
  * @brief Manages an SDL_Texture resource, including loading, destruction, and rendering parameters.

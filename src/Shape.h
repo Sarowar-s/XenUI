@@ -10,10 +10,10 @@
 
 #pragma once
 #include <SDL3/SDL.h>
-#include "Anchor.h"      // For anchoring types
-#include "Position.h"    // For XenUI::PositionParams
-#include "UIElement.h"   // Defines IControl interface
-#include "WindowUtil.h"  // For GetWindowSize(), CalculateFinalPosition (used in base wrappers)
+#include "Anchor.h"     
+#include "Position.h"   
+#include "UIElement.h"  
+#include "WindowUtil.h"  
 
 namespace XenUI {
 

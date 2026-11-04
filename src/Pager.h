@@ -1,7 +1,7 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 /*
- * Copyright (C) 2025 MD S M Sarowar Hossain
+ * Copyright (C) 2026 MD S M Sarowar Hossain
  */
 #ifndef PAGER_H
 #define PAGER_H
@@ -81,7 +81,7 @@ namespace XenUI {
 
         SDL_FRect m_bounds{};
         SDL_FRect m_contentBounds{};
-        SDL_FRect m_tabBarBounds{}; // Added to track tab bar screen area
+        SDL_FRect m_tabBarBounds{}; // track tab bar screen area
         
         float m_targetScrollX = 0.0f;
         bool m_isDragging = false;
@@ -105,7 +105,7 @@ namespace XenUI {
 // ====================== IMMEDIATE MODE ======================
 bool BeginPager(
     const char* id,
-    SDL_Renderer* renderer,                    // ← Added
+    SDL_Renderer* renderer,                  
     const PositionParams& posParams,
     float width,
     float height,
@@ -121,4 +121,4 @@ void EndPager(const char* id, SDL_Renderer* renderer);
 
 } // namespace XenUI
 
-#endif // PAGER_H
+#endif 

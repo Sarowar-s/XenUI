@@ -11,18 +11,18 @@
 #define XENUI_INPUTBOX_H
 
 // --- Standard Library and SDL Includes ---
-#include "Position.h"     // Defines PositionParams and helper functions like CalculateFinalPosition
-#include "TextRenderer.h" // Interface for rendering and measuring text
-#include <string>         // For std::string manipulation
-#include <functional>     // For std::function (event callbacks)
-#include <algorithm>      // For std::min/max
-#include <vector>         // For potential future use (e.g., undo/redo history)
+#include "Position.h"     
+#include "TextRenderer.h" 
+#include <string>         
+#include <functional>    
+#include <algorithm>      
+#include <vector>         
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_keyboard.h>
 #include <SDL3/SDL_mouse.h>
-#include <SDL3/SDL_clipboard.h> // For clipboard functions
-#include "UIElement.h"    // Base interface for UI controls (IControl)
-#include <cmath>          // For floating point math in layout calculations
+#include <SDL3/SDL_clipboard.h> 
+#include "UIElement.h"    
+#include <cmath>          
 
 namespace XenUI {
 

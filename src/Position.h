@@ -12,7 +12,7 @@
 
 #include "Anchor.h"     // Defines the Anchor enumeration
 #include "WindowUtil.h" // Provides XenUI::GetWindowSize dependency
-#include<algorithm>     // For std::max
+#include <algorithm>     // For std::max
 #include <SDL3/SDL.h>
 
 namespace XenUI {

@@ -16,10 +16,10 @@
 #include <SDL3/SDL.h>
 #include <unordered_map>
 
-#include "UIElement.h"     // Defines IControl base class
-#include "Position.h"      // Defines XenUI::PositionParams for layout
-#include "WindowUtil.h"    // Provides GetWindowSize, CalculateFinalPosition (used in wrappers)
-#include "TextRenderer.h"  // For rendering labels
+#include "UIElement.h"    
+#include "Position.h"     
+#include "WindowUtil.h"    
+#include "TextRenderer.h"  
 
 namespace XenUI {
 

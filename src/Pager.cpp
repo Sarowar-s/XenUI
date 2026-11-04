@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 /*
- *  Copyright (C) 2025 MD S M Sarowar Hossain
+ *  Copyright (C) 2026 MD S M Sarowar Hossain
  */
 #include "Pager.h"
 #include "TextRenderer.h"
@@ -11,7 +11,6 @@
 using namespace XenUI;
 
 // ====================== RETAINED MODE ======================
-
 Pager::Pager(const std::string& id,
              const PositionParams& posParams,
              float width,
@@ -67,7 +66,7 @@ void Pager::setCurrentPage(size_t index)
 
 
 void Pager::recalculateLayout(int parentWidth, int parentHeight) {
-    // 1. Resolve overall Pager bounds relative to ITS parent
+    // Resolve overall Pager bounds relative to ITS parent
     SDL_Point pos = XenUI::CalculateFinalPosition(m_posParams, m_width, m_height, parentWidth, parentHeight);
     m_bounds = { (float)pos.x, (float)pos.y, (float)m_width, (float)m_height };
 
@@ -75,11 +74,11 @@ void Pager::recalculateLayout(int parentWidth, int parentHeight) {
         m_tabBarBounds = {0, 0, 0, 0};
         m_contentBounds = m_bounds; // Pages take full space
         
-        updateLayout(); // [FIX APPLIED HERE]
+        updateLayout(); 
         return;
     }
 
-    // 2. Resolve TabBar bounds relative to the PAGER
+    //  Resolve TabBar bounds relative to the PAGER
     int tbWidth = (m_style.tabBarPosition.width > 0) ? m_style.tabBarPosition.width : m_width;
     int tbHeight = m_style.tabBarHeight;
 
@@ -99,7 +98,7 @@ void Pager::recalculateLayout(int parentWidth, int parentHeight) {
         (float)tbHeight
     };
 
-    // 3. Resolve Content (Page) Bounds dynamically
+    // Resolve Content (Page) Bounds dynamically
     m_contentBounds = m_bounds;
     
     // Heuristic: If tab bar is in the top half, push content down. If bottom half, push up.
@@ -112,8 +111,6 @@ void Pager::recalculateLayout(int parentWidth, int parentHeight) {
         m_contentBounds.h -= occupiedBottom;
     }
 
-    // [FIX APPLIED HERE]
-    // Crucial step: Now that the content bounds are calculated, 
     // force all nested ScrollViews to adopt the new width/height so they don't overflow.
     updateLayout(); 
 }
@@ -127,7 +124,7 @@ bool Pager::handleEvent(const SDL_Event& e, SDL_Window* window, const SDL_FPoint
 {
     bool changed = false;
 
-    // 1. Forward to current page with the EXACT same offset logic used in draw()
+    // Forward to current page with the EXACT same offset logic used in draw()
     if (m_currentPage < m_pages.size()) {
         SDL_FPoint pageOffset = {
             viewOffset.x + m_contentBounds.x,
@@ -143,7 +140,7 @@ bool Pager::handleEvent(const SDL_Event& e, SDL_Window* window, const SDL_FPoint
         }
     }
 
-    // 2. Get mouse position in screen space
+    // Get mouse position in screen space
     float mouseX = 0.0f, mouseY = 0.0f;
     if (e.type == SDL_EVENT_MOUSE_MOTION) {
         mouseX = (float)e.motion.x;
@@ -153,7 +150,7 @@ bool Pager::handleEvent(const SDL_Event& e, SDL_Window* window, const SDL_FPoint
         mouseY = (float)e.button.y;
     }
 
-    // 3. TAB BAR CLICK DETECTION (Updated to account for viewOffset)
+    //  TAB BAR CLICK DETECTION 
     if (m_style.showTabs && e.type == SDL_EVENT_MOUSE_BUTTON_DOWN && e.button.button == SDL_BUTTON_LEFT) {
         float tabX = m_tabBarBounds.x + viewOffset.x;
         float tabY = m_tabBarBounds.y + viewOffset.y;
@@ -171,7 +168,7 @@ bool Pager::handleEvent(const SDL_Event& e, SDL_Window* window, const SDL_FPoint
         }
     }
 
-    // 4. Swipe support (Updated to account for viewOffset)
+    // Swipe support 
     if (e.type == SDL_EVENT_MOUSE_BUTTON_DOWN && e.button.button == SDL_BUTTON_LEFT) {
         float boundsX = m_bounds.x + viewOffset.x;
         float boundsY = m_bounds.y + viewOffset.y;
@@ -191,7 +188,7 @@ bool Pager::handleEvent(const SDL_Event& e, SDL_Window* window, const SDL_FPoint
         }
     }
 
-    // 5. Arrow keys
+    // Arrow keys
     if (e.type == SDL_EVENT_KEY_DOWN) {
         if (e.key.key == SDLK_LEFT && m_currentPage > 0) {
             setCurrentPage(m_currentPage - 1);
@@ -225,9 +222,6 @@ void Pager::draw(SDL_Renderer* renderer, const SDL_FPoint& viewOffset)
                            m_style.backgroundColor.b, m_style.backgroundColor.a);
     SDL_RenderFillRect(renderer, &screenBounds);
 
-    // [FIX APPLIED HERE]
-    // Pass the absolute content bounds directly as the offset. 
-    // The ScrollView's internal origin (0,0) will now correctly start at this absolute position.
     SDL_FPoint pageOffset = {
         viewOffset.x + m_contentBounds.x,
         viewOffset.y + m_contentBounds.y
@@ -380,7 +374,7 @@ bool BeginPager(
         }
     }
 
-    // === INPUT HANDLING (Click on tabs) ===
+    // === INPUT HANDLING  ===
     SDL_FPoint mp{0.0f, 0.0f};
     SDL_GetMouseState(&mp.x, &mp.y);
 
@@ -412,9 +406,6 @@ void EndPager(const char* id, SDL_Renderer* renderer)
 
     auto& st = it->second;
 
-    // Draw indicators at bottom
-    // if (/* assume you have pageTitles or pass count */) {
-    //     // Simple dot indicators
-    // }
+
 }
 } // namespace XenUI

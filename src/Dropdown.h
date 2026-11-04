@@ -19,7 +19,7 @@
 
 #include "TextRenderer.h"
 #include "Position.h"
-#include "UIElement.h" // IControl interface definition
+#include "UIElement.h" 
 
 // Style -----------------------------
 /**

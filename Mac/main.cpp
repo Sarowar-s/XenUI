@@ -1,9 +1,8 @@
 
 
+// SPDX-License-Identifier: Apache-2.0
 /*
- *   SPDX-License-Identifier: Apache-2.0
- *
- *   Copyright (C) 2025 MD S M Sarowar Hossain
+ *  Copyright (C) 2025 MD S M Sarowar Hossain
  *
  *
  * 
@@ -15,12 +14,12 @@
 
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_log.h>
-#include <SDL3_ttf/SDL_ttf.h>
-#include <SDL3_image/SDL_image.h>   
+#include <SDL_ttf.h>
+#include <SDL_image.h>   
 
 #include <iostream>
 #include <vector>
-#include <cstring>  // For memcpy
+#include <cstring>  
 #include <string>
 #include <chrono>
 #include "XenUI/Image.h"         
@@ -48,42 +47,42 @@ static SDL_Event gLastEvent;
 // Global text renderer instance
 TextRenderer& textRenderer = TextRenderer::getInstance();
 std::vector<Label> labels;
-std::vector<Button> buttons;                // Store buttons in a vector
-std::vector<XenUI::InputBox> Inputs;        // Store InputBoxes in a vector
-std::vector<XenUI::Rectangle> shapes;       // Example retained-mode shapes
+std::vector<Button> buttons;                
+std::vector<XenUI::InputBox> Inputs;       
+std::vector<XenUI::Rectangle> shapes;       
 std::vector<Checkbox> checkboxes;
 std::vector<std::unique_ptr<ImageControl>> Images;
-std::vector<XenUI::Switch> switches;  // For retained mode switches
+std::vector<XenUI::Switch> switches;  
 
 
 
 std::unique_ptr<ScrollView> myRetainedScrollView;
-int scrollX = 0, scrollY = 0; // for immediate mode example
+int scrollX = 0, scrollY = 0; 
 
-std::vector<Slider> sliders; // Store retained mode sliders
-float retainedVolume = 0.5f; // Value for a retained mode slider
-float retainedBrightness = 0.8f; // Another retained mode slider value
+std::vector<Slider> sliders; 
+float retainedVolume = 0.5f; 
+float retainedBrightness = 0.8f; 
 
 
-float immediateAudioLevel = 0.75f; // Value for an immediate mode slider
+float immediateAudioLevel = 0.75f; 
 float Level = 0.5f;
 float Level1 = 0.5f;
 float Level3 = 0.5f;
 float Level4 = 0.5f;
 
-std::vector<Dropdown> dropdowns; // Store retained mode dropdown objects
+std::vector<Dropdown> dropdowns; 
 std::vector<std::string> themes = {"Dark", "Light", "High Contrast", "Custom"};
 std::vector<std::string> languages = {"English", "Spanish", "French", "German", "Japanese"};
-int selectedThemeIndex = 0; // Value for a retained mode dropdown
-int selectedLanguageIndex = 0; // Another retained mode dropdown value
+int selectedThemeIndex = 0; 
+int selectedLanguageIndex = 0; 
 
 
-int immediateSelectedFontIndex = 0; // Value for an immediate mode dropdown
-int immediateSelectedFontIndexScroll = 0; // Value for an immediate mode dropdown
+int immediateSelectedFontIndex = 0; 
+int immediateSelectedFontIndexScroll = 0;
 
 int numItems = 15;
-bool immediateSwitchState = false;  // For immediate mode switch
-bool immediateSwitchState1 = false;  // For immediate mode switch
+bool immediateSwitchState = false;  
+bool immediateSwitchState1 = false; 
 bool immediateChecked = false;     
 bool immediateChecked1 = false;     
 bool toggled1 = false;   
@@ -100,10 +99,10 @@ int rowGap        = 50;
 
 float checkboxBaseY = contentStartY + (numItems * rowGap) + 10;
 
-// Global Image pointer
+
 Image* gImage = nullptr;
 
-// Test variables
+
 int fps = 60;
 int FPS = 60;
 
@@ -121,20 +120,20 @@ void setupLabels() {
     labels.emplace_back(
         "Xenon UI",
         XenUI::PositionParams::Anchored(XenUI::Anchor::TOP_CENTER),
-        60, // textSize
+        60, 
         SDL_Color{255, 255, 255, 255}
     );
 
     labels.emplace_back(
         "Developed by MD S M Sarowar Hossain",
         XenUI::PositionParams::Anchored(XenUI::Anchor::TOP_CENTER, 0, 60),
-        40, // textSize
+        40, 
         SDL_Color{255, 255, 255, 255}
     );
     labels.emplace_back(
         "Version 0.9.0",
         XenUI::PositionParams::Anchored(XenUI::Anchor::TOP_CENTER, 0, 100),
-        30, // textSize
+        30, 
         SDL_Color{255, 255, 255, 200}
     );
 }
@@ -184,7 +183,7 @@ void setupButtons() {
 
 void myinput() {
     XenUI::InputBoxStyle customStyle;
-    customStyle.bgColor = {30, 70, 90, 255};    //Opaque dark blue
+    customStyle.bgColor = {30, 70, 90, 255};   
     customStyle.textColor = {220, 220, 220, 255};
     customStyle.drawBackground = true;
     customStyle.drawBorder     = true;
@@ -197,7 +196,7 @@ void myinput() {
         "Edit Me!",
         300,         // width
         40,          // fontSize
-        customStyle, // PASS THE STYLE OBJECT
+        customStyle,
         false        // isPassword
     );
 }
@@ -210,16 +209,16 @@ void setupRadioButtons() {
       
     });
 
-    // Define a custom style for retained radio buttons
+   
     RadioButtonStyle retainedRadioStyle;
-    retainedRadioStyle.circleColor = {150, 150, 255, 255}; // Light Blue
-    retainedRadioStyle.selectedColor = {50, 50, 200, 255}; // Dark Blue
+    retainedRadioStyle.circleColor = {150, 150, 255, 255}; 
+    retainedRadioStyle.selectedColor = {50, 50, 200, 255}; 
     retainedRadioStyle.labelColor = {255, 255, 255, 255};
     retainedRadioStyle.circleRadius = 12;
     retainedRadioStyle.circlePadding = 10;
     retainedRadioStyle.innerCirclePadding = 5;
 
-    // Add buttons to the group
+
     channelGroup->addButton(
         "Option A",
         0, // Value
@@ -250,20 +249,20 @@ void setupSliders() {
    
     SliderStyle volumeSliderStyle;
     volumeSliderStyle.trackColor = {80, 80, 80, 255};
-    volumeSliderStyle.thumbColor = {0, 150, 255, 255}; // Blue thumb
+    volumeSliderStyle.thumbColor = {0, 150, 255, 255}; 
     volumeSliderStyle.thumbHoverColor = {50, 180, 255, 255};
     volumeSliderStyle.trackThickness = 10;
     volumeSliderStyle.thumbSize = 25;
     volumeSliderStyle.valueTextFontSize = 16;
 
     sliders.emplace_back(
-        "retainedVolumeSlider", // Unique ID
+        "retainedVolumeSlider", 
         XenUI::Orientation::HORIZONTAL,
         XenUI::PositionParams::Anchored(XenUI::Anchor::TOP_LEFT, 450, 340), 
-        150.0f, // Length: 150 pixels wide
-        retainedVolume, 0.0f, 1.0f, // Value range 0.0 to 1.0
+        150.0f, 
+        retainedVolume, 0.0f, 1.0f, 
         volumeSliderStyle,
-        [&](float newValue) { // Lambda callback for value changes
+        [&](float newValue) { 
             retainedVolume = newValue;
             std::cout << "Retained Volume: " << retainedVolume << std::endl;
         }
@@ -271,20 +270,20 @@ void setupSliders() {
 
     SliderStyle brightnessSliderStyle;
     brightnessSliderStyle.trackColor = {60, 60, 60, 255};
-    brightnessSliderStyle.thumbColor = {200, 200, 50, 255}; // Yellow thumb
+    brightnessSliderStyle.thumbColor = {200, 200, 50, 255}; 
     brightnessSliderStyle.thumbHoverColor = {220, 220, 70, 255};
     brightnessSliderStyle.trackThickness = 8;
     brightnessSliderStyle.thumbSize = 20;
     brightnessSliderStyle.valueTextFontSize = 14;
 
     sliders.emplace_back(
-        "retainedBrightnessSlider", // Unique ID
+        "retainedBrightnessSlider", 
         XenUI::Orientation::VERTICAL,
         XenUI::PositionParams::Anchored(XenUI::Anchor::TOP_LEFT, 450, 400), 
-        150.0f, // Length: 150 pixels tall
-        retainedBrightness, 0.0f, 1.0f, // Value range 0.0 to 1.0
+        150.0f, 
+        retainedBrightness, 0.0f, 1.0f, 
         brightnessSliderStyle,
-        [&](float newValue) { // Lambda callback for value changes
+        [&](float newValue) { 
             retainedBrightness = newValue;
             std::cout << "Retained Brightness: " << retainedBrightness << std::endl;
         }
@@ -292,7 +291,7 @@ void setupSliders() {
 }
 
 void setupDropdowns() {
-    // Retained Mode Dropdown 1: Theme Selector
+   
     
     DropdownStyle themeDropdownStyle;
     themeDropdownStyle.mainButtonBgColor = {50, 50, 70, 255};
@@ -305,13 +304,13 @@ void setupDropdowns() {
     themeDropdownStyle.paddingY = 10;
 
     dropdowns.emplace_back(
-        "themeSelector", // Unique ID
+        "themeSelector", 
         XenUI::PositionParams::Anchored(XenUI::Anchor::TOP_LEFT, 50, 600),
-        200.0f, // Width of the dropdown
+        200.0f, 
         themes,
-        selectedThemeIndex, // Initial selection
+        selectedThemeIndex, 
         themeDropdownStyle,
-        [&](int newIndex) { // Callback for selection changes
+        [&](int newIndex) { 
             selectedThemeIndex = newIndex;
             std::cout << "Selected Theme: " << themes[selectedThemeIndex] << std::endl;
             
@@ -324,7 +323,7 @@ void setupDropdowns() {
 
 
 void setup(SDL_Window* window, SDL_Renderer* renderer) {
-    XenUI::SetWindow(window); // Set window reference for GetWindowSize
+    XenUI::SetWindow(window); 
 
     std::cout << "Initializing text renderer (framework finds font)...\n";
     if (!textRenderer.isInitialized()) {
@@ -361,13 +360,13 @@ myRetainedScrollView->recalculateLayout(winSize.x, winSize.y);
       
         if (channelGroup) {
             SDL_Point winSize = XenUI::GetWindowSize();
-            channelGroup->recalculateLayout(winSize.x, winSize.y); // <--- Recalculate retained radio button positions
+            channelGroup->recalculateLayout(winSize.x, winSize.y); 
         }
        
-        for (auto& slider : sliders) { // <--- RECALCULATE RETAINED SLIDER POSITIONS
+        for (auto& slider : sliders) { 
             slider.recalculateLayout();
         }
-        for (auto& dropdown : dropdowns) { // <--- RECALCULATE RETAINED DROPDOWN POSITIONS
+        for (auto& dropdown : dropdowns) { 
             dropdown.recalculateLayout();
         }
         
@@ -389,7 +388,7 @@ void render(SDL_Renderer* renderer, const SDL_Event& evt) {
 
         
     } else {
-        // Optional
+        
       SDL_LogDebug(SDL_LOG_CATEGORY_APPLICATION, "gImage is not loaded or is null, not rendering.");
     }
 
@@ -439,13 +438,6 @@ void render(SDL_Renderer* renderer, const SDL_Event& evt) {
         dropdown.draw(renderer, {0,0});
     }
 
-
-
-
-
-
-
-
    
         if (XenUI::Checkbox(
             "chk_immediate",
@@ -453,7 +445,7 @@ void render(SDL_Renderer* renderer, const SDL_Event& evt) {
          &immediateChecked,
             XenUI::PositionParams::Anchored(XenUI::Anchor::CENTER_RIGHT, -150)))
         {
-        // toggled this frame
+       
         std::cout << "Immediate checkbox is now " 
                  << (immediateChecked ? "on\n" : "off\n");
         }
@@ -463,18 +455,18 @@ void render(SDL_Renderer* renderer, const SDL_Event& evt) {
          &immediateChecked1,
             XenUI::PositionParams::Anchored(XenUI::Anchor::CENTER_RIGHT, -150, 30)))
         {
-        // toggled this frame
+        
         std::cout << "Immediate checkbox is now " 
                  << (immediateChecked1 ? "on\n" : "off\n");
         }
 
-        XenUI::SwitchStyle immediateSwitchStyle;  // Default style, or customize
-        immediateSwitchStyle.trackColorOff = {180, 180, 180, 255};   // Light grey when off
-        immediateSwitchStyle.trackColorOn = {255, 0, 0, 255};        // Red when on
-        immediateSwitchStyle.thumbColorOff = {255, 255, 255, 255};   // White thumb when off
-        immediateSwitchStyle.thumbColorOn = {255, 255, 255, 255};    // White thumb when on
-        immediateSwitchStyle.hoverTrackColor = {200, 200, 200, 255}; // Slightly darker grey on hover
-        immediateSwitchStyle.hoverThumbColor = {240, 240, 240, 255}; // Slightly darker white on hover
+        XenUI::SwitchStyle immediateSwitchStyle;  
+        immediateSwitchStyle.trackColorOff = {180, 180, 180, 255};   
+        immediateSwitchStyle.trackColorOn = {255, 0, 0, 255};        
+        immediateSwitchStyle.thumbColorOff = {255, 255, 255, 255};   
+        immediateSwitchStyle.thumbColorOn = {255, 255, 255, 255};    
+        immediateSwitchStyle.hoverTrackColor = {200, 200, 200, 255}; 
+        immediateSwitchStyle.hoverThumbColor = {240, 240, 240, 255};
         immediateSwitchStyle.trackHeight = 30.0f;
         immediateSwitchStyle.trackWidth = 60.0f;
         immediateSwitchStyle.thumbPadding = 3.0f;
@@ -486,11 +478,11 @@ void render(SDL_Renderer* renderer, const SDL_Event& evt) {
 
 if (XenUI::SwitchImmediate(
         "immediate_switch_1",  // Unique ID
-        // textRenderer,
+       
         XenUI::PositionParams::Anchored(XenUI::Anchor::TOP_LEFT, 50, 510), 
         immediateSwitchStyle,
-        &immediateSwitchState,  // State variable (updated automatically)
-        false  // Trigger on release
+        &immediateSwitchState,  
+        false  
     
     )) {
     std::cout << "Immediate Switch is now " << (immediateSwitchState ? "ON" : "OFF") << std::endl;
@@ -503,7 +495,7 @@ if (XenUI::SwitchImmediate(
     XenUI::DrawImage(
     "scroll_image2", // unique cache key for the image
     renderer,
-    "/usr/share/XenUI/Images/Image.png", // path to the image
+    "C:/Program Files (x86)/My Application/Images/Image.png", // path to the image
     XenUI::PositionParams::Anchored(XenUI::Anchor::CENTER_RIGHT, -60, 100),
     0,0, {0,0}, 100, 100
 
@@ -511,7 +503,7 @@ if (XenUI::SwitchImmediate(
 
 
 
-   ScrollViewStyle style;
+ScrollViewStyle style;
 style.bgColor               = {30, 30,  60, 255};
 style.borderColor           = {80, 80, 110, 255};
 style.scrollbarBgColor      = {20, 20,  20, 255};
@@ -521,12 +513,12 @@ style.scrollbarThumbGrabbedColor = {180,180,180,255};
 style.scrollbarWidth        = 14;
 
 
-//Position params for immedate mode scrollview 
+
 XenUI::PositionParams p = XenUI::PositionParams::Anchored(XenUI::Anchor::BOTTOM_CENTER, 0, 0, 300, 100);
 //----------------------X-----Y----W----H---
 SDL_FRect   view    = { 500, 50, 500, 300 };
 SDL_FPoint content = { 0, 600 };
-static SDL_FPoint scroll;  // persistent scroll state
+static SDL_FPoint scroll;  
 
 int viewW = static_cast<int>(view.w);
 int viewH = static_cast<int>(view.h);
@@ -553,14 +545,15 @@ XenUI::Button("ok_btnn",
                       30,
                       true,
                     contentClipW, 
-                    contentClipH); // triggerOnPress = true
+                    contentClipH); 
     
 
 
 XenUI::DrawImage(
-    "scroll_image1", // unique cache key for the image
+    "scroll_image1", 
     renderer,
-    "/usr/share/XenUI/Images/Image.png", // path to the image
+    "C:/Program Files (x86)/My Application/Images/Image.png"
+,
     XenUI::PositionParams::Anchored(XenUI::Anchor::BOTTOM_CENTER),
     contentClipW,
     contentClipH,
@@ -590,10 +583,10 @@ XenUI::DrawImage(
             "my_immediate_radio_group1",
             immediateOptions,
             &immediateSelectedOption,
-            XenUI::PositionParams::Absolute(5, 350), // Position the group
+            XenUI::PositionParams::Absolute(5, 350), 
             retainedRadioStyle,
-            18, // Font size for immediate
-            30,  // Spacing between options
+            18, 
+            30, 
             ofs,
             contentClipW, 
                  contentClipH
@@ -634,9 +627,9 @@ SliderStyle immediateSliderStyle1;
         "immediate_switch_2",  // Unique ID
         XenUI::PositionParams::Anchored(XenUI::Anchor::BOTTOM_LEFT,5),  // Position at 
         immediateSwitchStyle,
-        &immediateSwitchState1,  // State variable (updated automatically)
-        false , // Trigger on release
-        contentClipW,     // parentWidth — important for anchors
+        &immediateSwitchState1,  
+        false , 
+        contentClipW,     
         contentClipH, 
         ofs
     )) {
@@ -659,10 +652,10 @@ if (XenUI::Dropdown(
             XenUI::PositionParams::Anchored(XenUI::Anchor::TOP_RIGHT, -5,5), // Position
             180.0f, // Width
             fonts,
-            &immediateSelectedFontIndexScroll, // Pointer to the variable to modify
+            &immediateSelectedFontIndexScroll, 
             fontDropdownStyle,
             ofs,
-            contentClipW,     // parentWidth — important for anchors
+            contentClipW,     
         contentClipH
 
         )) {
@@ -674,7 +667,7 @@ if (XenUI::Dropdown(
 
 
    
-// End and restore:
+
 XenUI::EndScrollView(renderer);
 
 
@@ -695,8 +688,6 @@ int main(int argc, char** argv) {
     // SDL3’s signature: SDL_CreateWindow(title, x, y, width, height, flags)
     SDL_Window* window = SDL_CreateWindow(
         "Xenon UI",                    // Window title
-               // x position
-               // y position
         1400,                           // width, default window size(width)
         900,                           // height, default window size(height)
         SDL_WINDOW_RESIZABLE           // flags
@@ -714,7 +705,7 @@ int main(int argc, char** argv) {
     std::cout << "Minimum window size set to " << MIN_WINDOW_WIDTH << "x" << MIN_WINDOW_HEIGHT << std::endl;
 
     // 3. Create the Renderer
-    // SDL3’s signature: SDL_CreateRenderer(window, driver_index, flags)
+    
     SDL_Renderer* renderer = SDL_CreateRenderer(
         window,
         nullptr
@@ -726,7 +717,7 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    // 4. Initialize TTF
+   
     if (TTF_Init() == -1) {
         std::cerr << "SDL_ttf could not initialize! TTF_Error: " << SDL_GetError() << std::endl;
         SDL_DestroyRenderer(renderer);
@@ -736,7 +727,7 @@ int main(int argc, char** argv) {
     }
 
 
-    // 5. Call setup (loads fonts, images, widgets)
+   
     setup(window, renderer);
 
 
@@ -748,47 +739,45 @@ int main(int argc, char** argv) {
 bool running       = true;
 SDL_Event event;
 
-// Dirty‐flag to indicate we should redraw
+
 bool needsRedraw   = true;
 bool handled = false;
 
-// Whether we’re currently in a short “game‐style” tick for animations
+
 bool isAnimating   = false;
 
-// Track time to update animations
+
 auto lastEventTime = std::chrono::high_resolution_clock::now();
 Uint64 lastCounter = SDL_GetPerformanceCounter();
 double invFreq     = 1.0 / static_cast<double>(SDL_GetPerformanceFrequency());
 
-// If no events and no animations for IDLE_THRESHOLD seconds, stay in pure idle
-const double IDLE_THRESHOLD = 2.0; // seconds
+
+const double IDLE_THRESHOLD = 2.0; 
 
 while (running) {
     if (!isAnimating) {
-        //  Idle: wait for events (or wake up every 500 ms to check if we need to exit idle)
+      
         if (SDL_WaitEventTimeout(&event, 500)) {
-            // We got an event → process below
+           
         } else {
-            // Timeout occurred (500 ms passed w/o events)
-            // Check how long since last real event
+          
             auto nowClock = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> sinceLastEvent = nowClock - lastEventTime;
             if (sinceLastEvent.count() >= IDLE_THRESHOLD) {
-                // Still idle—no need to update or redraw
+               
                 continue;
             }
-            // If we get here, it means we’re within the IDLE_THRESHOLD window
-            // after an event → fall through to updates/redraw
-            event.type = 0; // no new event, but keep lastEventTime as is
+         
+            event.type = 0; 
         }
     } else {
-        //  Animation mode: poll events
+        
         if (SDL_PollEvent(&event) == 0) {
-            event.type = 0; // no new event but we stay in animation
+            event.type = 0; 
         }
     }
  gLastEvent = event;
-    //  If event arrived, process it
+    
     if (event.type != 0) {
         lastEventTime = std::chrono::high_resolution_clock::now();
 
@@ -820,17 +809,17 @@ while (running) {
                
                 if (channelGroup) {
                     SDL_Point winSize = XenUI::GetWindowSize();
-                    channelGroup->recalculateLayout(winSize.x, winSize.y); // <--- Recalculate positions on resize
+                    channelGroup->recalculateLayout(winSize.x, winSize.y); 
                 }
               
                 for (auto& switchElem : switches) {
                     switchElem.recalculateLayout();
                 }
 
-                for (auto& slider : sliders) { // <--- RECALCULATE RETAINED SLIDER POSITIONS ON RESIZE
+                for (auto& slider : sliders) {
                     slider.recalculateLayout();
                 }
-                for (auto& dropdown : dropdowns) { // <--- RECALCULATE RETAINED DROPDOWN POSITIONS ON RESIZE
+                for (auto& dropdown : dropdowns) {
                     dropdown.recalculateLayout();
                 }
                 if (myRetainedScrollView) {
@@ -890,7 +879,7 @@ if (myRetainedScrollView && myRetainedScrollView->handleEvent(event, window, {0.
     break;
 
         }
-        // Pass event to input boxes
+      
         for (auto& box : Inputs) {
             if (box.handleEvent(event, window, {0,0})) {
                 needsRedraw = true;
@@ -903,7 +892,7 @@ if (myRetainedScrollView && myRetainedScrollView->handleEvent(event, window, {0.
         needsRedraw = true;
     }
 
-    // 3) If in animation mode, update animations each frame
+   
     if (isAnimating) {
         Uint64 nowCounter = SDL_GetPerformanceCounter();
         double deltaSec = (nowCounter - lastCounter) * invFreq;
@@ -922,7 +911,7 @@ if (myRetainedScrollView && myRetainedScrollView->handleEvent(event, window, {0.
 
 
         if (!anyStillAnimating) {
-            // All animations finished → exit animation mode
+          
             isAnimating = false;
         }
     }

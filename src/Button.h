@@ -48,11 +48,7 @@ struct ButtonStyle {
 /** @brief Default font size used for buttons if no specific size is provided. */
 const int DEFAULT_BUTTON_FONT_SIZE = 16;
 
-/*
- * =================================================================
- * |              RETAINED MODE BUTTON (class Button)              |
- * =================================================================
- */
+//============================ RETAINED MODE BUTTON =====================================
 
 /**
  * @brief Represents a stateful, Retained Mode UI Button.
@@ -159,11 +155,7 @@ private:
     bool m_isHovered = false;
 };
 
-/*
- * =================================================================
- * |             IMMEDIATE MODE BUTTON (XenUI::Button)             |
- * =================================================================
- */
+//============================ IMMEDIATE MODE BUTTON =====================================
 
 namespace XenUI {
     namespace Detail {
@@ -217,4 +209,4 @@ namespace XenUI {
 } // namespace XenUI
 
 
-#endif // BUTTON_H
+#endif 

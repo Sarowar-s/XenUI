@@ -18,11 +18,11 @@
 #include <iostream>
 #include <algorithm>
 
-#include "TextRenderer.h" // Required for rendering value text
-#include "Position.h"     // Required for XenUI::PositionParams
-#include "Orientation.h"  // Required for XenUI::Orientation
-#include "UIElement.h"    // Required for IControl base class
-#include <cmath>          // Required for general math functions (e.g., std::clamp)
+#include "TextRenderer.h"
+#include "Position.h"    
+#include "Orientation.h"  
+#include "UIElement.h"    
+#include <cmath>         
 
 /**
  * @brief Defines the visual style properties for both retained and immediate mode Sliders.

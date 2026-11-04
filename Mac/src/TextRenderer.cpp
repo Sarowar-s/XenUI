@@ -1,21 +1,12 @@
 
-
-
-//
-//
 //
 // SPDX-License-Identifier: Apache-2.0
 /*
  *  Copyright (C) 2025 MD S M Sarowar Hossain
  *
- * 
- * 
- * 
- * 
  */
 //
-//
-//
+
 
 
 
@@ -52,19 +43,9 @@ bool TextRenderer::isInitialized() const {
     return m_initialized;
 }
 
-/**
- * Finds a suitable fallback font on the system.
- *
- * This function is now designed for desktop platforms (Windows, Linux, etc.).
- * It searches for a font in a specific order:
- * 1. A path provided by the build system (XENUI_FALLBACK_FONT_PATH).
- * 2. Common relative asset directories ("fonts/", "assets/").
- * 3. Standard system font directories for the detected OS.
- *
- * The full path to a found font, or an empty string if none are found.
- */
+
 std::string TextRenderer::findBundledFallbackFont() {
- // --- STRATEGY 1: Search system directories first. ---
+
     SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "TextRenderer: Searching for system fonts...");
 
     const std::vector<std::string> commonFontNames = {
@@ -98,18 +79,18 @@ std::string TextRenderer::findBundledFallbackFont() {
             std::string fullPath = path + fontName;
             if (std::ifstream(fullPath).good()) {
                 SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "TextRenderer: Found system font: %s", fullPath.c_str());
-                return fullPath; // Success, return immediately
+                return fullPath; 
             }
         }
     }
     
     SDL_LogWarn(SDL_LOG_CATEGORY_APPLICATION, "TextRenderer: No system font found.");
 
-    // --- STRATEGY 2: If system search fails, try the bundled font path from CMake. ---
+   
 #ifdef XENUI_FALLBACK_FONT_PATH
     SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "TextRenderer: Attempting to load bundled font as a fallback...");
     
-    // This is the crucial part. We use SDL_GetBasePath() to resolve the @rpath correctly.
+   
     const char* basePath = SDL_GetBasePath();
     if (basePath) {
         
@@ -129,8 +110,7 @@ std::string TextRenderer::findBundledFallbackFont() {
 #endif
 
     SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "TextRenderer: CRITICAL - No fallback font could be located anywhere.");
-    return ""; // Return empty string on failure
-}
+    return ""; 
 
 void TextRenderer::init(SDL_Renderer* renderer, const std::vector<std::string>& preferredFamilies) {
     if (m_initialized) return;
@@ -270,7 +250,7 @@ SDL_Texture* TextRenderer::renderTextImmediateToTexture(const std::string& text,
     }
 
     SDL_DestroySurface(surface);
-    return texture; // Caller is responsible for SDL_DestroyTexture
+    return texture; 
 }
 
 void TextRenderer::measureText(const std::string& text, int fontSize, int& w, int& h) {
