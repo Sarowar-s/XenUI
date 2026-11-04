@@ -4,9 +4,7 @@
 Guide to build application on windows os
 ========================================
 
-    ==================================
-    |:Author: MD S M Sarowar Hossain |
-    ==================================
+:Author: MD S M Sarowar Hossain
 
 
 

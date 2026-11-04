@@ -4,9 +4,7 @@
 Guide to build application on linux os
 ======================================
 
-    ==================================
-    |:Author: MD S M Sarowar Hossain |
-    ==================================
+:Author: MD S M Sarowar Hossain
 
 
 
@@ -41,28 +39,29 @@ Build sdl3
 ----------
 Follow these steps to build sdl3, sdl3_image, sdl3_ttf from the github repository.
 
-``sudo apt install git cmake ninja-build build-essential
-# SDL3
+.. code-block:: bash
+    sudo apt install git cmake ninja-build build-essential
+    # SDL3
     git clone https://github.com/libsdl-org/SDL.git -b main SDL3
     cd SDL3
     cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DSDL_STATIC=OFF
     cmake --build build -j$(nproc)
     sudo cmake --install build
     cd ..
-# SDL3_image
+    # SDL3_image
     git clone https://github.com/libsdl-org/SDL_image.git -b main
     cd SDL_image
     cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
     cmake --build build -j$(nproc)
     sudo cmake --install build
     cd ..
-# SDL3_ttf
+    # SDL3_ttf
     git clone https://github.com/libsdl-org/SDL_ttf.git -b main
     cd SDL_ttf
     cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
     cmake --build build -j$(nproc)
     sudo cmake --install build
-    cd ..``
+    cd ..
 
 Whatever or from wherever you use sdl, mention it in the cmakefile relative to that tools folder in the project root.
 In line `50, 51, 52` in the CmakeLists file ``set(SDL3_ROOT         "${CMAKE_SOURCE_DIR}/tools/SDL3-3.2.16")
@@ -87,9 +86,10 @@ Build XenonUI libs
 
 Now that you have sdl3, sdl3_ttf, sdl3_image, glm, freetype installed, you can build libXenUI.so libs.
 To build it, go to the build folder ``{ProjectRoot}Linux/build`` and open a new terminal. Then run
-    ``cmake -DCMAKE_BUILD_TYPE=Release ..
+.. code-block:: bash
+    cmake -DCMAKE_BUILD_TYPE=Release .. 
     cmake --build . -- -j$(nproc)
-``
+
 
 It will make the CmakeLists.txt file inside the project root(Linux folder).
 And libXenUI.so/.1/.1.0.0 should be there inside the build folder. And ready to be called from anywhere.
@@ -104,9 +104,10 @@ place where you apply your application design logic. Check the demo cpp file(lin
 
 Now build the linux binary using the CmakeLists.txt file relative to the linux.cpp file.
 Go to the build folder and open a new terminal and run,
-    ``cmake -DCMAKE_BUILD_TYPE=Release ..
+.. code-block:: bash
+    cmake -DCMAKE_BUILD_TYPE=Release ..
     cmake --build . -- -j$(nproc)
-    ``
+    
 
 A linux executable binary(test) should be there inside that build folder. The "test" name is according to the name 
 set inside the CmakeLists file. You can test, debug the application checking this linux executable "test".

@@ -4,9 +4,7 @@
 Guide to build application on mac os
 ======================================
 
-    ==================================
-    |:Author: MD S M Sarowar Hossain |
-    ==================================
+:Author: MD S M Sarowar Hossain
 
 
 

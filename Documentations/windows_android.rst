@@ -4,9 +4,7 @@
 Guide to build application from windows to android apk
 ======================================================
 
-    ==================================
-    |:Author: MD S M Sarowar Hossain |
-    ==================================
+:Author: MD S M Sarowar Hossain
 
 
 
