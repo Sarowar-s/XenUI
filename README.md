@@ -86,7 +86,7 @@ Then, build your project using your native terminal (for example, Bash on Linux 
 
   ⚠️ On Windows, you’ll need to build using the MSYS2 MinGW terminal (or an equivalent environment).
 
-For more details, see the [Windows Documentation](Documentations/Windows/doc.rst)
+For more details, see the [Windows Documentation](Documentations/windows.rst)
 
 Here is a minimal demo appliance of how to use a **retained mode** ui, in this case **Label**
 ```cpp 
