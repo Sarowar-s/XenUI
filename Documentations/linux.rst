@@ -39,7 +39,7 @@ Build sdl3
 ----------
 Follow these steps to build sdl3, sdl3_image, sdl3_ttf from the github repository.
 
-```
+    ```
     sudo apt install git cmake ninja-build build-essential
     # SDL3
     git clone https://github.com/libsdl-org/SDL.git -b main SDL3
@@ -65,7 +65,7 @@ Follow these steps to build sdl3, sdl3_image, sdl3_ttf from the github repositor
 
 Whatever or from wherever you use sdl, mention it in the cmakefile relative to that tools folder in the project root.
 In line `50, 51, 52` in the CmakeLists file 
-``set(SDL3_ROOT         "${CMAKE_SOURCE_DIR}/tools/SDL3-3.2.16")
+    ``set(SDL3_ROOT         "${CMAKE_SOURCE_DIR}/tools/SDL3-3.2.16")
     set(SDL3_TTF_ROOT     "${CMAKE_SOURCE_DIR}/tools/SDL3_ttf-3.2.2")
     set(SDL3_IMAGE_ROOT   "${CMAKE_SOURCE_DIR}/tools/SDL3_image-3.2.4")``
 
@@ -87,9 +87,9 @@ Build XenonUI libs
 
 Now that you have sdl3, sdl3_ttf, sdl3_image, glm, freetype installed, you can build libXenUI.so libs.
 To build it, go to the build folder ``{ProjectRoot}Linux/build`` and open a new terminal. Then run
-::
-    cmake -DCMAKE_BUILD_TYPE=Release .. 
-    cmake --build . -- -j$(nproc)
+
+    ``cmake -DCMAKE_BUILD_TYPE=Release .. 
+    cmake --build . -- -j$(nproc)``
 
 
 It will make the CmakeLists.txt file inside the project root(Linux folder).
@@ -105,9 +105,9 @@ place where you apply your application design logic. Check the demo cpp file(lin
 
 Now build the linux binary using the CmakeLists.txt file relative to the linux.cpp file.
 Go to the build folder and open a new terminal and run,
-::
-    cmake -DCMAKE_BUILD_TYPE=Release ..
-    cmake --build . -- -j$(nproc)
+
+    ``cmake -DCMAKE_BUILD_TYPE=Release ..
+    cmake --build . -- -j$(nproc)``
     
 
 A linux executable binary(test) should be there inside that build folder. The "test" name is according to the name 

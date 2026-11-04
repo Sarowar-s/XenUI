@@ -43,13 +43,13 @@ Android ndk, sdk, jdk
 
 Download Android ndk, sdk and jdk and put them somewhere where you can easily mention them from the ``build.sh`` file later.
 Since the versions of these development kits matter, so its viable to mention that, I was using-
-``android-ndk-r27c``
-``jdk-23.0.2``
-``sdk-34.0.0``
+    ``android-ndk-r27c``
+    ``jdk-23.0.2``
+    ``sdk-34.0.0``
 
-`If you download different versions and find trouble compiling and wrapping the apk, try recompiling everything with your current versions.
+If you download different versions and find trouble compiling and wrapping the apk, try recompiling everything with your current versions.
 That includes sdl also. I mean you need to recompile sdl3-android also with your current version of jdk. Also replace the classes.jar with your
-updated one in jni/SDL3`
+updated one in jni/SDL3
 
 *You can mention your ndk, sdk, jdk paths in the build.sh bash file. The first 150 lines are for path setup and checkup. So check them or modify them as needed.*
 
@@ -62,7 +62,8 @@ You also need to build the sdk using jdk.
 Build libmain.so
 ----------------
 Once you have everything in place you are ready to build the XenonUI lib libmain.so
-Go to the build folder and open a terminal, and run ``cmake -S . -B build \
+Go to the build folder and open a terminal, and run 
+    ``cmake -S . -B build \
     -DANDROID_ABI=arm64-v8a \
     -DANDROID_PLATFORM=21 \
     -DCMAKE_BUILD_TYPE=Release \

@@ -43,13 +43,13 @@ Android ndk, sdk, jdk
 
 Download Android ndk, sdk and jdk and put them somewhere where you can easily mention them from the ``build.bat`` file later.
 Since the versions of these development kits matter, so its viable to mention that, I was using-
-``android-ndk-r27c``
-``jdk-24.0.2``
-``sdk-34.0.0``
+    ``android-ndk-r27c``
+    ``jdk-24.0.2``
+    ``sdk-34.0.0``
 
-`If you download different versions and find trouble compiling and wrapping the apk, try recompiling everything with your current versions.
+If you download different versions and find trouble compiling and wrapping the apk, try recompiling everything with your current versions.
 That includes sdl also. I mean you need to recompile sdl3-android also with your current version of jdk. Also replace the classes.jar with your
-updated one in lib/classes.jar`
+updated one in lib/classes.jar
 
 *You can mention your ndk, sdk and jdk path in the `local.properties` file in the project root folder. *
 

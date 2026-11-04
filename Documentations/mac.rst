@@ -27,11 +27,11 @@ Necessary things to install
 At first download XenonUI release version for mac os. Go to `XenonUI for Mac <https://github.com/Sarowar-s/XenUI/releases/tag/v0.9.0-alfa>`_ and download the 
 released version. After that install glm, freetype, and sdl3(sdl3, sdl3_image, sdl3_ttf).
 You can install them from HomeBrew.
-``brew install glm
-brew install freetype
-brew install sdl3
-brew install sdl3_ttf
-brew install sdl3_image``
+    ``brew install glm
+    brew install freetype
+    brew install sdl3
+    brew install sdl3_ttf
+    brew install sdl3_image``
 
 
 
@@ -41,8 +41,8 @@ Build Mac app
 Now that you have sdl3, sdl3_ttf, sdl3_image, glm, freetype installed, you can build the mac app now.
 To build it, go to the build folder ``{ProjectRoot}Mac/build`` and open a new terminal. Then run
     ``cmake -DCMAKE_BUILD_TYPE=Release ..
-    cmake --build . -- -j$(nproc)
-``
+    cmake --build . -- -j$(nproc)``
+
 It will make the CmakeLists file remaining in the project root.
 The ``Info.plist`` file insdie the Mac folder holds necessary information about the app
 
